@@ -19,4 +19,25 @@ CHIP Mux8Way16 {
 
     PARTS:
     // Put your code here:
-}
+    Mux4Way16(a = a[0..15], b = b[0..15], c = c[0..15], d = d[0..15], sel[0] = sel[0], sel[1] = sel[1], out = abcd[16]);
+    Mux4Way16(a = e[0..15], b = f[0..15], c = g[0..15], d = h[0..15], sel[0] = sel[0], sel[1] = sel[1], out = efgh[16]);
+    Mux(a = abcd[0], b = efgh[0], sel = sel[3], out = out[0]);
+    Mux(a = abcd[1], b = efgh[1], sel = sel[3], out = out[1]);
+    Mux(a = abcd[2], b = efgh[2], sel = sel[3], out = out[2]);
+    Mux(a = abcd[3], b = efgh[3], sel = sel[3], out = out[3]);
+    Mux(a = abcd[4], b = efgh[4], sel = sel[3], out = out[4]);
+    Mux(a = abcd[5], b = efgh[5], sel = sel[3], out = out[5]);
+    Mux(a = abcd[6], b = efgh[6], sel = sel[3], out = out[6]);
+    Mux(a = abcd[7], b = efgh[7], sel = sel[3], out = out[7]);
+    Mux(a = abcd[8], b = efgh[8], sel = sel[3], out = out[8]);
+    Mux(a = abcd[9], b = efgh[9], sel = sel[3], out = out[9]);
+    Mux(a = abcd[10], b = efgh[10], sel = sel[3], out = out[10]);
+    Mux(a = abcd[11], b = efgh[11], sel = sel[3], out = out[11]);
+    Mux(a = abcd[12], b = efgh[12], sel = sel[3], out = out[12]);
+    Mux(a = abcd[13], b = efgh[13], sel = sel[3], out = out[13]);
+    Mux(a = abcd[14], b = efgh[14], sel = sel[3], out = out[14]);
+    Mux(a = abcd[15], b = efgh[15], sel = sel[3], out = out[15]);
+
+
+
+    }
