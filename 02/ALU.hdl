@@ -52,13 +52,15 @@ CHIP ALU {
    Mux16(a = ZYout, b = notY, sel = ny, out = NYout);
 
    And16(a = NXout, b = NYout, out = andOut);
-   Or16(a = NXout, b = NYout, out = orOut);
+   //Should this be Add16 or Or16?
+   Add16(a = NXout, b = NYout, out = orOut);
    Mux16(a = andOut, b = orOut, sel = f, out = Fout);
 
    Not16(in = Fout, out = notFout);
    Mux16(a = Fout, b = notFout, sel = no, out = NOout);
 
-   And16(a = NOout, b = false, out = zr);
+   //How to get from a 16 pin in, to a 1 pin out?
+   And(a = NOout[0], b = false, out = ZRout1);
 
    And(a = NOout[15], b = true, out = ng);
 
