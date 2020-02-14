@@ -57,17 +57,9 @@ CHIP ALU {
    Mux16(a = andOut, b = orOut, sel = f, out = Fout);
 
    Not16(in = Fout, out = notFout);
-   Mux16(a = Fout, b = notFout, sel = no, out = NOout);
+   Mux16(a = Fout, b = notFout, sel = no, out = out, out[0] = ZrNgOut0, out[1] = ZrNgOut1, out[2] = ZrNgOut2, out[3] = ZrNgOut3, out[4] = ZrNgOut4, out[5] = ZrNgOut5, out[6] = ZrNgOut6, out[7] = ZrNgOut7, out[8] = ZrNgOut8, out[9] = ZrNgOut9, out[10] = ZrNgOut10, out[11] = ZrNgOut11, out[12] = ZrNgOut12, out[13] = ZrNgOut13, out[14] = ZrNgOut14, out[15] = ZrNgOut15);
 
-   And16(a = NOout, b = NOout, out = outForZRNG);
-
-   Or8Way(in = outForZRNG[0..7], out = ZRout1);
-   Or8Way(in = outForZRNG[8..15], out = ZRout2);
-   Or(a = ZRout1, b = ZRout2, out = zr);
-
-   And(a = outForZRNG[15], b = true, out = ng); //NG
-
-   And16(a = NOout, b = NOout, out = out); //out
+   And(a = ZrNgOut0, b = true, out = ng); //NG
 
 
 }
