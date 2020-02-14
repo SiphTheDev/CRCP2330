@@ -59,12 +59,15 @@ CHIP ALU {
    Not16(in = Fout, out = notFout);
    Mux16(a = Fout, b = notFout, sel = no, out = NOout);
 
-   //How to get from a 16 pin in, to a 1 pin out?
-   And(a = NOout[0], b = false, out = ZRout1);
+   And16(a = NOout, b = NOout, out = outForZRNG);
 
-   And(a = NOout[15], b = true, out = ng);
+   Or8Way(in = outForZRNG[0..7], out = ZRout1);
+   Or8Way(in = outForZRNG[8..15], out = ZRout2);
+   Or(a = ZRout1, b = ZRout2, out = zr);
 
-   And16(a = NOout, b = NOout, out = out);
+   And(a = outForZRNG[15], b = true, out = ng); //NG
+
+   And16(a = NOout, b = NOout, out = out); //out
 
 
 }
