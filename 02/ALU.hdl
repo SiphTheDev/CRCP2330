@@ -45,12 +45,12 @@ CHIP ALU {
    // Put you code here:
    //ZX-NX
    Mux16(a = x, b = false, sel = zx, out = ZXout);
-   Not16(in = x, out = notX);
+   Not16(in = ZXout, out = notX);
    Mux16(a = ZXout, b = notX, sel = nx, out = NXout);
 
    //ZY-NY
    Mux16(a = y, b = false, sel = zy, out = ZYout);
-   Not16(in = y, out = notY);
+   Not16(in = ZYout, out = notY);
    Mux16(a = ZYout, b = notY, sel = ny, out = NYout);
 
    //F
@@ -69,7 +69,7 @@ CHIP ALU {
    Not(in = ZrOut3, out = zr);
 
    //NG
-   And(a = ZrNgOut15, b = false, out = ng);
+   And(a = ZrNgOut15, b = true, out = ng);
 
 
 }
