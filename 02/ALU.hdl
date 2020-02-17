@@ -64,9 +64,10 @@ CHIP ALU {
    Mux16(a = Fout, b = notFout, sel = no, out = out, out[0] = ZrNgOut0, out[1] = ZrNgOut1, out[2] = ZrNgOut2, out[3] = ZrNgOut3, out[4] = ZrNgOut4, out[5] = ZrNgOut5, out[6] = ZrNgOut6, out[7] = ZrNgOut7, out[8] = ZrNgOut8, out[9] = ZrNgOut9, out[10] = ZrNgOut10, out[11] = ZrNgOut11, out[12] = ZrNgOut12, out[13] = ZrNgOut13, out[14] = ZrNgOut14, out[15] = ZrNgOut15);
 
    //ZR
-   Or8Way(in[0] = ZrNgOut0, in[1] = ZrNgOut1, in[2] = ZrNgOut2, in[3] = ZrNgOut3, in[4] = ZrNgOut4, in[5] = ZrNgOut5, in[6] = ZrNgOut6, in[7] = ZrNgOut7, out = ZrOut1);
+   Or8Way(in[0] = ZrNgOut0, in[1] = ZrNgOut1, in[2] = ZrNgOut2, in[3] = ZrNgOut3, in[4] = ZrNgOut4, in[5] = ZrNgOut5, in[6] = ZrNgOut6, in[7] = false, out = ZrOut1);
    Or8Way(in[0] = ZrNgOut8, in[1] = ZrNgOut9, in[2] = ZrNgOut10, in[3] = ZrNgOut11, in[4] = ZrNgOut12, in[5] = ZrNgOut13, in[6] = ZrNgOut14, in[7] = ZrNgOut15, out = ZrOut2);
-   Or(a = ZrOut1, b = ZrOut2, out = zr);
+   Or(a = ZrOut1, b = ZrOut2, out = ZrOut3);
+   Or(a = ZrOut3, b = ZrNgOut7, out = zr);
 
    //NG
    And(a = ZrNgOut0, b = true, out = ng);
