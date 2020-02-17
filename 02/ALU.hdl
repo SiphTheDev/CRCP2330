@@ -71,5 +71,4 @@ CHIP ALU {
    //NG
    And(a = ZrNgOut0, b = true, out = ng);
 
-
 }
