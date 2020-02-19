@@ -16,52 +16,16 @@ CHIP RAM8 {
 
     PARTS:
     // Put your code here:
-    DMux8Way(in = in[0], sel = address, a = toReg000, b = toReg001, c = toReg010, d = toReg011, e = toReg100, f = toReg101, g = toReg110, h = toReg111);
-    DMux8Way(in = in[1], sel = address, a = toReg000, b = toReg001, c = toReg010, d = toReg011, e = toReg100, f = toReg101, g = toReg110, h = toReg111);
-    DMux8Way(in = in[2], sel = address, a = toReg000, b = toReg001, c = toReg010, d = toReg011, e = toReg100, f = toReg101, g = toReg110, h = toReg111);
-    DMux8Way(in = in[3], sel = address, a = toReg000, b = toReg001, c = toReg010, d = toReg011, e = toReg100, f = toReg101, g = toReg110, h = toReg111);
-    DMux8Way(in = in[4], sel = address, a = toReg000, b = toReg001, c = toReg010, d = toReg011, e = toReg100, f = toReg101, g = toReg110, h = toReg111);
-    DMux8Way(in = in[5], sel = address, a = toReg000, b = toReg001, c = toReg010, d = toReg011, e = toReg100, f = toReg101, g = toReg110, h = toReg111);
-    DMux8Way(in = in[6], sel = address, a = toReg000, b = toReg001, c = toReg010, d = toReg011, e = toReg100, f = toReg101, g = toReg110, h = toReg111);
-    DMux8Way(in = in[7], sel = address, a = toReg000, b = toReg001, c = toReg010, d = toReg011, e = toReg100, f = toReg101, g = toReg110, h = toReg111);
-    DMux8Way(in = in[8], sel = address, a = toReg000, b = toReg001, c = toReg010, d = toReg011, e = toReg100, f = toReg101, g = toReg110, h = toReg111);
-    DMux8Way(in = in[9], sel = address, a = toReg000, b = toReg001, c = toReg010, d = toReg011, e = toReg100, f = toReg101, g = toReg110, h = toReg111);
-    DMux8Way(in = in[10], sel = address, a = toReg000, b = toReg001, c = toReg010, d = toReg011, e = toReg100, f = toReg101, g = toReg110, h = toReg111);
-    DMux8Way(in = in[11], sel = address, a = toReg000, b = toReg001, c = toReg010, d = toReg011, e = toReg100, f = toReg101, g = toReg110, h = toReg111);
-    DMux8Way(in = in[12], sel = address, a = toReg000, b = toReg001, c = toReg010, d = toReg011, e = toReg100, f = toReg101, g = toReg110, h = toReg111);
-    DMux8Way(in = in[13], sel = address, a = toReg000, b = toReg001, c = toReg010, d = toReg011, e = toReg100, f = toReg101, g = toReg110, h = toReg111);
-    DMux8Way(in = in[14], sel = address, a = toReg000, b = toReg001, c = toReg010, d = toReg011, e = toReg100, f = toReg101, g = toReg110, h = toReg111);
-    DMux8Way(in = in[15], sel = address, a = toReg000, b = toReg001, c = toReg010, d = toReg011, e = toReg100, f = toReg101, g = toReg110, h = toReg111);
 
-	//Not(in = address[0], out = notsel0);
-    //Not(in = address[1], out = notsel1);
-    //Not(in = address[2], out = notsel2);
+    Register(in = in, load = load, out = fromReg000);
+    Register(in = in, load = load, out = fromReg001);
+    Register(in = in, load = load, out = fromReg010);
+    Register(in = in, load = load, out = fromReg011);
+    Register(in = in, load = load, out = fromReg100);
+    Register(in = in, load = load, out = fromReg101);
+    Register(in = in, load = load, out = fromReg110);
+    Register(in = in, load = load, out = fromReg111);
 
-    //And16(a = address[0], b = in, out = outbdfh);
-    //And16(a = address[1], b = outbdfh, out = outdh);
-    //And16(a = notsel1, b = outbdfh, out = outbf);
-    //And16(a = address[2], b = outdh, out = toReg111);
-    //And16(a = address[2], b = outbf, out = toReg101);
-    //And16(a = notsel2, b = outdh, out = toReg011);
-    //And16(a = notsel2, b = outbf, out = toReg001);
-
-    //And16(a = notsel0, b = in, out = outaceg);
-    //And16(a = address[1], b = outaceg, out = outcg);
-    //And16(a = notsel1, b = outaceg, out = outae);
-    //And16(a = address[2], b = outcg, out = toReg110);
-    //And16(a = address[2], b = outae, out = toReg100);
-    //And16(a = notsel2, b = outcg, out = toReg010);
-    //And16(a = notsel2, b = outae, out = toReg000);
-
-    Register(in = toReg000, load = load, out = fromReg000);
-    Register(in = toReg001, load = load, out = fromReg001);
-    Register(in = toReg010, load = load, out = fromReg010);
-    Register(in = toReg011, load = load, out = fromReg011);
-    Register(in = toReg100, load = load, out = fromReg100);
-    Register(in = toReg101, load = load, out = fromReg101);
-    Register(in = toReg110, load = load, out = fromReg110);
-    Register(in = toReg111, load = load, out = fromReg111);
-
-    Mux8Way16(a = toReg000, b = toReg001, c = toReg010, d = toReg011, e = toReg100, f = toReg101, g = toReg110, h = toReg111, sel = address, out = out);
+    Mux8Way16(a = fromReg000, b = fromReg001, c = fromReg010, d = fromReg011, e = fromReg100, f = fromReg101, g = fromReg110, h = fromReg111, sel = address, out = out);
 
 }
