@@ -16,6 +16,7 @@ CHIP RAM8 {
 
     PARTS:
     // Put your code here:
+    //See CODE 199!!! //But he suggested sending data to all, and only differentiating when retrieving. //Do we separate at start or at end?
 
     Register(in = in, load = load, out = fromReg000);
     Register(in = in, load = load, out = fromReg001);
@@ -27,5 +28,6 @@ CHIP RAM8 {
     Register(in = in, load = load, out = fromReg111);
 
     Mux8Way16(a = fromReg000, b = fromReg001, c = fromReg010, d = fromReg011, e = fromReg100, f = fromReg101, g = fromReg110, h = fromReg111, sel = address, out = out);
+
 
 }
