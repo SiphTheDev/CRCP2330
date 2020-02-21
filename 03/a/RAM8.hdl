@@ -4,10 +4,10 @@
 // File name: projects/03/a/RAM8.hdl
 
 /**
- * Memory of 8 registers, each 16 bit-wide. Out holds the value
+ * Memory of 8 registers, each 16 bit-wide. holds the value
  * stored at the memory location specified by address. If load==1, then 
  * the in value is loaded into the memory location specified by address 
- * (the loaded value will be emitted to out from the next time step onward).
+ * (the loaded value will be emitted to from the next time step onward).
  */
 
 CHIP RAM8 {
@@ -18,16 +18,169 @@ CHIP RAM8 {
     // Put your code here:
     //See CODE 199!!! //But he suggested sending data to all, and only differentiating when retrieving. //Do we separate at start or at end?
 
-    Register(in = in, load = load, out = fromReg000);
-    Register(in = in, load = load, out = fromReg001);
-    Register(in = in, load = load, out = fromReg010);
-    Register(in = in, load = load, out = fromReg011);
-    Register(in = in, load = load, out = fromReg100);
-    Register(in = in, load = load, out = fromReg101);
-    Register(in = in, load = load, out = fromReg110);
-    Register(in = in, load = load, out = fromReg111);
+    DMux8Way(in = in[0], sel = address, a = Reg000pos0, b = Reg001pos0, c = Reg010pos0, d = Reg011pos0, e = Reg100pos0, f = Reg101pos0, g = Reg110pos0, h = Reg111pos0);
+    DMux8Way(in = in[1], sel = address, a = Reg000pos1, b = Reg001pos1, c = Reg010pos1, d = Reg011pos1, e = Reg100pos1, f = Reg101pos1, g = Reg110pos1, h = Reg111pos1);
+    DMux8Way(in = in[2], sel = address, a = Reg000pos2, b = Reg001pos2, c = Reg010pos2, d = Reg011pos2, e = Reg100pos2, f = Reg101pos2, g = Reg110pos2, h = Reg111pos2);
+    DMux8Way(in = in[3], sel = address, a = Reg000pos3, b = Reg001pos3, c = Reg010pos3, d = Reg011pos3, e = Reg100pos3, f = Reg101pos3, g = Reg110pos3, h = Reg111pos3);
+    DMux8Way(in = in[4], sel = address, a = Reg000pos4, b = Reg001pos4, c = Reg010pos4, d = Reg011pos4, e = Reg100pos4, f = Reg101pos4, g = Reg110pos4, h = Reg111pos4);
+    DMux8Way(in = in[5], sel = address, a = Reg000pos5, b = Reg001pos5, c = Reg010pos5, d = Reg011pos5, e = Reg100pos5, f = Reg101pos5, g = Reg110pos5, h = Reg111pos5);
+    DMux8Way(in = in[6], sel = address, a = Reg000pos6, b = Reg001pos6, c = Reg010pos6, d = Reg011pos6, e = Reg100pos6, f = Reg101pos6, g = Reg110pos6, h = Reg111pos6);
+    DMux8Way(in = in[7], sel = address, a = Reg000pos7, b = Reg001pos7, c = Reg010pos7, d = Reg011pos7, e = Reg100pos7, f = Reg101pos7, g = Reg110pos7, h = Reg111pos7);
+    DMux8Way(in = in[8], sel = address, a = Reg000pos8, b = Reg001pos8, c = Reg010pos8, d = Reg011pos8, e = Reg100pos8, f = Reg101pos8, g = Reg110pos8, h = Reg111pos8);
+    DMux8Way(in = in[9], sel = address, a = Reg000pos9, b = Reg001pos9, c = Reg010pos9, d = Reg011pos9, e = Reg100pos9, f = Reg101pos9, g = Reg110pos9, h = Reg111pos9);
+    DMux8Way(in = in[10], sel = address, a = Reg000pos10, b = Reg001pos10, c = Reg010pos10, d = Reg011pos10, e = Reg100pos10, g = Reg101pos10, f = Reg110pos10, h = Reg111pos10);
+    DMux8Way(in = in[11], sel = address, a = Reg000pos11, b = Reg001pos11, c = Reg010pos11, d = Reg011pos11, e = Reg100pos11, g = Reg101pos11, f = Reg110pos11, h = Reg111pos11);
+    DMux8Way(in = in[12], sel = address, a = Reg000pos12, b = Reg001pos12, c = Reg010pos12, d = Reg011pos12, e = Reg100pos12, g = Reg101pos12, f = Reg110pos12, h = Reg111pos12);
+    DMux8Way(in = in[13], sel = address, a = Reg000pos13, b = Reg001pos13, c = Reg010pos13, d = Reg011pos13, e = Reg100pos13, g = Reg101pos13, f = Reg110pos13, h = Reg111pos13);
+    DMux8Way(in = in[14], sel = address, a = Reg000pos14, b = Reg001pos14, c = Reg010pos14, d = Reg011pos14, e = Reg100pos14, g = Reg101pos14, f = Reg110pos14, h = Reg111pos14);
+    DMux8Way(in = in[15], sel = address, a = Reg000pos15, b = Reg001pos15, c = Reg010pos15, d = Reg011pos15, e = Reg100pos15, g = Reg101pos15, f = Reg110pos15, h = Reg111pos15);
 
-    Mux8Way16(a = fromReg000, b = fromReg001, c = fromReg010, d = fromReg011, e = fromReg100, f = fromReg101, g = fromReg110, h = fromReg111, sel = address, out = out);
+
+    Register(in[0] = Reg000pos0, load = load, out = fromReg000p0);
+    Register(in[0] = Reg001pos0, load = load, out = fromReg001p0);
+    Register(in[0] = Reg010pos0, load = load, out = fromReg010);
+    Register(in[0] = Reg011pos0, load = load, out = fromReg011);
+    Register(in[0] = Reg100pos0, load = load, out = fromReg100);
+    Register(in[0] = Reg101pos0, load = load, out = fromReg101);
+    Register(in[0] = Reg110pos0, load = load, out = fromReg110);
+    Register(in[0] = Reg111pos0, load = load, out = fromReg111);
+
+    Register(in[1] = Reg000pos1, load = load, out = fromReg000);
+    Register(in[1] = Reg001pos1, load = load, out = fromReg001);
+    Register(in[1] = Reg010pos1, load = load, out = fromReg010);
+    Register(in[1] = Reg011pos1, load = load, out = fromReg011);
+    Register(in[1] = Reg100pos1, load = load, out = fromReg100);
+    Register(in[1] = Reg101pos1, load = load, out = fromReg101);
+    Register(in[1] = Reg110pos1, load = load, out = fromReg110);
+    Register(in[1] = Reg111pos1, load = load, out = fromReg111);
+
+    Register(in[2] = Reg000pos2, load = load, out = fromReg000);
+    Register(in[2] = Reg001pos2, load = load, out = fromReg001);
+    Register(in[2] = Reg010pos2, load = load, out = fromReg010);
+    Register(in[2] = Reg011pos2, load = load, out = fromReg011);
+    Register(in[2] = Reg100pos2, load = load, out = fromReg100);
+    Register(in[2] = Reg101pos2, load = load, out = fromReg101);
+    Register(in[2] = Reg110pos2, load = load, out = fromReg110);
+    Register(in[2] = Reg111pos2, load = load, out = fromReg111);
+
+    Register(in[3] = Reg000pos3, load = load, out = fromReg000);
+    Register(in[3] = Reg001pos3, load = load, out = fromReg001);
+    Register(in[3] = Reg010pos3, load = load, out = fromReg010);
+    Register(in[3] = Reg011pos3, load = load, out = fromReg011);
+    Register(in[3] = Reg100pos3, load = load, out = fromReg100);
+    Register(in[3] = Reg101pos3, load = load, out = fromReg101);
+    Register(in[3] = Reg110pos3, load = load, out = fromReg110);
+    Register(in[3] = Reg111pos3, load = load, out = fromReg111);
+
+    Register(in[4] = Reg000pos4, load = load, out = fromReg000);
+    Register(in[4] = Reg001pos4, load = load, out = fromReg001);
+    Register(in[4] = Reg010pos4, load = load, out = fromReg010);
+    Register(in[4] = Reg011pos4, load = load, out = fromReg011);
+    Register(in[4] = Reg100pos4, load = load, out = fromReg100);
+    Register(in[4] = Reg101pos4, load = load, out = fromReg101);
+    Register(in[4] = Reg110pos4, load = load, out = fromReg110);
+    Register(in[4] = Reg111pos4, load = load, out = fromReg111);
+
+    Register(in[5] = Reg000pos5, load = load, out = fromReg000);
+    Register(in[5] = Reg001pos5, load = load, out = fromReg001);
+    Register(in[5] = Reg010pos5, load = load, out = fromReg010);
+    Register(in[5] = Reg011pos5, load = load, out = fromReg011);
+    Register(in[5] = Reg100pos5, load = load, out = fromReg100);
+    Register(in[5] = Reg101pos5, load = load, out = fromReg101);
+    Register(in[5] = Reg110pos5, load = load, out = fromReg110);
+    Register(in[5] = Reg111pos5, load = load, out = fromReg111);
+
+    Register(in[6] = Reg000pos6, load = load, out = fromReg000);
+    Register(in[6] = Reg001pos6, load = load, out = fromReg001);
+    Register(in[6] = Reg010pos6, load = load, out = fromReg010);
+    Register(in[6] = Reg011pos6, load = load, out = fromReg011);
+    Register(in[6] = Reg100pos6, load = load, out = fromReg100);
+    Register(in[6] = Reg101pos6, load = load, out = fromReg101);
+    Register(in[6] = Reg110pos6, load = load, out = fromReg110);
+    Register(in[6] = Reg111pos6, load = load, out = fromReg111);
+
+    Register(in[7] = Reg000pos7, load = load, out = fromReg000);
+    Register(in[7] = Reg001pos7, load = load, out = fromReg001);
+    Register(in[7] = Reg010pos7, load = load, out = fromReg010);
+    Register(in[7] = Reg011pos7, load = load, out = fromReg011);
+    Register(in[7] = Reg100pos7, load = load, out = fromReg100);
+    Register(in[7] = Reg101pos7, load = load, out = fromReg101);
+    Register(in[7] = Reg110pos7, load = load, out = fromReg110);
+    Register(in[7] = Reg111pos7, load = load, out = fromReg111);
+
+    Register(in[8] = Reg000pos8, load = load, out = fromReg000);
+    Register(in[8] = Reg001pos8, load = load, out = fromReg001);
+    Register(in[8] = Reg010pos8, load = load, out = fromReg010);
+    Register(in[8] = Reg011pos8, load = load, out = fromReg011);
+    Register(in[8] = Reg100pos8, load = load, out = fromReg100);
+    Register(in[8] = Reg101pos8, load = load, out = fromReg101);
+    Register(in[8] = Reg110pos8, load = load, out = fromReg110);
+    Register(in[8] = Reg111pos8, load = load, out = fromReg111);
+
+    Register(in[9] = Reg000pos9, load = load, out = fromReg000);
+    Register(in[9] = Reg001pos9, load = load, out = fromReg001);
+    Register(in[9] = Reg010pos9, load = load, out = fromReg010);
+    Register(in[9] = Reg011pos9, load = load, out = fromReg011);
+    Register(in[9] = Reg100pos9, load = load, out = fromReg100);
+    Register(in[9] = Reg101pos9, load = load, out = fromReg101);
+    Register(in[9] = Reg110pos9, load = load, out = fromReg110);
+    Register(in[9] = Reg111pos9, load = load, out = fromReg111);
+
+    Register(in[10] = Reg000pos10, load = load, out = fromReg000);
+    Register(in[10] = Reg001pos10, load = load, out = fromReg001);
+    Register(in[10] = Reg010pos10, load = load, out = fromReg010);
+    Register(in[10] = Reg011pos10, load = load, out = fromReg011);
+    Register(in[10] = Reg100pos10, load = load, out = fromReg100);
+    Register(in[10] = Reg101pos10, load = load, out = fromReg101);
+    Register(in[10] = Reg110pos10, load = load, out = fromReg110);
+    Register(in[10] = Reg111pos10, load = load, out = fromReg111);
+
+    Register(in[11] = Reg000pos11, load = load, out = fromReg000);
+    Register(in[11] = Reg001pos11, load = load, out = fromReg001);
+    Register(in[11] = Reg010pos11, load = load, out = fromReg010);
+    Register(in[11] = Reg011pos11, load = load, out = fromReg011);
+    Register(in[11] = Reg100pos11, load = load, out = fromReg100);
+    Register(in[11] = Reg101pos11, load = load, out = fromReg101);
+    Register(in[11] = Reg110pos11, load = load, out = fromReg110);
+    Register(in[11] = Reg111pos11, load = load, out = fromReg111);
+
+    Register(in[12] = Reg000pos12, load = load, out = fromReg000);
+    Register(in[12] = Reg001pos12, load = load, out = fromReg001);
+    Register(in[12] = Reg010pos12, load = load, out = fromReg010);
+    Register(in[12] = Reg011pos12, load = load, out = fromReg011);
+    Register(in[12] = Reg100pos12, load = load, out = fromReg100);
+    Register(in[12] = Reg101pos12, load = load, out = fromReg101);
+    Register(in[12] = Reg110pos12, load = load, out = fromReg110);
+    Register(in[12] = Reg111pos12, load = load, out = fromReg111);
+
+    Register(in[13] = Reg000pos13, load = load, out = fromReg000);
+    Register(in[13] = Reg001pos13, load = load, out = fromReg001);
+    Register(in[13] = Reg010pos13, load = load, out = fromReg010);
+    Register(in[13] = Reg011pos13, load = load, out = fromReg011);
+    Register(in[13] = Reg100pos13, load = load, out = fromReg100);
+    Register(in[13] = Reg101pos13, load = load, out = fromReg101);
+    Register(in[13] = Reg110pos13, load = load, out = fromReg110);
+    Register(in[13] = Reg111pos13, load = load, out = fromReg111);
+
+    Register(in[14] = Reg000pos14, load = load, out = fromReg000);
+    Register(in[14] = Reg001pos14, load = load, out = fromReg001);
+    Register(in[14] = Reg010pos14, load = load, out = fromReg010);
+    Register(in[14] = Reg011pos14, load = load, out = fromReg011);
+    Register(in[14] = Reg100pos14, load = load, out = fromReg100);
+    Register(in[14] = Reg101pos14, load = load, out = fromReg101);
+    Register(in[14] = Reg110pos14, load = load, out = fromReg110);
+    Register(in[14] = Reg111pos14, load = load, out = fromReg111);
+
+    Register(in[15] = Reg000pos15, load = load, out = fromReg000);
+    Register(in[15] = Reg001pos15, load = load, out = fromReg001);
+    Register(in[15] = Reg010pos15, load = load, out = fromReg010);
+    Register(in[15] = Reg011pos15, load = load, out = fromReg011);
+    Register(in[15] = Reg100pos15, load = load, out = fromReg100);
+    Register(in[15] = Reg101pos15, load = load, out = fromReg101);
+    Register(in[15] = Reg110pos15, load = load, out = fromReg110);
+    Register(in[15] = Reg111pos15, load = load, out = fromReg111);
+
+    Mux8Way16(a = fromReg000p0, b = fromReg001, c = fromReg010, d = fromReg011, e = fromReg100, f = fromReg101, g = fromReg110, h = fromReg111, sel = address, out = out);
 
 
 }
