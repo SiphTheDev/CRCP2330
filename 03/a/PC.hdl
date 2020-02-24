@@ -17,10 +17,31 @@ CHIP PC {
 
     PARTS:
     // Put your code here:
-    Mux16(a = in, b = false, sel = reset, out = resetPhaseOut);
 
-    Register(in = resetPhaseOut, load = load, out = loadPhaseOut);
+    //current bug  -  It doesn't want the result updated on the specific iteration that an input is changed, but rather on the next iteration after it has been changed. 
 
-    Inc16(in = loadPhaseOut, out = incrementedOut);
-    Mux16(a = loadPhaseOut, b = incrementedOut, sel = inc, out = out);
+
+    Inc16(in = in, out = incrementedIn);
+    Mux16(a = in, b = incrementedIn, sel = inc, out = incremPhaseOut);
+
+    Register(in = incremPhaseOut, load = load, out = loadIn); //bug here?
+    Mux16(a = incremPhaseOut, b = loadIn, sel = load, out = loadPhaseOut); //might be redundant.
+
+    Mux16(a = loadPhaseOut, b = false, sel = reset, out = out);
+
+
+
+
+
+
+
+
+
+    //Alternate Order of Operations (ignore if system works);
+    //Mux16(a = in, b = false, sel = reset, out = resetPhaseOut);
+
+    //Register(in = resetPhaseOut, load = load, out = loadPhaseOut);
+
+    //Inc16(in = loadPhaseOut, out = incrementedOut);
+    //Mux16(a = loadPhaseOut, b = incrementedOut, sel = inc, out = out);
 }
