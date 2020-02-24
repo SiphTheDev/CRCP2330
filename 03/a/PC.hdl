@@ -18,17 +18,54 @@ CHIP PC {
     PARTS:
     // Put your code here:
 
+    //Now outputs with a delay, but always outputs t-1, regardless of load
+    Mux16(a = in, b[0] = DFFout0, b[1] = DFFout1, b[2] = DFFout2, b[3] = DFFout3, b[4] = DFFout4, b[5] = DFFout5, b[6] = DFFout6, b[7] = DFFout7, b[8] = DFFout8, b[9] = DFFout9, b[10] = DFFout10, b[11] = DFFout11, b[12] = DFFout12, b[13] = DFFout13, b[14] = DFFout14, b[15] = DFFout15, sel = load, out = loadPhaseOut);
+
+	Inc16(in = loadPhaseOut, out = incrementedIn);
+	Mux16(a = loadPhaseOut, b = incrementedIn, sel = inc, out = incremPhaseOut);
+
+	Mux16(a = incremPhaseOut, b = false, sel = reset, out[0] = resetPhaseOut0, out[1] = resetPhaseOut1, out[2] = resetPhaseOut2, out[3] = resetPhaseOut3, out[4] = resetPhaseOut4, out[5] = resetPhaseOut5, out[6] = resetPhaseOut6, out[7] = resetPhaseOut7, out[8] = resetPhaseOut8, out[9] = resetPhaseOut9, out[10] = resetPhaseOut10, out[11] = resetPhaseOut11, out[12] = resetPhaseOut12, out[13] = resetPhaseOut13, out[14] = resetPhaseOut14, out[15] = resetPhaseOut15);
+
+	DFF(in = resetPhaseOut0, out = DFFout0, out = out[0]);
+	DFF(in = resetPhaseOut1, out = DFFout1, out = out[1]);
+	DFF(in = resetPhaseOut2, out = DFFout2, out = out[2]);
+	DFF(in = resetPhaseOut3, out = DFFout3, out = out[3]);
+	DFF(in = resetPhaseOut4, out = DFFout4, out = out[4]);
+	DFF(in = resetPhaseOut5, out = DFFout5, out = out[5]);
+	DFF(in = resetPhaseOut6, out = DFFout6, out = out[6]);
+	DFF(in = resetPhaseOut7, out = DFFout7, out = out[7]);
+	DFF(in = resetPhaseOut8, out = DFFout8, out = out[8]);
+	DFF(in = resetPhaseOut9, out = DFFout9, out = out[9]);
+	DFF(in = resetPhaseOut10, out = DFFout10, out = out[10]);
+	DFF(in = resetPhaseOut11, out = DFFout11, out = out[11]);
+	DFF(in = resetPhaseOut12, out = DFFout12, out = out[12]);
+	DFF(in = resetPhaseOut13, out = DFFout13, out = out[13]);
+	DFF(in = resetPhaseOut14, out = DFFout14, out = out[14]);
+	DFF(in = resetPhaseOut15, out = DFFout15, out = out[15]);
+
+
+
+
+
+
+
+
+
+
+
+
     //current bug  -  It doesn't want the result updated on the specific iteration that an input is changed, but rather on the next iteration after it has been changed.
     //Does that mean this whole thing needs to be contained in a sort of jumbo bit (or register, actually - as 16bit in/out).
 
 
-    Inc16(in = in, out = incrementedIn);
-    Mux16(a = in, b = incrementedIn, sel = inc, out = incremPhaseOut);
-
-    Mux16(a = incremPhaseOut, b = false, sel = reset, out = resetOut);
-
-    Register(in = resetOut, load = load, out = out);
-
+    /**
+    *Inc16(in = in, out = incrementedIn);
+    *Mux16(a = in, b = incrementedIn, sel = inc, out = incremPhaseOut);
+    *
+    *Mux16(a = incremPhaseOut, b = false, sel = reset, out = resetOut);
+    *
+    *Register(in = resetOut, load = load, out = out);
+    */
 
 
 
