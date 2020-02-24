@@ -18,22 +18,22 @@ CHIP PC {
     PARTS:
     // Put your code here:
 
-    //current bug  -  It doesn't want the result updated on the specific iteration that an input is changed, but rather on the next iteration after it has been changed. 
+    //current bug  -  It doesn't want the result updated on the specific iteration that an input is changed, but rather on the next iteration after it has been changed.
+    //Does that mean this whole thing needs to be contained in a sort of jumbo bit (or register, actually - as 16bit in/out).
 
 
     Inc16(in = in, out = incrementedIn);
     Mux16(a = in, b = incrementedIn, sel = inc, out = incremPhaseOut);
 
-    Register(in = incremPhaseOut, load = load, out = loadIn); //bug here?
-    Mux16(a = incremPhaseOut, b = loadIn, sel = load, out = loadPhaseOut); //might be redundant.
+    Mux16(a = incremPhaseOut, b = false, sel = reset, out = resetOut);
 
-    Mux16(a = loadPhaseOut, b = false, sel = reset, out = out);
-
+    Register(in = resetOut, load = load, out = out);
 
 
 
 
-
+	//Register(in = incremPhaseOut, load = load, out = loadIn); //bug here?
+    //Mux16(a = incremPhaseOut, b = loadIn, sel = load, out = loadPhaseOut); //might be redundant.
 
 
 
