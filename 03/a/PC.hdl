@@ -19,7 +19,8 @@ CHIP PC {
     // Put your code here:
 
     //Now outputs with a delay, but always outputs t-1, regardless of load
-    Mux16(a = in, b[0] = DFFout0, b[1] = DFFout1, b[2] = DFFout2, b[3] = DFFout3, b[4] = DFFout4, b[5] = DFFout5, b[6] = DFFout6, b[7] = DFFout7, b[8] = DFFout8, b[9] = DFFout9, b[10] = DFFout10, b[11] = DFFout11, b[12] = DFFout12, b[13] = DFFout13, b[14] = DFFout14, b[15] = DFFout15, sel = load, out = loadPhaseOut);
+
+    Mux16(a[0] = DFFout0, a[1] = DFFout1, a[2] = DFFout2, a[3] = DFFout3, a[4] = DFFout4, a[5] = DFFout5, a[6] = DFFout6, a[7] = DFFout7, a[8] = DFFout8, a[9] = DFFout9, a[10] = DFFout10, a[11] = DFFout11, a[12] = DFFout12, a[13] = DFFout13, a[14] = DFFout14, a[15] = DFFout15, b = in, sel = load, out = loadPhaseOut);
 
 	Inc16(in = loadPhaseOut, out = incrementedIn);
 	Mux16(a = loadPhaseOut, b = incrementedIn, sel = inc, out = incremPhaseOut);
@@ -42,43 +43,4 @@ CHIP PC {
 	DFF(in = resetPhaseOut13, out = DFFout13, out = out[13]);
 	DFF(in = resetPhaseOut14, out = DFFout14, out = out[14]);
 	DFF(in = resetPhaseOut15, out = DFFout15, out = out[15]);
-
-
-
-
-
-
-
-
-
-
-
-
-    //current bug  -  It doesn't want the result updated on the specific iteration that an input is changed, but rather on the next iteration after it has been changed.
-    //Does that mean this whole thing needs to be contained in a sort of jumbo bit (or register, actually - as 16bit in/out).
-
-
-    /**
-    *Inc16(in = in, out = incrementedIn);
-    *Mux16(a = in, b = incrementedIn, sel = inc, out = incremPhaseOut);
-    *
-    *Mux16(a = incremPhaseOut, b = false, sel = reset, out = resetOut);
-    *
-    *Register(in = resetOut, load = load, out = out);
-    */
-
-
-
-	//Register(in = incremPhaseOut, load = load, out = loadIn); //bug here?
-    //Mux16(a = incremPhaseOut, b = loadIn, sel = load, out = loadPhaseOut); //might be redundant.
-
-
-
-    //Alternate Order of Operations (ignore if system works);
-    //Mux16(a = in, b = false, sel = reset, out = resetPhaseOut);
-
-    //Register(in = resetPhaseOut, load = load, out = loadPhaseOut);
-
-    //Inc16(in = loadPhaseOut, out = incrementedOut);
-    //Mux16(a = loadPhaseOut, b = incrementedOut, sel = inc, out = out);
 }
