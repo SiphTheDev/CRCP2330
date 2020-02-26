@@ -23,7 +23,8 @@ CHIP PC {
     Mux16(a[0] = DFFout0, a[1] = DFFout1, a[2] = DFFout2, a[3] = DFFout3, a[4] = DFFout4, a[5] = DFFout5, a[6] = DFFout6, a[7] = DFFout7, a[8] = DFFout8, a[9] = DFFout9, a[10] = DFFout10, a[11] = DFFout11, a[12] = DFFout12, a[13] = DFFout13, a[14] = DFFout14, a[15] = DFFout15, b = in, sel = load, out = loadPhaseOut);
 
 	Inc16(in = loadPhaseOut, out = incrementedIn);
-	Mux16(a = loadPhaseOut, b = incrementedIn, sel = inc, out = incremPhaseOut);
+	Mux16(a = loadPhaseOut, b = incrementedIn, sel = inc, out = incremResult);
+	Mux16(a = incremResult, b = loadPhaseOut, sel = load, out = incremPhaseOut);
 
 	Mux16(a = incremPhaseOut, b = false, sel = reset, out[0] = resetPhaseOut0, out[1] = resetPhaseOut1, out[2] = resetPhaseOut2, out[3] = resetPhaseOut3, out[4] = resetPhaseOut4, out[5] = resetPhaseOut5, out[6] = resetPhaseOut6, out[7] = resetPhaseOut7, out[8] = resetPhaseOut8, out[9] = resetPhaseOut9, out[10] = resetPhaseOut10, out[11] = resetPhaseOut11, out[12] = resetPhaseOut12, out[13] = resetPhaseOut13, out[14] = resetPhaseOut14, out[15] = resetPhaseOut15);
 
