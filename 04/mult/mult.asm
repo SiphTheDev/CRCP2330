@@ -7,3 +7,29 @@
 // (R0, R1, R2 refer to RAM[0], RAM[1], and RAM[2], respectively.)
 
 // Put your code here.
+	@i
+	M=1
+	@sum
+	M=0
+(LOOP)
+	@i
+	D=M
+	@R1
+	D=D-M //M or A?
+	@END
+	D;JGT
+	@R0
+	D=M
+	@sum
+	M=D+M
+	@i
+	M=M+1
+	@sum
+	D=M
+	@R2
+	M=D
+	@LOOP
+	0;JMP //Goto Loop
+(END)
+	@END
+	0;JMP //Infini-loop
