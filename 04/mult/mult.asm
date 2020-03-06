@@ -11,6 +11,8 @@
 	M=1
 	@sum
 	M=0
+	@R2
+	M=0
 (LOOP)
 	@R15
 	D=M
