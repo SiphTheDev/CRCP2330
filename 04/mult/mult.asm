@@ -15,7 +15,7 @@
 	@i
 	D=M
 	@R1
-	D=D-M //M or A?
+	D=D-A //M or A?
 	@END
 	D;JGT
 	@R0
