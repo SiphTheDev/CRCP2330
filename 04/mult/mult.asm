@@ -7,22 +7,22 @@
 // (R0, R1, R2 refer to RAM[0], RAM[1], and RAM[2], respectively.)
 
 // Put your code here.
-	@i
+	@R15
 	M=1
 	@sum
 	M=0
 (LOOP)
-	@i
+	@R15
 	D=M
 	@R1
-	D=D-A //M or A?
+	D=D-M
 	@END
 	D;JGT
 	@R0
 	D=M
 	@sum
 	M=D+M
-	@i
+	@R15
 	M=M+1
 	@sum
 	D=M
