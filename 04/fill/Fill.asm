@@ -26,7 +26,11 @@
 	D=A
 	@SCREENOFFLOOP // if key not pressed, go to ScreenOFFloop
 	D;JEQ
-	@SCREEN	//LOOP Through all the ons
+	@R15 //Go to the correct address after screen to deal with each set of pixels
+	D=M
+	@SCREEN	
+	D=D+M
+	@D
 	M=-1
 	@R15 //increment incrementer
 	M=M+1
@@ -37,7 +41,11 @@
 	D=A
 	@SCREENONLOOP // if keypressed, go to ScreenONloop
 	D;JNE
+	@R15
+	D=M
 	@SCREEN	//LOOP Through all the offs
+	D=D-M
+	@D
 	M=0
 	@R15 //increment incrementer
 	M=M-1
