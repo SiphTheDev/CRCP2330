@@ -14,6 +14,8 @@
 // Put your code here.
 	@incrementer //establish an incrementer/de-incrementer
 	M=0
+	@maxfillcompare //how do I assign this a value?
+	M=24576
 (STARTLOOP)
 	@KBD
 	D=M
@@ -32,14 +34,18 @@
 	D=D+A
 	@currentscreenaddress
 	M=D
-	 //go to that mem addr & set it to 0 - THIS DOESN'T WORK, it seems to think D is a new variable
-	A=M //hopefully this will work - Does not. This is treating M as a variable name, setting it = to 1 instead of going to memory address M and setting that place's value to -1.
+	A=M 
 	M=-1
+	@currentAcompare
+	currentAcompare=D
+	D=maxfillcompare-currentAcompare
+	@END
+	0;JLE
 	@incrementer //increment incrementer
 	M=M+1
 	@SCREENONLOOP 
 	0;JMP
-(SCREENOFFLOOP)
+(SCREENOFFLOOP) //Adapt everything from SCREENONLOOP for this.
 	@KBD
 	D=M
 	@SCREENONLOOP // if keypressed, go to ScreenONloop
@@ -53,6 +59,9 @@
 	@incrementer //increment incrementer
 	M=M-1
 	@SCREENOFFLOOP
+	0;JMP
+(END) //may need a way to jump back from this to each loop. If keypressed, go to onloop, and it will just bounce you back here if full automatically. If notpressed, go to offloop, and it will just bounce you back here if empty automatically.
+	@END
 	0;JMP
 
 
