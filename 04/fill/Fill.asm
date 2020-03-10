@@ -26,26 +26,26 @@
 	D=M
 	@SCREENOFFLOOP // if key not pressed, go to ScreenOFFloop
 	D;JEQ
-	//@R15 //Go to the correct address after screen to deal with each set of pixels
-	//D=M
+	@R15 //add incrementer to SCREEN's mem add to get next mem add to adjust
+	D=M
 	@SCREEN	
-	//D=D+M
-	//@D
+	D=D+A
+	@D //go to that mem addr & set it to 0
 	M=-1
 	@R15 //increment incrementer
 	M=M+1
-	@SCREENONLOOP //BUG THIS IS INCREMENTING MEM ADD 14
+	@SCREENONLOOP 
 	0;JMP
 (SCREENOFFLOOP)
 	@KBD
 	D=M
 	@SCREENONLOOP // if keypressed, go to ScreenONloop
 	D;JNE
-	//@R15
-	//D=M
+	@R15
+	D=M
 	@SCREEN	//LOOP Through all the offs
-	//D=D-M
-	//@D
+	D=A-D
+	@D
 	M=0
 	@R15 //increment incrementer
 	M=M-1
