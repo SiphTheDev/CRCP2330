@@ -33,7 +33,7 @@
 	@currentscreenaddress
 	M=D
 	 //go to that mem addr & set it to 0 - THIS DOESN'T WORK, it seems to think D is a new variable
-	@M //hopefully this will work
+	A=M //hopefully this will work - Does not. This is treating M as a variable name, setting it = to 1 instead of going to memory address M and setting that place's value to -1.
 	M=-1
 	@incrementer //increment incrementer
 	M=M+1
