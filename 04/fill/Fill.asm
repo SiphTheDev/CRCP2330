@@ -16,14 +16,14 @@
 	M=0
 (STARTLOOP)
 	@KBD
-	D=A
+	D=M
 	@SCREENONLOOP // if keypressed, go to ScreenONloop
 	D;JNE
 	@STARTLOOP
 	0;JMP //restart startloop
 (SCREENONLOOP)
 	@KBD
-	D=A
+	D=M
 	@SCREENOFFLOOP // if key not pressed, go to ScreenOFFloop
 	D;JEQ
 	//@R15 //Go to the correct address after screen to deal with each set of pixels
@@ -38,7 +38,7 @@
 	0;JMP
 (SCREENOFFLOOP)
 	@KBD
-	D=A
+	D=M
 	@SCREENONLOOP // if keypressed, go to ScreenONloop
 	D;JNE
 	//@R15
