@@ -30,18 +30,20 @@
 	D=M
 	@SCREEN	
 	D=D+A
-	@currentscreenaddress
+	@currentscreenaddress //set the val at currentscreenaddress to be the address to fill next.
 	M=D
+
 	A=M 
-	M=-1
-	@currentAcompare
-	M=D
+	M=-1 //fills that address with dark
+
+	//@currentAcompare
+	//M=D
 	@KBD
-	D=A
-	@currentAcompare
-	D=D-M
+	D=A //D=25000
+	@currentscreenaddress //A=17
+	D=D-M //D=25000-16000
 	@END
-	0;JLE
+	D;JEQ
 	@incrementer //increment incrementer
 	M=M+1
 	@SCREENONLOOP 
@@ -64,5 +66,3 @@
 (END) //may need a way to jump back from this to each loop. If keypressed, go to onloop, and it will just bounce you back here if full automatically. If notpressed, go to offloop, and it will just bounce you back here if empty automatically.
 	@END
 	0;JMP
-
-
