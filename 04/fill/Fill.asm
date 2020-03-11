@@ -32,12 +32,8 @@
 	D=D+A
 	@currentscreenaddress //set the val at currentscreenaddress to be the address to fill next.
 	M=D
-
 	A=M 
 	M=-1 //fills that address with dark
-
-	//@currentAcompare
-	//M=D
 	@KBD
 	D=A //D=25000
 	@currentscreenaddress //A=17
@@ -49,20 +45,38 @@
 	@SCREENONLOOP 
 	0;JMP
 (SCREENOFFLOOP) //Adapt everything from SCREENONLOOP for this.
-	@KBD
-	D=M
-	@SCREENONLOOP // if keypressed, go to ScreenONloop
-	D;JNE
+	//@KBD
+	//D=M
+	//@SCREENONLOOP // if keypressed, go to ScreenONloop
+	//D;JEQ
 	@incrementer
 	D=M
 	@SCREEN	//LOOP Through all the offs
 	D=A-D
-	@D
+	@currentscreenaddress
+	M=D
+	A=M
 	M=0
+	@KBD
+	D=A //D=16K
+	@currentscreenaddress //24K
+	D=D-M // D is negative smthg
+	@END 
+	D;JEQ
 	@incrementer //increment incrementer
 	M=M-1
 	@SCREENOFFLOOP
 	0;JMP
 (END) //may need a way to jump back from this to each loop. If keypressed, go to onloop, and it will just bounce you back here if full automatically. If notpressed, go to offloop, and it will just bounce you back here if empty automatically.
+	@KBD
+	D=M
+	@SCREENONLOOP // if keypressed, go to ScreenONloop
+	D;JEQ
+
+	@KBD
+	D=M
+	@SCREENOFFLOOP // if key not pressed, go to ScreenOFFloop
+	D;JEQ
+
 	@END
 	0;JMP
