@@ -14,8 +14,6 @@
 // Put your code here.
 	@incrementer //establish an incrementer/de-incrementer
 	M=0
-	@maxfillcompare //how do I assign this a value?
-	M=24576
 (STARTLOOP)
 	@KBD
 	D=M
@@ -37,8 +35,11 @@
 	A=M 
 	M=-1
 	@currentAcompare
-	currentAcompare=D
-	D=maxfillcompare-currentAcompare
+	M=D
+	@KBD
+	D=A
+	@currentAcompare
+	D=D-M
 	@END
 	0;JLE
 	@incrementer //increment incrementer
