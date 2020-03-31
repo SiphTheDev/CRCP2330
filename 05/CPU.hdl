@@ -45,4 +45,8 @@ CHIP CPU {
     Mux16(a = ARegisterResult, b = inM, sel = instruction[12], out = AOrMResult);
     Register(in = ALUResult, load = instruction[4], out = DRegisterResult); //D REGISTER
     ALU(x = ARegisterResult, y = DRegisterResult, zx = instruction[11], nx = instruction[10], zy = instruction[9], ny = instruction[8], f = instruction[7], no = instruction[6], out = ALUResult, zr = ResultZero, ng = ResultNegative);
+    And16(a = ALUResult, b = ALUResult, out = outM); //Just had to get ALUResult to outM
+    And(a = instruction[3], b = True, out = writeM); //Test if we're writingM or not
+
+    PC(in = ARegisterResult, load =  jumpResult, )
 }
