@@ -41,12 +41,22 @@ CHIP CPU {
     PARTS:
     // Put your code here:
     Mux16(a = instruction, b = ALUResult, sel = instruction[15], out = outToARegister);
-    Register(in = outToARegister, load = instruction[6], out = ARegisterResult); //A REGISTER
-    Mux16(a = ARegisterResult, b = inM, sel = instruction[12], out = AOrMResult);
+    Register(in = outToARegister, load = instruction[6], out = addressM); //A REGISTER
+    Mux16(a = addressM, b = inM, sel = instruction[12], out = AOrMResult);
     Register(in = ALUResult, load = instruction[4], out = DRegisterResult); //D REGISTER
-    ALU(x = ARegisterResult, y = DRegisterResult, zx = instruction[11], nx = instruction[10], zy = instruction[9], ny = instruction[8], f = instruction[7], no = instruction[6], out = ALUResult, zr = ResultZero, ng = ResultNegative);
+    ALU(x = addressM, y = DRegisterResult, zx = instruction[11], nx = instruction[10], zy = instruction[9], ny = instruction[8], f = instruction[7], no = instruction[6], out = ALUResult, zr = ALUz, ng = ALUn);
     And16(a = ALUResult, b = ALUResult, out = outM); //Just had to get ALUResult to outM
     And(a = instruction[3], b = True, out = writeM); //Test if we're writingM or not
+    And16(a = addressM, b = addressM, out = addressM);
 
-    PC(in = ARegisterResult, load =  jumpResult, )
+    Not(in = ALUz, out = NotALUz);
+    Not(in = ALUn, out = NotALUn);
+    And(a = NotALUn, b = NotALUz, out = JGTb);
+    Or(a = ALUn, b = ALUz, out = JLEg);
+
+    Mux8Way(a = False, b = JGTb, c = ALUz, d = NotALUn, e = ALUn, f = NotALUz, g = JLEg, h = True, sel[0] = instruction[2], sel[1] = instruction[1], sel[2] = instruction[0], out = jumpResult);
+
+    Not(in = jumpResult, out = incResult);
+
+    PC(in = addressM, load = jumpResult, inc = incResult, reset = reset, out = pc);
 }
