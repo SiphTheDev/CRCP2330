@@ -27,17 +27,22 @@
 
 CHIP CPU {
 
-    IN  inM[16],         // M value input  (M = contents of RAM[A])
-        instruction[16], // Instruction for execution
-        reset;           // Signals whether to re-start the current
+    IN  inM[16],         // M value input  (M = contents of RAM[A])	  The value recieved
+        instruction[16], // Instruction for execution				  A or C instruction
+        reset;           // Signals whether to re-start the current	  Reset or not
                          // program (reset==1) or continue executing
                          // the current program (reset==0).
 
-    OUT outM[16],        // M value output
-        writeM,          // Write to M? 
-        addressM[15],    // Address in data memory (of M)
-        pc[15];          // address of next instruction
+    OUT outM[16],        // M value outputs 						  data
+        writeM,          // Write to M? 							  load
+        addressM[15],    // Address in data memory (of M)			  mem adr
+        pc[15];          // address of next Instruction 			  ROM adr for next
 
     PARTS:
     // Put your code here:
+    Mux16(a = instruction, b = ALUResult, sel = instruction[15], out = outToARegister);
+    Register(in = outToARegister, load = instruction[6], out = ARegisterResult); //A REGISTER
+    Mux16(a = ARegisterResult, b = inM, sel = instruction[12], out = AOrMResult);
+    Register(in = ALUResult, load = instruction[4], out = DRegisterResult); //D REGISTER
+    ALU(x = ARegisterResult, y = DRegisterResult, zx = instruction[11], nx = instruction[10], zy = instruction[9], ny = instruction[8], f = instruction[7], no = instruction[6], out = ALUResult, zr = ResultZero, ng = ResultNegative);
 }
