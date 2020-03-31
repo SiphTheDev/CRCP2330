@@ -28,4 +28,7 @@ CHIP Memory {
 
     PARTS:
     // Put your code here:
+    DMux(in = load, a = loadRAM, b = loadScreenOrKeyboard, sel = address[14]);
+    DMux(in = loadScreenOrKeyboard, a = load keyboard, b = loadScreen, sel = address[13]);
+    RAM16K(in = in, load = loadRAM, address = address[0..13]);
 }
