@@ -48,6 +48,7 @@ CHIP CPU {
     And16(a = ALUResult, b = ALUResult, out = outM); //Just had to get ALUResult to outM
     And(a = instruction[3], b = True, out = writeM); //Test if we're writingM or not
 
+    //There has to be a better way than this mess.
     And(a = instruction[1], b = instruction[1], out = pc[0]);
     And(a = instruction[2], b = instruction[2], out = pc[1]);
     And(a = instruction[3], b = instruction[3], out = pc[2]);
@@ -64,17 +65,10 @@ CHIP CPU {
     And(a = instruction[14], b = instruction[14], out = pc[13]);
     And(a = instruction[15], b = instruction[15], out = pc[14]);
 
-
     Not(in = ALUz, out = NotALUz);
     Not(in = ALUn, out = NotALUn);
     And(a = NotALUn, b = NotALUz, out = JGTb);
     Or(a = ALUn, b = ALUz, out = JLEg);
-
-    //Mux4Way(a = False, b = JGTb, c = ALUz, d = NotALUn, sel[0] = instruction[2], sel[1] = instruction[1], out = ABCDjumpResult);
-    //Mux4Way(e = ALUn, f = NotALUz, g = JLEg, h = True, sel[0] = instruction[2], sel[1] = instruction[1], out = EFGHjumpResult);
-    //Mux(a = ABCDjumpResult, b = EFGHjumpResult, sel = instruction[3], out = jumpResult)
-
-    //Mux8Way(a = False, b = JGTb, c = ALUz, d = NotALUn, e = ALUn, f = NotALUz, g = JLEg, h = True, sel[0] = instruction[2], sel[1] = instruction[1], sel[2] = instruction[0], out = jumpResult);
 
     Mux(a = False, b = ALUz, sel = instruction[1], out = outac);
     Mux(a = JGTb, b = NotALUn, sel = instruction[1], out = outbd);
@@ -88,6 +82,7 @@ CHIP CPU {
 
     PC(in = ARegisterResult, load = jumpResult, inc = incResult, reset = reset, out = pcOut);
 
+    //This mess doesn't work because of internal SubBus pin count chaos. Ask in class tomorrow.
     And(a = pcOut[1], b = pcOut[1], out = pc[0]);
     And(a = pcOut[2], b = pcOut[2], out = pc[1]);
     And(a = pcOut[3], b = pcOut[3], out = pc[2]);
