@@ -41,12 +41,15 @@ CHIP CPU {
     PARTS:
     // Put your code here:
     Mux16(a = instruction, b = ALUResult, sel = instruction[15], out = outToARegister);
-    ARegister(in = outToARegister, load = instruction[6], out = ARegisterResult); //A REGISTER
+    ARegister(in = outToARegister, load = instruction[5], out = ARegisterResult); //A REGISTER
     Mux16(a = ARegisterResult, b = inM, sel = instruction[12], out = AOrMResult);
     DRegister(in = ALUResult, load = instruction[4], out = DRegisterResult); //D REGISTER
     ALU(x = ARegisterResult, y = DRegisterResult, zx = instruction[11], nx = instruction[10], zy = instruction[9], ny = instruction[8], f = instruction[7], no = instruction[6], out = ALUResult, zr = ALUz, ng = ALUn);
     And16(a = ALUResult, b = ALUResult, out = outM); //Just had to get ALUResult to outM
-    And(a = instruction[3], b = True, out = writeM); //Test if we're writingM or not
+
+    //NOTE for future me: Address M & Write M are outputting incorrectly. I *think* they're not supposed to do anything until program counter ticks once. Uncertain.
+
+    And(a = instruction[3], b = true, out = writeM); //Test if we're writingM or not
 
     //There has to be a better way than this mess.
     And(a = instruction[1], b = instruction[1], out = addressM[0]);
@@ -70,32 +73,15 @@ CHIP CPU {
     And(a = NotALUn, b = NotALUz, out = JGTb);
     Or(a = ALUn, b = ALUz, out = JLEg);
 
-    Mux(a = False, b = ALUz, sel = instruction[1], out = outac);
+    Mux(a = false, b = ALUz, sel = instruction[1], out = outac);
     Mux(a = JGTb, b = NotALUn, sel = instruction[1], out = outbd);
     Mux(a = outac, b = outbd, sel = instruction[2], out = abcd);
     Mux(a = ALUn, b = JLEg, sel = instruction[1], out = outeg);
-    Mux(a = NotALUz, b = True, sel = instruction[1], out = outfh);
+    Mux(a = NotALUz, b = true, sel = instruction[1], out = outfh);
     Mux(a = outeg, b = outfh, sel = instruction[2], out = efgh);
     Mux(a = abcd, b = efgh, sel = instruction[0], out = jumpResult);
 
     Not(in = jumpResult, out = incResult);
 
-    PC(in = ARegisterResult, load = jumpResult, inc = incResult, reset = reset, out = pcOut);
-
-    //This mess doesn't work because of internal SubBus pin count chaos. Ask in class tomorrow.
-    And(a = pcOut[1], b = pcOut[1], out = pc[0]);
-    And(a = pcOut[2], b = pcOut[2], out = pc[1]);
-    And(a = pcOut[3], b = pcOut[3], out = pc[2]);
-    And(a = pcOut[4], b = pcOut[4], out = pc[3]);
-    And(a = pcOut[5], b = pcOut[5], out = pc[4]);
-    And(a = pcOut[6], b = pcOut[6], out = pc[5]);
-    And(a = pcOut[7], b = pcOut[7], out = pc[6]);
-    And(a = pcOut[8], b = pcOut[8], out = pc[7]);
-    And(a = pcOut[9], b = pcOut[9], out = pc[8]);
-    And(a = pcOut[10], b = pcOut[10], out = pc[9]);
-    And(a = pcOut[11], b = pcOut[11], out = pc[10]);
-    And(a = pcOut[12], b = pcOut[12], out = pc[11]);
-    And(a = pcOut[13], b = pcOut[13], out = pc[12]);
-    And(a = pcOut[14], b = pcOut[14], out = pc[13]);
-    And(a = pcOut[15], b = pcOut[15], out = pc[14]);
+    PC(in = ARegisterResult, load = jumpResult, inc = incResult, reset = reset, out[15] = false, out[0..14] = pc);
 }
