@@ -14,11 +14,11 @@
  * memory location addressed by A, i.e. to Memory[A]. The inM input 
  * holds the value of this location. If the current instruction needs 
  * to write a value to M, the value is placed in outM, the address 
- * of the target location is placed in the addressM output, and the 
+ * of the target location is placed in the pc output, and the 
  * writeM control bit is asserted. (When writeM==0, any value may 
  * appear in outM). The outM and writeM outputs are combinational: 
  * they are affected instantaneously by the execution of the current 
- * instruction. The addressM and pc outputs are clocked: although they 
+ * instruction. The pc and pc outputs are clocked: although they 
  * are affected by the execution of the current instruction, they commit 
  * to their new values only in the next time step. If reset==1 then the 
  * CPU jumps to address 0 (i.e. pc is set to 0 in next time step) rather 
@@ -35,28 +35,72 @@ CHIP CPU {
 
     OUT outM[16],        // M value outputs 						  data
         writeM,          // Write to M? 							  load
-        addressM[15],    // Address in data memory (of M)			  mem adr
+        pc[15],    // Address in data memory (of M)			  mem adr
         pc[15];          // address of next Instruction 			  ROM adr for next
 
     PARTS:
     // Put your code here:
     Mux16(a = instruction, b = ALUResult, sel = instruction[15], out = outToARegister);
-    Register(in = outToARegister, load = instruction[6], out = addressM); //A REGISTER
-    Mux16(a = addressM, b = inM, sel = instruction[12], out = AOrMResult);
-    Register(in = ALUResult, load = instruction[4], out = DRegisterResult); //D REGISTER
-    ALU(x = addressM, y = DRegisterResult, zx = instruction[11], nx = instruction[10], zy = instruction[9], ny = instruction[8], f = instruction[7], no = instruction[6], out = ALUResult, zr = ALUz, ng = ALUn);
+    ARegister(in = outToARegister, load = instruction[6], out = ARegisterResult); //A REGISTER
+    Mux16(a = ARegisterResult, b = inM, sel = instruction[12], out = AOrMResult);
+    DRegister(in = ALUResult, load = instruction[4], out = DRegisterResult); //D REGISTER
+    ALU(x = ARegisterResult, y = DRegisterResult, zx = instruction[11], nx = instruction[10], zy = instruction[9], ny = instruction[8], f = instruction[7], no = instruction[6], out = ALUResult, zr = ALUz, ng = ALUn);
     And16(a = ALUResult, b = ALUResult, out = outM); //Just had to get ALUResult to outM
     And(a = instruction[3], b = True, out = writeM); //Test if we're writingM or not
-    And16(a = addressM, b = addressM, out = addressM);
+
+    And(a = instruction[1], b = instruction[1], out = pc[0]);
+    And(a = instruction[2], b = instruction[2], out = pc[1]);
+    And(a = instruction[3], b = instruction[3], out = pc[2]);
+    And(a = instruction[4], b = instruction[4], out = pc[3]);
+    And(a = instruction[5], b = instruction[5], out = pc[4]);
+    And(a = instruction[6], b = instruction[6], out = pc[5]);
+    And(a = instruction[7], b = instruction[7], out = pc[6]);
+    And(a = instruction[8], b = instruction[8], out = pc[7]);
+    And(a = instruction[9], b = instruction[9], out = pc[8]);
+    And(a = instruction[10], b = instruction[10], out = pc[9]);
+    And(a = instruction[11], b = instruction[11], out = pc[10]);
+    And(a = instruction[12], b = instruction[12], out = pc[11]);
+    And(a = instruction[13], b = instruction[13], out = pc[12]);
+    And(a = instruction[14], b = instruction[14], out = pc[13]);
+    And(a = instruction[15], b = instruction[15], out = pc[14]);
+
 
     Not(in = ALUz, out = NotALUz);
     Not(in = ALUn, out = NotALUn);
     And(a = NotALUn, b = NotALUz, out = JGTb);
     Or(a = ALUn, b = ALUz, out = JLEg);
 
-    Mux8Way(a = False, b = JGTb, c = ALUz, d = NotALUn, e = ALUn, f = NotALUz, g = JLEg, h = True, sel[0] = instruction[2], sel[1] = instruction[1], sel[2] = instruction[0], out = jumpResult);
+    //Mux4Way(a = False, b = JGTb, c = ALUz, d = NotALUn, sel[0] = instruction[2], sel[1] = instruction[1], out = ABCDjumpResult);
+    //Mux4Way(e = ALUn, f = NotALUz, g = JLEg, h = True, sel[0] = instruction[2], sel[1] = instruction[1], out = EFGHjumpResult);
+    //Mux(a = ABCDjumpResult, b = EFGHjumpResult, sel = instruction[3], out = jumpResult)
+
+    //Mux8Way(a = False, b = JGTb, c = ALUz, d = NotALUn, e = ALUn, f = NotALUz, g = JLEg, h = True, sel[0] = instruction[2], sel[1] = instruction[1], sel[2] = instruction[0], out = jumpResult);
+
+    Mux(a = False, b = ALUz, sel = instruction[1], out = outac);
+    Mux(a = JGTb, b = NotALUn, sel = instruction[1], out = outbd);
+    Mux(a = outac, b = outbd, sel = instruction[2], out = abcd);
+    Mux(a = ALUn, b = JLEg, sel = instruction[1], out = outeg);
+    Mux(a = NotALUz, b = True, sel = instruction[1], out = outfh);
+    Mux(a = outeg, b = outfh, sel = instruction[2], out = efgh);
+    Mux(a = abcd, b = efgh, sel = instruction[0], out = jumpResult);
 
     Not(in = jumpResult, out = incResult);
 
-    PC(in = addressM, load = jumpResult, inc = incResult, reset = reset, out = pc);
+    PC(in = ARegisterResult, load = jumpResult, inc = incResult, reset = reset, out = pcOut);
+
+    And(a = pcOut[1], b = pcOut[1], out = pc[0]);
+    And(a = pcOut[2], b = pcOut[2], out = pc[1]);
+    And(a = pcOut[3], b = pcOut[3], out = pc[2]);
+    And(a = pcOut[4], b = pcOut[4], out = pc[3]);
+    And(a = pcOut[5], b = pcOut[5], out = pc[4]);
+    And(a = pcOut[6], b = pcOut[6], out = pc[5]);
+    And(a = pcOut[7], b = pcOut[7], out = pc[6]);
+    And(a = pcOut[8], b = pcOut[8], out = pc[7]);
+    And(a = pcOut[9], b = pcOut[9], out = pc[8]);
+    And(a = pcOut[10], b = pcOut[10], out = pc[9]);
+    And(a = pcOut[11], b = pcOut[11], out = pc[10]);
+    And(a = pcOut[12], b = pcOut[12], out = pc[11]);
+    And(a = pcOut[13], b = pcOut[13], out = pc[12]);
+    And(a = pcOut[14], b = pcOut[14], out = pc[13]);
+    And(a = pcOut[15], b = pcOut[15], out = pc[14]);
 }
