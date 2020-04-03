@@ -47,27 +47,29 @@ CHIP CPU {
     ALU(x = ARegisterResult, y = DRegisterResult, zx = instruction[11], nx = instruction[10], zy = instruction[9], ny = instruction[8], f = instruction[7], no = instruction[6], out = ALUResult, zr = ALUz, ng = ALUn);
     And16(a = ALUResult, b = ALUResult, out = outM); //Just had to get ALUResult to outM
 
-    //NOTE for future me: Address M & Write M are outputting incorrectly. I *think* they're not supposed to do anything until program counter ticks once. Uncertain. Maybe try it with both CPU test files, to see if they react differently (I doubt they will, but worth a shot.)
+    //NOTE for future me: Address M & Write M are outputting incorrectly. I *think* they're not supposed to do anything until program counter ticks once. Uncertain. Maybe try it with both CPU test files, to see if they react differently (I doubt they will, but worth a shot.) - no, I don't think this is correct.
 
-    And(a = instruction[3], b = true, out = writeM); //Should not trigger on A commands. Only C.
+    //only if instruction15 (aorc) = 0\1, && instruction3 = 1, writeM.
+    And(a = instruction[3], b = instruction[15], out = writeM); 
 
     //There has to be a better way than this mess. // Also should not trigger on A commands. Only C.
     //Also, the number it outputs, in addition to the initial bit it is supposed to excise, is also missing a bit from either end.
-    And(a = instruction[1], b = instruction[1], out = addressM[0]);
-    And(a = instruction[2], b = instruction[2], out = addressM[1]);
-    And(a = instruction[3], b = instruction[3], out = addressM[2]);
-    And(a = instruction[4], b = instruction[4], out = addressM[3]);
-    And(a = instruction[5], b = instruction[5], out = addressM[4]);
-    And(a = instruction[6], b = instruction[6], out = addressM[5]);
-    And(a = instruction[7], b = instruction[7], out = addressM[6]);
-    And(a = instruction[8], b = instruction[8], out = addressM[7]);
-    And(a = instruction[9], b = instruction[9], out = addressM[8]);
-    And(a = instruction[10], b = instruction[10], out = addressM[9]);
-    And(a = instruction[11], b = instruction[11], out = addressM[10]);
-    And(a = instruction[12], b = instruction[12], out = addressM[11]);
-    And(a = instruction[13], b = instruction[13], out = addressM[12]);
-    And(a = instruction[14], b = instruction[14], out = addressM[13]);
-    And(a = instruction[15], b = instruction[15], out = addressM[14]);
+    And16(a = ARegisterResult, b = ARegisterResult, out[0] = false, out[1] = addressM[0],out[2] = addressM[1],out[3] = addressM[2],out[4] = addressM[3],out[5] = addressM[4],out[6] = addressM[5],out[7] = addressM[6],out[8] = addressM[7],out[9] = addressM[8],out[10] = addressM[9],out[11] = addressM[10],out[12] = addressM[11],out[13] = addressM[12],out[14] = addressM[13],out[15] = addressM[14]);
+    //And(a = instruction[1], b = instruction[1], out = addressM[0]);
+    //And(a = instruction[2], b = instruction[2], out = addressM[1]);
+    //And(a = instruction[3], b = instruction[3], out = addressM[2]);
+    //And(a = instruction[4], b = instruction[4], out = addressM[3]);
+    //And(a = instruction[5], b = instruction[5], out = addressM[4]);
+    //And(a = instruction[6], b = instruction[6], out = addressM[5]);
+    //And(a = instruction[7], b = instruction[7], out = addressM[6]);
+    //And(a = instruction[8], b = instruction[8], out = addressM[7]);
+    //And(a = instruction[9], b = instruction[9], out = addressM[8]);
+    //And(a = instruction[10], b = instruction[10], out = addressM[9]);
+    //And(a = instruction[11], b = instruction[11], out = addressM[10]);
+    //And(a = instruction[12], b = instruction[12], out = addressM[11]);
+    //And(a = instruction[13], b = instruction[13], out = addressM[12]);
+    //And(a = instruction[14], b = instruction[14], out = addressM[13]);
+    //And(a = instruction[15], b = instruction[15], out = addressM[14]);
 
     Not(in = ALUz, out = NotALUz);
     Not(in = ALUn, out = NotALUn);
