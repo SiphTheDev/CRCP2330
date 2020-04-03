@@ -47,11 +47,12 @@ CHIP CPU {
     ALU(x = ARegisterResult, y = DRegisterResult, zx = instruction[11], nx = instruction[10], zy = instruction[9], ny = instruction[8], f = instruction[7], no = instruction[6], out = ALUResult, zr = ALUz, ng = ALUn);
     And16(a = ALUResult, b = ALUResult, out = outM); //Just had to get ALUResult to outM
 
-    //NOTE for future me: Address M & Write M are outputting incorrectly. I *think* they're not supposed to do anything until program counter ticks once. Uncertain.
+    //NOTE for future me: Address M & Write M are outputting incorrectly. I *think* they're not supposed to do anything until program counter ticks once. Uncertain. Maybe try it with both CPU test files, to see if they react differently (I doubt they will, but worth a shot.)
 
-    And(a = instruction[3], b = true, out = writeM); //Test if we're writingM or not
+    And(a = instruction[3], b = true, out = writeM); //Should not trigger on A commands. Only C.
 
-    //There has to be a better way than this mess.
+    //There has to be a better way than this mess. // Also should not trigger on A commands. Only C.
+    //Also, the number it outputs, in addition to the initial bit it is supposed to excise, is also missing a bit from either end.
     And(a = instruction[1], b = instruction[1], out = addressM[0]);
     And(a = instruction[2], b = instruction[2], out = addressM[1]);
     And(a = instruction[3], b = instruction[3], out = addressM[2]);
