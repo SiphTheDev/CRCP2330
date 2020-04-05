@@ -52,7 +52,7 @@ CHIP CPU {
     And16(a = ARegisterResult, b = ARegisterResult, out[0] = addressM[0], out[1] = addressM[1],out[2] = addressM[2],out[3] = addressM[3],out[4] = addressM[4],out[5] = addressM[5],out[6] = addressM[6],out[7] = addressM[7],out[8] = addressM[8],out[9] = addressM[9],out[10] = addressM[10],out[11] = addressM[11],out[12] = addressM[12],out[13] = addressM[13],out[14] = addressM[14],out[15] = false); 
    
     Not(in = ALUz, out = NotALUz);
-    Not(in = ALUn, out = NotALUn);
+    Not(in = ALUn, out = NotALUn); 
     And(a = NotALUn, b = NotALUz, out = JGTb);
     Or(a = ALUn, b = ALUz, out = JLEg);
 
