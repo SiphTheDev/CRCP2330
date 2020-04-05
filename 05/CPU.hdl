@@ -41,10 +41,12 @@ CHIP CPU {
     PARTS:
     // Put your code here:
     Mux16(a = instruction, b = ALUResult, sel = instruction[15], out = outToARegister);
+    //And(a = instruction[5], b = instruction[15], out = loadARegister); //must also adjust Areg load.
     ARegister(in = outToARegister, load = instruction[5], out = ARegisterResult); //A REGISTER
     Mux16(a = ARegisterResult, b = inM, sel = instruction[12], out = AOrMResult);
+    //And(a = instruction[4], b = instruction[15], out = loadDRegister); //must also adjust Dreg load.
     DRegister(in = ALUResult, load = instruction[4], out = DRegisterResult); //D REGISTER
-    ALU(x = ARegisterResult, y = DRegisterResult, zx = instruction[11], nx = instruction[10], zy = instruction[9], ny = instruction[8], f = instruction[7], no = instruction[6], out = ALUResult, zr = ALUz, ng = ALUn);
+    ALU(x = DRegisterResult, y = ARegisterResult, zx = instruction[11], nx = instruction[10], zy = instruction[9], ny = instruction[8], f = instruction[7], no = instruction[6], out = ALUResult, zr = ALUz, ng = ALUn);
     And16(a = ALUResult, b = ALUResult, out = outM); //Just had to get ALUResult to outM
     
     And(a = instruction[3], b = instruction[15], out = writeM); //only if instruction15 (aorc) = 0\1, && instruction3 = 1, writeM. 
@@ -68,5 +70,5 @@ CHIP CPU {
 
     PC(in = ARegisterResult, load = jumpResult, inc = incResult, reset = reset, out[15] = false, out[0..14] = pc);
 
-    //Current Bug: D register not recieving data?
+    //Current Bug: D register not recieving data - ALU outputs 0 instead of 12345.
 }
