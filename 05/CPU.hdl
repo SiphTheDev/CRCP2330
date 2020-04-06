@@ -72,11 +72,11 @@ CHIP CPU {
 
     Mux(a = false, b = ALUz, sel = instruction[1], out = outac);
     Mux(a = JGTb, b = NotALUn, sel = instruction[1], out = outbd);
-    Mux(a = outac, b = outbd, sel = instruction[2], out = abcd);
+    Mux(a = outac, b = outbd, sel = instruction[0], out = abcd);
     Mux(a = ALUn, b = JLEg, sel = instruction[1], out = outeg);
     Mux(a = NotALUz, b = true, sel = instruction[1], out = outfh); 
-    Mux(a = outeg, b = outfh, sel = instruction[2], out = efgh);
-    Mux(a = abcd, b = efgh, sel = instruction[0], out = jumpResultVal);
+    Mux(a = outeg, b = outfh, sel = instruction[0], out = efgh);
+    Mux(a = abcd, b = efgh, sel = instruction[2], out = jumpResultVal);
 
     And(a = jumpResultVal, b = instruction[15], out = jumpResult);
 
