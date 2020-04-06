@@ -41,16 +41,20 @@ CHIP CPU {
     PARTS:
     // Put your code here:
     Mux16(a = instruction, b = ALUResult, sel = instruction[15], out = outToARegister);
-    //And(a = instruction[5], b = instruction[15], out = loadARegister); //must also adjust Areg load.
-    ARegister(in = outToARegister, load = instruction[5], out = ARegisterResult); //A REGISTER
-    Mux16(a = ARegisterResult, b = inM, sel = instruction[12], out = AOrMResult);
-    //And(a = instruction[4], b = instruction[15], out = loadDRegister); //must also adjust Dreg load.
-    DRegister(in = ALUResult, load = instruction[4], out = DRegisterResult); //D REGISTER
-    ALU(x = DRegisterResult, y = AOrMResult, zx = instruction[11], nx = instruction[10], zy = instruction[9], ny = instruction[8], f = instruction[7], no = instruction[6], out = ALUResult, zr = ALUz, ng = ALUn);
-    And16(a = ALUResult, b = ALUResult, out = outM); //Just had to get ALUResult to outM
     
+    Not(in = instruction[15], out = notInstr15);
+    Or(a = instruction[5], b = notInstr15, out = loadARegister); //must also adjust Areg load.
+    ARegister(in = outToARegister, load = loadARegister, out = ARegisterResult); //A REGISTER
+    
+    Mux16(a = ARegisterResult, b = inM, sel = instruction[12], out = AOrMResult);
+    
+    And(a = instruction[4], b = instruction[15], out = loadDRegister); //must also adjust Dreg load.
+    DRegister(in = ALUResult, load = loadDRegister, out = DRegisterResult); //D REGISTER
+    
+    ALU(x = DRegisterResult, y = AOrMResult, zx = instruction[11], nx = instruction[10], zy = instruction[9], ny = instruction[8], f = instruction[7], no = instruction[6], out = ALUResult, zr = ALUz, ng = ALUn);
+    
+    And16(a = ALUResult, b = ALUResult, out = outM); //Just had to get ALUResult to outM
     And(a = instruction[3], b = instruction[15], out = writeM); //only if instruction15 (aorc) = 0\1, && instruction3 = 1, writeM. 
-
     And16(a = ARegisterResult, b = ARegisterResult, out[0] = addressM[0], out[1] = addressM[1],out[2] = addressM[2],out[3] = addressM[3],out[4] = addressM[4],out[5] = addressM[5],out[6] = addressM[6],out[7] = addressM[7],out[8] = addressM[8],out[9] = addressM[9],out[10] = addressM[10],out[11] = addressM[11],out[12] = addressM[12],out[13] = addressM[13],out[14] = addressM[14],out[15] = false); 
    
     Not(in = ALUz, out = NotALUz);
@@ -58,7 +62,7 @@ CHIP CPU {
     And(a = NotALUn, b = NotALUz, out = JGTb);
     Or(a = ALUn, b = ALUz, out = JLEg);
 
-    //THESE 3 JUST FOR TESTING THE VALS OF INSTRUCTION
+    //THESE 6 JUST FOR TESTING THE VALS OF INSTRUCTION
     Or(a = instruction[0], b = false, out = inst0chk);
     Or(a = instruction[1], b = false, out = inst1chk);
     Or(a = instruction[2], b = false, out = inst2chk);
@@ -80,5 +84,5 @@ CHIP CPU {
 
     PC(in = ARegisterResult, load = jumpResult, inc = incResult, reset = reset, out[15] = false, out[0..14] = pc);
 
-    //Current Bug: Used A instead of M, it seems
+    //Current Bug: Address M 
 }
