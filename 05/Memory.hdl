@@ -36,24 +36,4 @@ CHIP Memory {
     Keyboard(out = keyboard);
 
     Mux4Way16(a = out00, b = out01, c = out10, d = keyboard, sel = address[13..14], out = out);
-
-
-
-
-
-
-
-
-   
-    //DMux(in = load, sel = address[14], a = loadRAM, b = loadScreenOrKeyboard);
-    //DMux(in = loadScreenOrKeyboard, sel = address[13], a = loadKeyboard, b = loadScreen);
-
-    //RAM16K(in = in, load = loadRAM, address = address[0..13], out = OutRAM);
-    //Screen(in = in, load = loadScreen, address = address[0..12], out = OutScreen);
-    //Keyboard(out = OutKeyboard);
-  
-    //Mux16(a = OutKeyboard, b = OutScreen, sel = address[13], out = OutScreenOrKeyboard);
-    //Mux16(a = OutRAM, b = OutScreenOrKeyboard, sel = address[14], out = out);
-
-    //UNFINISHED
 }
