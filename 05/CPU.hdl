@@ -58,17 +58,27 @@ CHIP CPU {
     And(a = NotALUn, b = NotALUz, out = JGTb);
     Or(a = ALUn, b = ALUz, out = JLEg);
 
+    //THESE 3 JUST FOR TESTING THE VALS OF INSTRUCTION
+    Or(a = instruction[0], b = false, out = inst0chk);
+    Or(a = instruction[1], b = false, out = inst1chk);
+    Or(a = instruction[2], b = false, out = inst2chk);
+    Or(a = instruction[3], b = false, out = inst3chk);
+    Or(a = instruction[4], b = false, out = inst4chk);
+    Or(a = instruction[5], b = false, out = inst5chk);
+
     Mux(a = false, b = ALUz, sel = instruction[1], out = outac);
     Mux(a = JGTb, b = NotALUn, sel = instruction[1], out = outbd);
     Mux(a = outac, b = outbd, sel = instruction[2], out = abcd);
     Mux(a = ALUn, b = JLEg, sel = instruction[1], out = outeg);
     Mux(a = NotALUz, b = true, sel = instruction[1], out = outfh); 
     Mux(a = outeg, b = outfh, sel = instruction[2], out = efgh);
-    Mux(a = abcd, b = efgh, sel = instruction[0], out = jumpResult);
+    Mux(a = abcd, b = efgh, sel = instruction[0], out = jumpResultVal);
+
+    And(a = jumpResultVal, b = instruction[15], out = jumpResult);
 
     Not(in = jumpResult, out = incResult);
 
     PC(in = ARegisterResult, load = jumpResult, inc = incResult, reset = reset, out[15] = false, out[0..14] = pc);
 
-    //Current Bug: D register not recieving data - ALU outputs 0 instead of 12345.
+    //Current Bug: Jump needs to acccount for A vs C instruct
 }
