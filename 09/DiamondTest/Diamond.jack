@@ -5,11 +5,11 @@ class Diamond {
 	constructor Diamond new(int disp){
 	let displacement = disp;
 	let spacing = 0;
-	do draw();
+	//do drawD(); //redundant with the one in main, right?
 	return this;
 	}
 
-	method void draw(){
+	method void drawDia(){
 		let spacing = Math.multiply(5, displacement);
    		do Screen.drawLine(spacing+2, 0, spacing+4, 2);
    		do Screen.drawLine(spacing+4, 2, spacing+2, 4);

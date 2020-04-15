@@ -10,14 +10,18 @@ class Main {
       var int numDiamonds;
       var int i;
       var Array dArray;
+      var int a;
 
       let numDiamonds = Keyboard.readInt("How many diamonds?");
+      do Output.println();
       let i = 0;
       let dArray = Array.new(numDiamonds); //constructs the array
 
       while(i < numDiamonds){
       	let dArray[i] = Diamond.new(i);
-         do dArray[i].draw();//should hopefully draw the diamond.
+         let a = dArray[i];
+         do a.drawDia(); //Bug fix: apparently can't call a func directly on the array, so have to assign it to this var 1st? Ask about that.
+         let i = i+1;
       }
       return;
    }
