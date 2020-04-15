@@ -7,27 +7,25 @@
 class Main {
    function void main() {
       /* Prints some text using the standard library. */
-      //var Array diamondArray;
       var int numDiamonds;
-      //var int diamondSize;
       var int i;
+      var Array dArray;
 
       let numDiamonds = Keyboard.readInt("How many diamonds?");
       let i = 0;
-      //let diamondSize = Keyboard.readInt("How big?");
 
       while(i < numDiamonds){
-      	do diamond(i);
+      	do diamond(i); //TODO may need to make a diamond class, then put the function/method below as a method within it. 
       }
       return;
    }
 
-   function void diamond(int iterations){
-   		do int spacing = multiply(5,i);
-   		do drawLine(spacing+2, 0, spacing+4, 2);
-   		do drawLine(spacing+4, 2, spacing+2, 4);
-   		do drawLine(spacing+2, 4, spacing, 2);
-   		do drawLine(spacing, 2, spacing+2, 0);
-   		return;
-   }
+   //function void diamond(int iterations){
+   		//do int spacing = multiply(5,i);
+   		//do drawLine(spacing+2, 0, spacing+4, 2);
+   		//do drawLine(spacing+4, 2, spacing+2, 4);
+   		//do drawLine(spacing+2, 4, spacing, 2);
+   		//do drawLine(spacing, 2, spacing+2, 0);
+   		//return;
+   //}
 }

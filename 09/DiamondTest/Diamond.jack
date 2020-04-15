@@ -1,0 +1,18 @@
+class Diamond {
+	field int displacement;
+
+	/**Constructs a new diamond in a position not overlapping with previous diamonds*/
+	constructor Diamond new(int disp){
+	let displacement = disp;
+	do draw();
+	return this;
+	}
+
+	method void draw(){
+	do int spacing = multiply(5,disp);
+   		do drawLine(spacing+2, 0, spacing+4, 2);
+   		do drawLine(spacing+4, 2, spacing+2, 4);
+   		do drawLine(spacing+2, 4, spacing, 2);
+   		do drawLine(spacing, 2, spacing+2, 0);
+	}
+}
