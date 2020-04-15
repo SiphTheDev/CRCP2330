@@ -13,19 +13,12 @@ class Main {
 
       let numDiamonds = Keyboard.readInt("How many diamonds?");
       let i = 0;
+      let dArray = Array.new(numDiamonds); //constructs the array
 
       while(i < numDiamonds){
-      	do diamond(i); //TODO may need to make a diamond class, then put the function/method below as a method within it. 
+      	let dArray[i] = Diamond.new(i);
+         do dArray[i].draw();//should hopefully draw the diamond.
       }
       return;
    }
-
-   //function void diamond(int iterations){
-   		//do int spacing = multiply(5,i);
-   		//do drawLine(spacing+2, 0, spacing+4, 2);
-   		//do drawLine(spacing+4, 2, spacing+2, 4);
-   		//do drawLine(spacing+2, 4, spacing, 2);
-   		//do drawLine(spacing, 2, spacing+2, 0);
-   		//return;
-   //}
 }
