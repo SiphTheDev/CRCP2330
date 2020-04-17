@@ -10,7 +10,8 @@ class Main {
       var int numDiamonds;
       var int i;
       var Array dArray;
-      var int a;
+      var Diamond a;
+      let a = Diamond.new(0);
 
       let numDiamonds = Keyboard.readInt("How many diamonds?");
       do Output.println();
@@ -19,8 +20,9 @@ class Main {
 
       while(i < numDiamonds){
       	let dArray[i] = Diamond.new(i);
+         //do dArray[i].drawDia(); //Bug: This leads to a syntax error: "Expected ("
          let a = dArray[i];
-         do a.drawDia(); //Bug fix: apparently can't call a func directly on the array, so have to assign it to this var 1st? Ask about that.
+         do a.drawDia(); //Bug: This leads to a later error in the 
          let i = i+1;
       }
       return;

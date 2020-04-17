@@ -5,7 +5,6 @@ class Diamond {
 	constructor Diamond new(int disp){
 	let displacement = disp;
 	let spacing = 0;
-	//do drawD(); //redundant with the one in main, right?
 	return this;
 	}
 
