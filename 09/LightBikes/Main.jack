@@ -1,0 +1,12 @@
+// By: Thomas Park, Apr 18, 2020
+
+// Initializes a new game, runs it, and disposes of it when done.
+class Main {
+	function void main(){
+		var LightBikeGame tron;
+		let tron = LightBikeGame.new();
+		do tron.run();
+		do tron.dispose();
+		return;
+	}
+}

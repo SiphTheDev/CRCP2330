@@ -1,0 +1,13 @@
+class LightBikeGame{
+	// field variables here
+		//Create Bike Obj
+
+	// Constructor here
+
+	// Various Methods
+		// Take in inputs
+		// Movement
+		// Draw
+		// Collision Check
+		// Dispose
+}
