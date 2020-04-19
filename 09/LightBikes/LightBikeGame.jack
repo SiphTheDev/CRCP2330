@@ -25,37 +25,38 @@ class LightBikeGame{
 		//let key = 0;
 		while(~exit){
 			if(Keyboard.keyPressed() = 0){
-			do Output.printString("Moving");
-			do Output.println();
+			//do Output.printString("Moving");
+			//do Output.println();
 			//	do move(key);
 			}
-			if(Keyboard.keyPressed() = 83){
+			if(Keyboard.keyPressed() = 131){ //UpArrow
 			do Output.printString("Up");
 			do Output.println();
 			//	let key = ???
 			//	do move(key);
 			}
-			if(Keyboard.keyPressed() = 89){
+			if(Keyboard.keyPressed() = 132){//RightArrow
 			do Output.printString("Right");
 			do Output.println();
 			//	let key = ???
 			//	do move(key);
 			}
-			if(Keyboard.keyPressed() = 84){
+			if(Keyboard.keyPressed() = 133){//DownArrow
 			do Output.printString("Down");
 			do Output.println();
 			//	let key = ???
 			//	do move(key);
 			}
-			if(Keyboard.keyPressed() = 79){
+			if(Keyboard.keyPressed() = 130){//LeftArrow
 			do Output.printString("Left");
 			do Output.println();
 			//	let key = ???
 			//	do move(key);
 			}
 			else{}
-			return;
 		}
+		return;
+
 
 
 

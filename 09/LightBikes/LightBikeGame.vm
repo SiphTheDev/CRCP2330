@@ -26,27 +26,9 @@ eq
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
-push constant 6
-call String.new 1
-push constant 77
-call String.appendChar 2
-push constant 111
-call String.appendChar 2
-push constant 118
-call String.appendChar 2
-push constant 105
-call String.appendChar 2
-push constant 110
-call String.appendChar 2
-push constant 103
-call String.appendChar 2
-call Output.printString 1
-pop temp 0
-call Output.println 0
-pop temp 0
 label IF_FALSE0
 call Keyboard.keyPressed 0
-push constant 83
+push constant 131
 eq
 if-goto IF_TRUE1
 goto IF_FALSE1
@@ -63,7 +45,7 @@ call Output.println 0
 pop temp 0
 label IF_FALSE1
 call Keyboard.keyPressed 0
-push constant 89
+push constant 132
 eq
 if-goto IF_TRUE2
 goto IF_FALSE2
@@ -86,7 +68,7 @@ call Output.println 0
 pop temp 0
 label IF_FALSE2
 call Keyboard.keyPressed 0
-push constant 84
+push constant 133
 eq
 if-goto IF_TRUE3
 goto IF_FALSE3
@@ -107,7 +89,7 @@ call Output.println 0
 pop temp 0
 label IF_FALSE3
 call Keyboard.keyPressed 0
-push constant 79
+push constant 130
 eq
 if-goto IF_TRUE4
 goto IF_FALSE4
@@ -129,7 +111,7 @@ pop temp 0
 goto IF_END4
 label IF_FALSE4
 label IF_END4
-push constant 0
-return
 goto WHILE_EXP0
 label WHILE_END0
+push constant 0
+return
