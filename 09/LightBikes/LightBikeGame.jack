@@ -83,12 +83,25 @@ class LightBikeGame{
 
 	method void drawInterface(){
 			do Screen.setColor(true);
-			do Screen.drawRectangle(141,33,479,223);
+			do Screen.drawRectangle(0,0,511, 255);
+			/*do Screen.drawRectangle(129,33,479,223); 	//Game Area
+			do Screen.drawRectangle(0,0,511,31); 		//Interface & Borders
+			do Screen.drawRectangle(0,225,511,255);
+			do Screen.drawRectangle(481,0,511,255);
+			do Screen.drawRectangle(0,0,127,255);*/
+
 			do Screen.setColor(false);
-			do Screen.drawLine(140, 32, 480, 32);
+			do Screen.drawLine(128, 32, 480, 32);
 			do Screen.drawLine(480, 32, 480, 224);
-			do Screen.drawLine(480, 224, 140, 224);
-			do Screen.drawLine(140, 224, 140, 32);
+			do Screen.drawLine(480, 224, 128, 224);
+			do Screen.drawLine(128, 224, 128, 32);
+
+			/*do Output.moveCursor(3,3);
+			do Output.printString("Score");
+			do Output.moveCursor(6,3);
+			do Output.printString("Lives");
+			do Output.moveCursor(12,3);
+			do Output.printString("Controls");*/
 			return;
 	}
 
