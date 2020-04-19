@@ -10,10 +10,18 @@ class Bike{
 	}
 
 	//move
+	method void move(){
+
+	}
 
 	//dispose
 
 	//erase
 
 	//draw
+	method void draw(){ //up
+		Screen.drawLine(x, y-2, x-2, y+2);
+		Screen.drawLine(x-2, y+2, x+2, y+2);
+		Screen.drawLine(x+2, y+2, x, y-2);
+	}
 }

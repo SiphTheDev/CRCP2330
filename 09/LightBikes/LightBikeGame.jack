@@ -9,9 +9,15 @@ class LightBikeGame{
 	// Constructor
 	constructor LightBikeGame new(){
 		let player = Bike.new(205, 224);
+		let orientation = 1; //TEMP
 	}
 
 	// Various Methods
+	Method void Move(){
+		if(orientation = 1){
+			do Bike.draw();
+		}
+	}
 		// Take in inputs
 		// Movement
 		// Draw - do this in the movement!
