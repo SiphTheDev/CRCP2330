@@ -8,7 +8,7 @@ class LightBikeGame{
 	// Constructor
 	constructor LightBikeGame new(){
 		let player = Bike.new(205, 224);
-		let orientation = 0; //0 = Up, 1 = R, 2 = Down, 3 = L
+		let orientation = 0; //0 = Up, 1 = Right, 2 = Down, 3 = Left
 		return this;
 	}
 
@@ -18,53 +18,56 @@ class LightBikeGame{
 
 		let exit = false;
 		while(~exit){
+			//do Output.printInt(orientation);
+			if(Keyboard.keyPressed() = 131){ //UpArrow     
+				do move(131);
+			}
+			if(Keyboard.keyPressed() = 132){ //RightArrow
+				do move(132);
+			}
+			if(Keyboard.keyPressed() = 133){ //DownArrow
+				do move(133);
+			}
+			if(Keyboard.keyPressed() = 130){ //LeftArrow
+				do move(130);
+			}
 			if(Keyboard.keyPressed() = 0){
 				do move(0);
 			}
-			if(Keyboard.keyPressed() = 131){ //UpArrow
-				do move(131);
-			}
-			if(Keyboard.keyPressed() = 132){//RightArrow
-				do move(132);
-			}
-			if(Keyboard.keyPressed() = 133){//DownArrow
-				do move(133);
-			}
-			if(Keyboard.keyPressed() = 130){//LeftArrow
-				do move(130);
-			}
-			if(Keyboard.keyPressed() = 81){//Q
+			if(Keyboard.keyPressed() = 81){ //Q
 				let exit = true; //exits the game
-			}
+			}	
+			//TODO add a reset option later if have time.
 			else{}
-			//TODO add a reset option later if have time. 
+
+			do Sys.wait(30);
 		}
 		return;
 	}
 
 	method void move(int key){
 		if(key = 131){ //UP
-			if(orientation = 1 | orientation = 3){
-				do player.moveUp();
+			if(orientation = 1 | orientation = 3){ 			//Bug: Orientation check prevents it always
 				let orientation = 0;
+				do player.moveUp();
 			}
 		}
 		if(key = 132){ //RIGHT
 			if(orientation = 0 | orientation = 2){
-				do player.moveRight();
 				let orientation = 1;
+				do player.moveRight();	
 			}
 		}
 		if(key = 133){ //DOWN
 			if(orientation = 1 | orientation = 3){
-				do player.moveDown();
 				let orientation = 2;
+				do player.moveDown();
 			}
 		}
 		if(key = 130){ //LEFT
 			if(orientation = 0 | orientation = 2){
-				do player.moveLeft();
 				let orientation = 3;
+				do player.moveLeft();				
 			}
 		}
 		if(key = 0){
