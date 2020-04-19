@@ -17,31 +17,23 @@ class LightBikeGame{
 		var boolean exit;
 
 		let exit = false;
-		while(~exit){
-			//do Output.printInt(orientation);
-			if(Keyboard.keyPressed() = 131){ //UpArrow     
-				do move(131);
-			}
-			if(Keyboard.keyPressed() = 132){ //RightArrow
-				do move(132);
-			}
-			if(Keyboard.keyPressed() = 133){ //DownArrow
-				do move(133);
-			}
-			if(Keyboard.keyPressed() = 130){ //LeftArrow
-				do move(130);
-			}
-			if(Keyboard.keyPressed() = 0){
-				do move(0);
-			}
-			if(Keyboard.keyPressed() = 81){ //Q
-				let exit = true; //exits the game
-			}	
-			//TODO add a reset option later if have time.
-			else{}
 
-			do Sys.wait(30);
-		}
+		//while(~exit){
+			
+			while(~exit){
+				do drawInterface();
+				if(Keyboard.keyPressed() = 131){do move(131);} //UpArrow     			
+				if(Keyboard.keyPressed() = 132){do move(132);} //RightArrow
+				if(Keyboard.keyPressed() = 133){do move(133);} //DownArrow				
+				if(Keyboard.keyPressed() = 130){do move(130);} //LeftArrow					
+				if(Keyboard.keyPressed() = 0){do move(0);} 	   //Continue if not other keys pressed					
+				if(Keyboard.keyPressed() = 81){let exit = true;} //Q exits the game
+				//TODO add a reset option later if have time.
+				else{}
+
+				do Sys.wait(30);
+			}
+		//}
 		return;
 	}
 
@@ -88,6 +80,17 @@ class LightBikeGame{
 		//}
 		//}
 	//}
+
+	method void drawInterface(){
+			do Screen.setColor(true);
+			do Screen.drawRectangle(141,33,479,223);
+			do Screen.setColor(false);
+			do Screen.drawLine(140, 32, 480, 32);
+			do Screen.drawLine(480, 32, 480, 224);
+			do Screen.drawLine(480, 224, 140, 224);
+			do Screen.drawLine(140, 224, 140, 32);
+			return;
+	}
 
 
 

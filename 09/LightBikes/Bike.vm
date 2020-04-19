@@ -12,9 +12,12 @@ function Bike.moveUp 0
 push argument 0
 pop pointer 0
 push this 1
-push constant 2
+push constant 3
 sub
 pop this 1
+push constant 0
+call Screen.setColor 1
+pop temp 0
 push this 0
 push this 1
 push constant 2
@@ -59,9 +62,12 @@ function Bike.moveRight 0
 push argument 0
 pop pointer 0
 push this 0
-push constant 2
+push constant 3
 add
 pop this 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
 push this 0
 push this 1
 push constant 2
@@ -106,9 +112,12 @@ function Bike.moveDown 0
 push argument 0
 pop pointer 0
 push this 1
-push constant 2
+push constant 3
 add
 pop this 1
+push constant 0
+call Screen.setColor 1
+pop temp 0
 push this 0
 push this 1
 push constant 2
@@ -153,9 +162,12 @@ function Bike.moveLeft 0
 push argument 0
 pop pointer 0
 push this 0
-push constant 2
+push constant 3
 sub
 pop this 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
 push this 0
 push this 1
 push constant 2

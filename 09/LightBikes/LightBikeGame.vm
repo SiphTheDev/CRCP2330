@@ -20,6 +20,9 @@ push local 0
 not
 not
 if-goto WHILE_END0
+push pointer 0
+call LightBikeGame.drawInterface 1
+pop temp 0
 call Keyboard.keyPressed 0
 push constant 131
 eq
@@ -254,5 +257,47 @@ label IF_FALSE12
 goto IF_END8
 label IF_FALSE8
 label IF_END8
+push constant 0
+return
+function LightBikeGame.drawInterface 0
+push argument 0
+pop pointer 0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+push constant 141
+push constant 33
+push constant 479
+push constant 223
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push constant 140
+push constant 32
+push constant 480
+push constant 32
+call Screen.drawLine 4
+pop temp 0
+push constant 480
+push constant 32
+push constant 480
+push constant 224
+call Screen.drawLine 4
+pop temp 0
+push constant 480
+push constant 224
+push constant 140
+push constant 224
+call Screen.drawLine 4
+pop temp 0
+push constant 140
+push constant 224
+push constant 140
+push constant 32
+call Screen.drawLine 4
+pop temp 0
 push constant 0
 return
