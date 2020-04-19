@@ -3,20 +3,18 @@ class LightBikeGame{
 		//Create Bike Obj
 		field Bike player;
 		field int orientation;
+		//field var key;
 		//Make a pathPixel array
 
 	// Constructor
 	constructor LightBikeGame new(){
 		let player = Bike.new(205, 224);
 		let orientation = 0; //0 = Up, 1 = R, 2 = Down, 3 = L
+		//let key = 0;
 		return this;
 	}
 
-	// Various Methods
-	//method void move(){
-		
-	//}
-
+	//Main Game Loop
 	method void run(){
 		var boolean exit;
 		//var key;
@@ -27,41 +25,39 @@ class LightBikeGame{
 			if(Keyboard.keyPressed() = 0){
 			//do Output.printString("Moving");
 			//do Output.println();
-			//	do move(key);
+				do move(key);
 			}
 			if(Keyboard.keyPressed() = 131){ //UpArrow
 			do Output.printString("Up");
 			do Output.println();
-			//	let key = ???
+			//	let key = 0;
 			//	do move(key);
 			}
 			if(Keyboard.keyPressed() = 132){//RightArrow
 			do Output.printString("Right");
 			do Output.println();
-			//	let key = ???
+			//	let key = 1;
 			//	do move(key);
 			}
 			if(Keyboard.keyPressed() = 133){//DownArrow
 			do Output.printString("Down");
 			do Output.println();
-			//	let key = ???
+			//	let key = 2;
 			//	do move(key);
 			}
 			if(Keyboard.keyPressed() = 130){//LeftArrow
 			do Output.printString("Left");
 			do Output.println();
-			//	let key = ???
+			//	let key = 3;
 			//	do move(key);
 			}
+			if(Keyboard.keyPressed() = 81){//Q
+			let exit = true; //exits the game
+			}
 			else{}
+			//TODO add a reset option later if have time. 
 		}
 		return;
-
-
-
-
-
-
 
 
 
@@ -73,11 +69,22 @@ class LightBikeGame{
 		//return;
 	}
 
-	//method void move(int key){
-	//	if(orientation = 0){
-	//		if(key)
-	//	}
-	//}
+	method void move(int key){
+		if(orientation = 0){
+			if(key = left){
+			//do move left
+			//do orientation left
+			}
+		}
+	}
+
+
+
+
+
+
+
+	
 		// Take in inputs
 		// Movement
 		// Draw - do this in the movement!

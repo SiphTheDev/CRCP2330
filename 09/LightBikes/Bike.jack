@@ -10,20 +10,42 @@ class Bike{
 		return this;
 	}
 
-	//move
-	//method void move(){
+	//movement Methods
+	method void moveUp(){
+		let y = y-3;
+		do Screen.drawLine(x, y-2, x-2, y+2);
+		do Screen.drawLine(x-2, y+2, x+2, y+2);
+		do Screen.drawLine(x+2, y+2, x, y-2);
+		return;
+	}
 
-	//}
+	method void moveRight(){
+		let x = x+3;
+		//Draw
+		return;
+	}
+
+	method void moveDown(){
+		let y = y+3;
+		//Draw
+		return;
+	}
+
+	method void moveRight(){
+		let x = x-3;
+		//Draw
+		return;
+	}
 
 	//dispose
 
 	//erase
 
 	//draw
-	method void draw(){ //up
-		do Screen.drawLine(x, y-2, x-2, y+2);
-		do Screen.drawLine(x-2, y+2, x+2, y+2);
-		do Screen.drawLine(x+2, y+2, x, y-2);
-		return;
-	}
+	//method void draw(){ //up
+	//	
+	//	return;
+	//}
 }
+
+/// need the local key var, and separate draws
