@@ -7,12 +7,13 @@ class Bike{
 	constructor Bike new(int xPos, int yPos){
 		let x = xPos;
 		let y = yPos;
+		return this;
 	}
 
 	//move
-	method void move(){
+	//method void move(){
 
-	}
+	//}
 
 	//dispose
 
@@ -20,8 +21,9 @@ class Bike{
 
 	//draw
 	method void draw(){ //up
-		Screen.drawLine(x, y-2, x-2, y+2);
-		Screen.drawLine(x-2, y+2, x+2, y+2);
-		Screen.drawLine(x+2, y+2, x, y-2);
+		do Screen.drawLine(x, y-2, x-2, y+2);
+		do Screen.drawLine(x-2, y+2, x+2, y+2);
+		do Screen.drawLine(x+2, y+2, x, y-2);
+		return;
 	}
 }

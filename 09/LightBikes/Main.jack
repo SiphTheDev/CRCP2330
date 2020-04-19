@@ -6,7 +6,7 @@ class Main {
 		var LightBikeGame tron;
 		let tron = LightBikeGame.new();
 		do tron.run();
-		do tron.dispose();
+		//do tron.dispose();
 		return;
 	}
 }

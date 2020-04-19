@@ -4,19 +4,25 @@ class LightBikeGame{
 		field Bike player;
 		field int orientation;
 
-
-
 	// Constructor
 	constructor LightBikeGame new(){
 		let player = Bike.new(205, 224);
 		let orientation = 1; //TEMP
+		return this;
 	}
 
 	// Various Methods
-	Method void Move(){
+	//method void move(){
+		
+	//}
+
+	method void run(){
 		if(orientation = 1){
-			do Bike.draw();
+			do player.draw();
 		}
+		else{
+		}
+		return;
 	}
 		// Take in inputs
 		// Movement
