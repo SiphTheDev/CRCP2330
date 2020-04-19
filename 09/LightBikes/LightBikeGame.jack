@@ -3,11 +3,12 @@ class LightBikeGame{
 		//Create Bike Obj
 		field Bike player;
 		field int orientation;
+		//Make a pathPixel array
 
 	// Constructor
 	constructor LightBikeGame new(){
 		let player = Bike.new(205, 224);
-		let orientation = 1; //TEMP
+		let orientation = 0; //0 = Up, 1 = R, 2 = Down, 3 = L
 		return this;
 	}
 
@@ -17,6 +18,23 @@ class LightBikeGame{
 	//}
 
 	method void run(){
+		var boolean exit;
+
+		let exit = 0;
+		while(exit = 0){
+			if(Keyboard.keyPressed() = 0){
+				
+			}
+
+		}
+
+
+
+
+
+
+
+
 		if(orientation = 1){
 			do player.draw();
 		}
