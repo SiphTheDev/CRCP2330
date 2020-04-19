@@ -20,39 +20,39 @@ call Screen.setColor 1
 pop temp 0
 push this 0
 push this 1
-push constant 2
+push constant 6
 sub
 push this 0
-push constant 2
+push constant 3
 sub
 push this 1
-push constant 2
+push constant 3
 add
 call Screen.drawLine 4
 pop temp 0
 push this 0
-push constant 2
+push constant 3
 sub
 push this 1
-push constant 2
+push constant 3
 add
 push this 0
-push constant 2
+push constant 3
 add
 push this 1
-push constant 2
+push constant 3
 add
 call Screen.drawLine 4
 pop temp 0
 push this 0
-push constant 2
+push constant 3
 add
 push this 1
-push constant 2
+push constant 3
 add
 push this 0
 push this 1
-push constant 2
+push constant 6
 sub
 call Screen.drawLine 4
 pop temp 0
@@ -69,41 +69,41 @@ push constant 0
 call Screen.setColor 1
 pop temp 0
 push this 0
+push constant 6
+add
 push this 1
-push constant 2
+push this 0
+push constant 3
+sub
+push this 1
+push constant 3
+sub
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 3
+sub
+push this 1
+push constant 3
 sub
 push this 0
-push constant 2
+push constant 3
 sub
 push this 1
-push constant 2
+push constant 3
 add
 call Screen.drawLine 4
 pop temp 0
 push this 0
-push constant 2
+push constant 3
 sub
 push this 1
-push constant 2
+push constant 3
 add
 push this 0
-push constant 2
+push constant 6
 add
 push this 1
-push constant 2
-add
-call Screen.drawLine 4
-pop temp 0
-push this 0
-push constant 2
-add
-push this 1
-push constant 2
-add
-push this 0
-push this 1
-push constant 2
-sub
 call Screen.drawLine 4
 pop temp 0
 push constant 0
@@ -120,40 +120,40 @@ call Screen.setColor 1
 pop temp 0
 push this 0
 push this 1
-push constant 2
-sub
+push constant 6
+add
 push this 0
-push constant 2
+push constant 3
 sub
 push this 1
-push constant 2
-add
+push constant 3
+sub
 call Screen.drawLine 4
 pop temp 0
 push this 0
-push constant 2
+push constant 3
 sub
 push this 1
-push constant 2
-add
+push constant 3
+sub
 push this 0
-push constant 2
+push constant 3
 add
 push this 1
-push constant 2
-add
+push constant 3
+sub
 call Screen.drawLine 4
 pop temp 0
 push this 0
-push constant 2
+push constant 3
 add
 push this 1
-push constant 2
-add
+push constant 3
+sub
 push this 0
 push this 1
-push constant 2
-sub
+push constant 6
+add
 call Screen.drawLine 4
 pop temp 0
 push constant 0
@@ -169,41 +169,41 @@ push constant 0
 call Screen.setColor 1
 pop temp 0
 push this 0
+push constant 6
+sub
 push this 1
-push constant 2
+push this 0
+push constant 3
+add
+push this 1
+push constant 3
+sub
+call Screen.drawLine 4
+pop temp 0
+push this 0
+push constant 3
+add
+push this 1
+push constant 3
 sub
 push this 0
-push constant 2
-sub
+push constant 3
+add
 push this 1
-push constant 2
+push constant 3
 add
 call Screen.drawLine 4
 pop temp 0
 push this 0
-push constant 2
+push constant 3
+add
+push this 1
+push constant 3
+add
+push this 0
+push constant 6
 sub
 push this 1
-push constant 2
-add
-push this 0
-push constant 2
-add
-push this 1
-push constant 2
-add
-call Screen.drawLine 4
-pop temp 0
-push this 0
-push constant 2
-add
-push this 1
-push constant 2
-add
-push this 0
-push this 1
-push constant 2
-sub
 call Screen.drawLine 4
 pop temp 0
 push constant 0
