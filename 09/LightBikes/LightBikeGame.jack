@@ -1,13 +1,20 @@
 class LightBikeGame{
-	// field variables here
+	// field variables
 		//Create Bike Obj
+		field Bike player;
+		field int orientation;
 
-	// Constructor here
+
+
+	// Constructor
+	constructor LightBikeGame new(){
+		let player = Bike.new(205, 224);
+	}
 
 	// Various Methods
 		// Take in inputs
 		// Movement
-		// Draw
+		// Draw - do this in the movement!
 		// Collision Check
 		// Dispose
 }

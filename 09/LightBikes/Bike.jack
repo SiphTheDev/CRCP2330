@@ -1,7 +1,13 @@
 class Bike{
-	//variables
-
+	//field variables
+	field int x;
+	field int y;
+	
 	//constructor
+	constructor Bike new(int xPos, int yPos){
+		let x = xPos;
+		let y = yPos;
+	}
 
 	//move
 
