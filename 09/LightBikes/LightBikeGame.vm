@@ -104,8 +104,12 @@ if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
 push this 1
+push constant 0
+eq
+push this 1
 push constant 1
 eq
+or
 push this 1
 push constant 3
 eq
@@ -130,6 +134,10 @@ push this 1
 push constant 0
 eq
 push this 1
+push constant 1
+eq
+or
+push this 1
 push constant 2
 eq
 or
@@ -152,6 +160,10 @@ label IF_TRUE4
 push this 1
 push constant 1
 eq
+push this 1
+push constant 2
+eq
+or
 push this 1
 push constant 3
 eq
@@ -177,6 +189,10 @@ push constant 0
 eq
 push this 1
 push constant 2
+eq
+or
+push this 1
+push constant 3
 eq
 or
 if-goto IF_TRUE7

@@ -47,25 +47,25 @@ class LightBikeGame{
 
 	method void move(int key){
 		if(key = 131){ //UP
-			if((orientation = 1) | (orientation = 3)){
+			if((orientation = 0) | (orientation = 1) | (orientation = 3)){
 				let orientation = 0;
 				do player.moveUp();
 			}
 		}
 		if(key = 132){ //RIGHT //BUG: freezes after turning: cause, once it's orientation is flipped, it is no longer accounted for. Need a third if for forwards, basically.
-			if((orientation = 0) | (orientation = 2)){
+			if((orientation = 0) | (orientation = 1) | (orientation = 2)){
 				let orientation = 1;
 				do player.moveRight();		
 			}
 		}
 		if(key = 133){ //DOWN
-			if((orientation = 1) | (orientation = 3)){
+			if((orientation = 1) | (orientation = 2) | (orientation = 3)){
 				let orientation = 2;
 				do player.moveDown();
 			}
 		}
 		if(key = 130){ //LEFT
-			if((orientation = 0) | (orientation = 2)){
+			if((orientation = 0) | (orientation = 2)| (orientation = 3)){
 				let orientation = 3;
 				do player.moveLeft();				
 			}
@@ -80,7 +80,7 @@ class LightBikeGame{
 		return;
 	}
 
-	//method void collide(){
+	//method void collide(){ //TODO maybe  confine to a box, rather than the whole screen?
 		//if(player.x < 0 | player.x > 511 | player.y < 0 | player.y > 255){
 		//	set some global var crashed = true;
 		//if (check for path collision, maybe even in a separate method){
