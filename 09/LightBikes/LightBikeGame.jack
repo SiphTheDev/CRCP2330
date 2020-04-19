@@ -18,8 +18,10 @@ class LightBikeGame{
 
 		let exit = false;
 
+		do drawInterface();
+
 		while(~exit){
-			do drawInterface();
+			do refreshInterface();
 			if(Keyboard.keyPressed() = 131){do move(131);} //UpArrow     			
 			if(Keyboard.keyPressed() = 132){do move(132);} //RightArrow
 			if(Keyboard.keyPressed() = 133){do move(133);} //DownArrow				
@@ -79,13 +81,22 @@ class LightBikeGame{
 	//}
 
 	method void drawInterface(){
+		do Output.printString("Score");
+		do Output.moveCursor(6,0);
+		do Output.printString("Lives");
+		do Output.moveCursor(9,0);
+		do Output.printString("Controls");
+		return;
+	}
+
+	method void refreshInterface(){
 			do Screen.setColor(true);
-			do Screen.drawRectangle(0,0,511, 255);
-			/*do Screen.drawRectangle(129,33,479,223); 	//Game Area
-			do Screen.drawRectangle(0,0,511,31); 		//Interface & Borders
-			do Screen.drawRectangle(0,225,511,255);
+			//do Screen.drawRectangle(0,0,511, 255);
+			do Screen.drawRectangle(129,33,479,223); 	//Game Area
+			do Screen.drawRectangle(128,0,480,31); 		//Interface & Borders
+			do Screen.drawRectangle(128,225,480,255);
+			do Screen.drawRectangle(96,0,127,255);
 			do Screen.drawRectangle(481,0,511,255);
-			do Screen.drawRectangle(0,0,127,255);*/
 
 			do Screen.setColor(false);
 			do Screen.drawLine(128, 32, 480, 32);
