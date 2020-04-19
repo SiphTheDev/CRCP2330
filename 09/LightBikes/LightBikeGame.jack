@@ -19,13 +19,42 @@ class LightBikeGame{
 
 	method void run(){
 		var boolean exit;
+		//var key;
 
-		let exit = 0;
-		while(exit = 0){
+		let exit = false;
+		//let key = 0;
+		while(~exit){
 			if(Keyboard.keyPressed() = 0){
-				
+			do Output.printString("Moving");
+			do Output.println();
+			//	do move(key);
 			}
-
+			if(Keyboard.keyPressed() = 83){
+			do Output.printString("Up");
+			do Output.println();
+			//	let key = ???
+			//	do move(key);
+			}
+			if(Keyboard.keyPressed() = 89){
+			do Output.printString("Right");
+			do Output.println();
+			//	let key = ???
+			//	do move(key);
+			}
+			if(Keyboard.keyPressed() = 84){
+			do Output.printString("Down");
+			do Output.println();
+			//	let key = ???
+			//	do move(key);
+			}
+			if(Keyboard.keyPressed() = 79){
+			do Output.printString("Left");
+			do Output.println();
+			//	let key = ???
+			//	do move(key);
+			}
+			else{}
+			return;
 		}
 
 
@@ -35,13 +64,19 @@ class LightBikeGame{
 
 
 
-		if(orientation = 1){
-			do player.draw();
-		}
-		else{
-		}
-		return;
+		//if(orientation = 1){
+		//	do player.draw();
+		//}
+		//else{
+		//}
+		//return;
 	}
+
+	//method void move(int key){
+	//	if(orientation = 0){
+	//		if(key)
+	//	}
+	//}
 		// Take in inputs
 		// Movement
 		// Draw - do this in the movement!
