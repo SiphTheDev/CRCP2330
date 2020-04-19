@@ -3,12 +3,14 @@ class LightBikeGame{
 		//Create Bike Obj
 		field Bike player;
 		field int orientation;
-		//Make a pathPixel array
+		field boolean hasCrashed;
+		//Make a pathPixel array(linked list - see book)
 
 	// Constructor
 	constructor LightBikeGame new(){
 		let player = Bike.new(205, 224);
 		let orientation = 0; //0 = Up, 1 = Right, 2 = Down, 3 = Left
+		let hasCrashed = false;
 		return this;
 	}
 
@@ -40,47 +42,39 @@ class LightBikeGame{
 		if(key = 131){ //UP
 			if((orientation = 0) | (orientation = 1) | (orientation = 3)){
 				let orientation = 0;
-				do player.moveUp();
+				do player.moveUp(orientation);
 			}
 		}
 		if(key = 132){ //RIGHT //BUG: freezes after turning: cause, once it's orientation is flipped, it is no longer accounted for. Need a third if for forwards, basically.
 			if((orientation = 0) | (orientation = 1) | (orientation = 2)){
 				let orientation = 1;
-				do player.moveRight();		
+				do player.moveRight(orientation);		
 			}
 		}
 		if(key = 133){ //DOWN
 			if((orientation = 1) | (orientation = 2) | (orientation = 3)){
 				let orientation = 2;
-				do player.moveDown();
+				do player.moveDown(orientation);
 			}
 		}
 		if(key = 130){ //LEFT
 			if((orientation = 0) | (orientation = 2)| (orientation = 3)){
 				let orientation = 3;
-				do player.moveLeft();				
+				do player.moveLeft(orientation);				
 			}
 		}
 		if(key = 0){
-			if(orientation = 0){ do player.moveUp(); }
-			if(orientation = 1){ do player.moveRight(); }
-			if(orientation = 2){ do player.moveDown(); }
-			if(orientation = 3){ do player.moveLeft(); }
+			if(orientation = 0){ do player.moveUp(orientation); }
+			if(orientation = 1){ do player.moveRight(orientation); }
+			if(orientation = 2){ do player.moveDown(orientation); }
+			if(orientation = 3){ do player.moveLeft(orientation); }
 		}
+		//do player.collisionCheck(orientation); //doesn't need pixel array, as just verifys B/W, not reason for color.
 		else{}
 		return;
 	}
 
-	//method void collide(){ //TODO maybe  confine to a box, rather than the whole screen?
-		//if(player.x < 0 | player.x > 511 | player.y < 0 | player.y > 255){
-		//	set some global var crashed = true;
-		//if (check for path collision, maybe even in a separate method){
-		//	set some global var crashed = true;
-		//}
-		//}
-	//}
-
-	method void drawInterface(){
+	method void drawInterface(){ //TODO tweak this for aesthetics & to actually track numbers if have time to add reset function.
 		do Output.printString("Score");
 		do Output.moveCursor(6,0);
 		do Output.printString("Lives");
@@ -93,23 +87,10 @@ class LightBikeGame{
 			do Screen.setColor(true);
 			//do Screen.drawRectangle(0,0,511, 255);
 			do Screen.drawRectangle(129,33,479,223); 	//Game Area
-			do Screen.drawRectangle(128,0,480,31); 		//Interface & Borders
+			do Screen.drawRectangle(128,0,480,31); 		//Borders
 			do Screen.drawRectangle(128,225,480,255);
 			do Screen.drawRectangle(96,0,127,255);
 			do Screen.drawRectangle(481,0,511,255);
-
-			do Screen.setColor(false);
-			do Screen.drawLine(128, 32, 480, 32);
-			do Screen.drawLine(480, 32, 480, 224);
-			do Screen.drawLine(480, 224, 128, 224);
-			do Screen.drawLine(128, 224, 128, 32);
-
-			/*do Output.moveCursor(3,3);
-			do Output.printString("Score");
-			do Output.moveCursor(6,3);
-			do Output.printString("Lives");
-			do Output.moveCursor(12,3);
-			do Output.printString("Controls");*/
 			return;
 	}
 
@@ -120,9 +101,10 @@ class LightBikeGame{
 
 
 
-		// Take in inputs
-		// Movement
-		// Draw - do this in the movement!
+		// Take in inputs - DONE
+		// Movement - DONE
+		// Draw - do this in the movement! - DONE
 		// Collision Check
+		// Path array & refresh
 		// Dispose
 }

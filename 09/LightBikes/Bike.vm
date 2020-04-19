@@ -12,7 +12,11 @@ function Bike.moveUp 0
 push argument 0
 pop pointer 0
 push this 1
-push constant 2
+push constant 1
+sub
+pop this 1
+push this 1
+push constant 1
 sub
 pop this 1
 push constant 0
@@ -62,7 +66,11 @@ function Bike.moveRight 0
 push argument 0
 pop pointer 0
 push this 0
-push constant 2
+push constant 1
+add
+pop this 0
+push this 0
+push constant 1
 add
 pop this 0
 push constant 0
@@ -112,7 +120,11 @@ function Bike.moveDown 0
 push argument 0
 pop pointer 0
 push this 1
-push constant 2
+push constant 1
+add
+pop this 1
+push this 1
+push constant 1
 add
 pop this 1
 push constant 0
@@ -162,7 +174,11 @@ function Bike.moveLeft 0
 push argument 0
 pop pointer 0
 push this 0
-push constant 2
+push constant 1
+sub
+pop this 0
+push this 0
+push constant 1
 sub
 pop this 0
 push constant 0

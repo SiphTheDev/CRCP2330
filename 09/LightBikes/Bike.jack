@@ -10,42 +10,66 @@ class Bike{
 		return this;
 	}
 
-	//movement Methods       //TODO have animations change with direction
-	method void moveUp(){
-		let y = y-2;
+	//movement Methods     
+	method void moveUp(int orientation){
+		let y = y-1;							//move & check collision
+		let y = y-1;
+
 		do Screen.setColor(false);
-		do Screen.drawLine(x, y-6, x-3, y+3);
+		do Screen.drawLine(x, y-6, x-3, y+3);	//draw "bike"
 		do Screen.drawLine(x-3, y+3, x+3, y+3);
 		do Screen.drawLine(x+3, y+3, x, y-6);
+		//do Screen.drawPixel(x,y-4);				//leave path (2 pixels to account for movement speed).
+		//do Screen.drawPixel(x,y-5); 				
 		return;
 	}
 
-	method void moveRight(){
-		let x = x+2;
+	method void moveRight(int orientation){
+		let x = x+1;
+		let x = x+1;
+
 		do Screen.setColor(false);
 		do Screen.drawLine(x+6, y, x-3, y-3);
 		do Screen.drawLine(x-3, y-3, x-3, y+3);
 		do Screen.drawLine(x-3, y+3, x+6, y);
+		//do Screen.drawPixel(x-4,y);
+		//do Screen.drawPixel(x-5,y);
 		return;
 	}
 
-	method void moveDown(){
-		let y = y+2;
+	method void moveDown(int orientation){
+		let y = y+1;
+		let y = y+1;
+
 		do Screen.setColor(false);
 		do Screen.drawLine(x, y+6, x-3, y-3);
 		do Screen.drawLine(x-3, y-3, x+3, y-3);
 		do Screen.drawLine(x+3, y-3, x, y+6);
+		//do Screen.drawPixel(x,y+4);
+		//do Screen.drawPixel(x,y+5);
 		return;
 	}
 
-	method void moveLeft(){
-		let x = x-2;
+	method void moveLeft(int orientation){
+		let x = x-1;
+		let x = x-1;
+
 		do Screen.setColor(false);
 		do Screen.drawLine(x-6, y, x+3, y-3);
 		do Screen.drawLine(x+3, y-3, x+3, y+3);
 		do Screen.drawLine(x+3, y+3, x-6, y);
+		//do Screen.drawPixel(x+4,y);
+		//do Screen.drawPixel(x+5,y);
 		return;
 	}
+
+	//method boolean collisionCheck(int orientation){
+		//local boolean isCollided;
+		//let isCollided = false;
+	//return isCollided;
+	//}
+
+	//If have time to clean up code, consider consolidating 1 move method, which receives "orientation," then passes it to three different methods: move, draw, and addPath, which have simple if statements about what to do next, just so you don't have 4, long, similar methods.
 
 	//dispose
 }
