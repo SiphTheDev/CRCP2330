@@ -10,9 +10,9 @@ class Bike{
 		return this;
 	}
 
-	//movement Methods
+	//movement Methods       //TODO have animations change with direction
 	method void moveUp(){
-		let y = y-3;
+		let y = y-2;
 		do Screen.drawLine(x, y-2, x-2, y+2);
 		do Screen.drawLine(x-2, y+2, x+2, y+2);
 		do Screen.drawLine(x+2, y+2, x, y-2);
@@ -20,20 +20,26 @@ class Bike{
 	}
 
 	method void moveRight(){
-		let x = x+3;
-		//Draw
+		let x = x+2;
+		do Screen.drawLine(x, y-2, x-2, y+2);
+		do Screen.drawLine(x-2, y+2, x+2, y+2);
+		do Screen.drawLine(x+2, y+2, x, y-2);
 		return;
 	}
 
 	method void moveDown(){
-		let y = y+3;
-		//Draw
+		let y = y+2;
+		do Screen.drawLine(x, y-2, x-2, y+2);
+		do Screen.drawLine(x-2, y+2, x+2, y+2);
+		do Screen.drawLine(x+2, y+2, x, y-2);
 		return;
 	}
 
-	method void moveRight(){
-		let x = x-3;
-		//Draw
+	method void moveLeft(){
+		let x = x-2;
+		do Screen.drawLine(x, y-2, x-2, y+2);
+		do Screen.drawLine(x-2, y+2, x+2, y+2);
+		do Screen.drawLine(x+2, y+2, x, y-2);
 		return;
 	}
 

@@ -3,88 +3,96 @@ class LightBikeGame{
 		//Create Bike Obj
 		field Bike player;
 		field int orientation;
-		//field var key;
 		//Make a pathPixel array
 
 	// Constructor
 	constructor LightBikeGame new(){
 		let player = Bike.new(205, 224);
 		let orientation = 0; //0 = Up, 1 = R, 2 = Down, 3 = L
-		//let key = 0;
 		return this;
 	}
 
 	//Main Game Loop
 	method void run(){
 		var boolean exit;
-		//var key;
 
 		let exit = false;
-		//let key = 0;
 		while(~exit){
 			if(Keyboard.keyPressed() = 0){
-			//do Output.printString("Moving");
-			//do Output.println();
-				do move(key);
+				do move(0);
 			}
 			if(Keyboard.keyPressed() = 131){ //UpArrow
-			do Output.printString("Up");
-			do Output.println();
-			//	let key = 0;
-			//	do move(key);
+				do move(131);
 			}
 			if(Keyboard.keyPressed() = 132){//RightArrow
-			do Output.printString("Right");
-			do Output.println();
-			//	let key = 1;
-			//	do move(key);
+				do move(132);
 			}
 			if(Keyboard.keyPressed() = 133){//DownArrow
-			do Output.printString("Down");
-			do Output.println();
-			//	let key = 2;
-			//	do move(key);
+				do move(133);
 			}
 			if(Keyboard.keyPressed() = 130){//LeftArrow
-			do Output.printString("Left");
-			do Output.println();
-			//	let key = 3;
-			//	do move(key);
+				do move(130);
 			}
 			if(Keyboard.keyPressed() = 81){//Q
-			let exit = true; //exits the game
+				let exit = true; //exits the game
 			}
 			else{}
 			//TODO add a reset option later if have time. 
 		}
 		return;
-
-
-
-		//if(orientation = 1){
-		//	do player.draw();
-		//}
-		//else{
-		//}
-		//return;
 	}
 
 	method void move(int key){
-		if(orientation = 0){
-			if(key = left){
-			//do move left
-			//do orientation left
+		if(key = 131){ //UP
+			if(orientation = 1 | orientation = 3){
+				do player.moveUp();
+				let orientation = 0;
 			}
 		}
+		if(key = 132){ //RIGHT
+			if(orientation = 0 | orientation = 2){
+				do player.moveRight();
+				let orientation = 1;
+			}
+		}
+		if(key = 133){ //DOWN
+			if(orientation = 1 | orientation = 3){
+				do player.moveDown();
+				let orientation = 2;
+			}
+		}
+		if(key = 130){ //LEFT
+			if(orientation = 0 | orientation = 2){
+				do player.moveLeft();
+				let orientation = 3;
+			}
+		}
+		if(key = 0){
+			if(orientation = 0){ do player.moveUp(); }
+			if(orientation = 1){ do player.moveRight(); }
+			if(orientation = 2){ do player.moveDown(); }
+			if(orientation = 3){ do player.moveLeft(); }
+		}
+		else{}
+		return;
 	}
 
+	//method void collide(){
+		//if(player.x < 0 | player.x > 511 | player.y < 0 | player.y > 255){
+		//	set some global var crashed = true;
+		//if (check for path collision, maybe even in a separate method){
+		//	set some global var crashed = true;
+		//}
+		//}
+	//}
 
 
 
 
 
 
-	
+
+
 		// Take in inputs
 		// Movement
 		// Draw - do this in the movement!
