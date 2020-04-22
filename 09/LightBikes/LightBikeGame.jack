@@ -24,6 +24,7 @@ class LightBikeGame{
 
 		while(~exit){
 			do refreshInterface();
+
 			if(Keyboard.keyPressed() = 131){do move(131);} //UpArrow     			
 			if(Keyboard.keyPressed() = 132){do move(132);} //RightArrow
 			if(Keyboard.keyPressed() = 133){do move(133);} //DownArrow				
@@ -32,6 +33,8 @@ class LightBikeGame{
 			if(Keyboard.keyPressed() = 81){let exit = true;} //Q exits the game
 			//TODO add a reset option later if have time.
 			else{}
+
+			do collisionCheck();
 
 			do Sys.wait(30);
 			}
@@ -71,6 +74,18 @@ class LightBikeGame{
 		}
 		//do player.collisionCheck(orientation); //doesn't need pixel array, as just verifys B/W, not reason for color.
 		else{}
+		return;
+	}
+
+	method void collisionCheck(){
+		if(player.isNotCollided = false){
+			//stop accepting inputs
+			//println: game over
+			do Output.moveCursor(0,0);
+			do Output.printString("Game Over");
+			//wait 2000 (2 seconds)
+			//reset game
+		}
 		return;
 	}
 
