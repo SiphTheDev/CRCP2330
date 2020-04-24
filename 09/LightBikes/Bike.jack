@@ -12,17 +12,18 @@ class Bike{
 		return this;
 	}
 
-	//movement Methods     
+	//movement Methods (refactor soon)
 	method void moveUp(int orientation){
 		let y = y-1;							//move & check collision
 		do collisionCheck(orientation);
 		let y = y-1;
 		do collisionCheck(orientation);
 
-		do Screen.setColor(false);
-		do Screen.drawLine(x, y-6, x-3, y+3);	//draw "bike"
+		do Screen.setColor(false);				//draw "bike"
+		do Screen.drawLine(x, y-6, x-3, y+3);	
 		do Screen.drawLine(x-3, y+3, x+3, y+3);
 		do Screen.drawLine(x+3, y+3, x, y-6);
+
 		//do Screen.drawPixel(x,y-4);			//leave path (2 pixels to account for movement speed). Needs to be adding path to an array, do it in a separate method.
 		//do Screen.drawPixel(x,y-5); 				
 		return;
@@ -38,8 +39,6 @@ class Bike{
 		do Screen.drawLine(x+6, y, x-3, y-3);
 		do Screen.drawLine(x-3, y-3, x-3, y+3);
 		do Screen.drawLine(x-3, y+3, x+6, y);
-		//do Screen.drawPixel(x-4,y);
-		//do Screen.drawPixel(x-5,y);
 		return;
 	}
 
@@ -53,8 +52,6 @@ class Bike{
 		do Screen.drawLine(x, y+6, x-3, y-3);
 		do Screen.drawLine(x-3, y-3, x+3, y-3);
 		do Screen.drawLine(x+3, y-3, x, y+6);
-		//do Screen.drawPixel(x,y+4);
-		//do Screen.drawPixel(x,y+5);
 		return;
 	}
 
@@ -68,26 +65,27 @@ class Bike{
 		do Screen.drawLine(x-6, y, x+3, y-3);
 		do Screen.drawLine(x+3, y-3, x+3, y+3);
 		do Screen.drawLine(x+3, y+3, x-6, y);
-		//do Screen.drawPixel(x+4,y);
-		//do Screen.drawPixel(x+5,y);
 		return;
 	}
 
-	method void collisionCheck(int orientation){
-		//field boolean isNotCollided;
-		var boolean peekedColor;
-
-
-		if(orientation = 0){let peekedColor = Memory.peek((16384+((y-7)*32)+(x/16)+(x%16)));} //Pixel Above
-		if(orientation = 1){let peekedColor = Memory.peek((16384+(y*32)+((x+7)/16)+((x+7)%16)));} //Pixel to Right
-		if(orientation = 2){let peekedColor = Memory.peek((16384+((y+7)*32)+(x/16)+(x%16)));} //Pixel Below
-		if(orientation = 3){let peekedColor = Memory.peek((16384+(y*32)+((x-7)/16)+((x-7)%16)));} //Pixel to Left
-
-		let isNotCollided = peekedColor;
+	method void collisionCheck(int orientation){ 				//BUG expected ). Unsure what causes this error message. 
+		if(orientation = 0){
+			let isNotCollided = Memory.peek((16384+((y-7)*32)+(x/16)+(x%16))); //Pixel Above
+		} 
+		if(orientation = 1){
+			let isNotCollided = Memory.peek((16384+(y*32)+((x+7)/16)+((x+7)%16))); //Pixel to Right
+		} 
+		if(orientation = 2){
+			let isNotCollided = Memory.peek((16384+((y+7)*32)+(x/16)+(x%16))); //Pixel Below
+		} 
+		if(orientation = 3){
+			let isNotCollided = Memory.peek((16384+(y*32)+((x-7)/16)+((x-7)%16))); //Pixel to Left
+		} 
+		else{}
 		return;
 	}
 
-	//If have time to clean up code, consider consolidating 1 move method, which receives "orientation," then passes it to three different methods: move, draw, and addPath, which have simple if statements about what to do next, just so you don't have 4, long, similar methods.
+	//when you refactor code, consider consolidating 1 move (or maybe "act") method, which receives "orientation," then passes it to three different methods: move, draw, and addPath, which have simple if statements about what to do next, just so you don't have 4, long, similar methods.
 
 	//dispose
 }
