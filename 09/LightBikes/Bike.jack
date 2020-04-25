@@ -67,25 +67,41 @@ class Bike{
 		do Screen.drawLine(x+3, y+3, x-6, y);
 		return;
 	}
-
 	/*
 	method void collisionCheck(int orientation){ 				//BUG expected ). Unsure what causes this error message. 
-		if(orientation = 0){
-			let isNotCollided = Memory.peek(16384+((y-7)*32)+(x/16)+(x%16)); //Pixel Above
-		} 
-		if(orientation = 1){
-			let isNotCollided = Memory.peek(16384+(y*32)+((x+7)/16)+((x+7)%16)); //Pixel to Right
-		} 
-		if(orientation = 2){
-			let isNotCollided = Memory.peek(16384+((y+7)*32)+(x/16)+(x%16)); //Pixel Below
-		} 
-		if(orientation = 3){
-			let isNotCollided = Memory.peek(16384+(y*32)+((x-7)/16)+((x-7)%16)); //Pixel to Left
-		} 
-		else{}
+		if(isNotCollided){
+			if(orientation = 0){
+				let isNotCollided = Memory.peek((16384+y-7*32+x/16+x%16));//+((y-7)*32)+(x/16)+(x%16)); //Pixel Above
+			} 
+			if(orientation = 1){
+				let isNotCollided = Memory.peek(16384);//+(y*32)+((x+7)/16)+((x+7)%16)); //Pixel to Right
+			} 
+			if(orientation = 2){
+				let isNotCollided = Memory.peek(16384);//+((y+7)*32)+(x/16)+(x%16)); //Pixel Below
+			} 
+			if(orientation = 3){
+				let isNotCollided = Memory.peek(16384);//+(y*32)+((x-7)/16)+((x-7)%16)); //Pixel to Left
+			} 
+			else{}
+		}
 		return;
 	}
 	*/
+
+	method int mod(int dividend, int divisor){
+		var int remainder;
+		var int quotient;
+		var int product;
+
+		let quotient = dividend / divisor;
+		let product = divisor * quotient;
+		let remainder = dividend - product;
+
+		do Output.printInt(remainder);
+
+		return remainder;
+	}
+	
 
 	//when you refactor code, consider consolidating 1 move (or maybe "act") method, which receives "orientation," then passes it to three different methods: move, draw, and addPath, which have simple if statements about what to do next, just so you don't have 4, long, similar methods.
 

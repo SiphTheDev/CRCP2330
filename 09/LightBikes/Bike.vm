@@ -227,3 +227,23 @@ call Screen.drawLine 4
 pop temp 0
 push constant 0
 return
+function Bike.mod 3
+push argument 0
+pop pointer 0
+push argument 1
+push argument 2
+call Math.divide 2
+pop local 1
+push argument 2
+push local 1
+call Math.multiply 2
+pop local 2
+push argument 1
+push local 2
+sub
+pop local 0
+push local 0
+call Output.printInt 1
+pop temp 0
+push local 0
+return

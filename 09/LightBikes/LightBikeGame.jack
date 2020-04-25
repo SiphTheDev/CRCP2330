@@ -4,6 +4,8 @@ class LightBikeGame{
 		field Bike player;
 		field int orientation;
 		field boolean hasCrashed;
+
+		field int temp;
 		//Make a pathPixel array(linked list - see book)
 
 	// Constructor
@@ -24,6 +26,7 @@ class LightBikeGame{
 
 		while(~exit){
 			do refreshInterface();
+			let temp = player.mod(7,5);
 
 			if(Keyboard.keyPressed() = 131){do move(131);} //UpArrow     			
 			if(Keyboard.keyPressed() = 132){do move(132);} //RightArrow
@@ -31,11 +34,9 @@ class LightBikeGame{
 			if(Keyboard.keyPressed() = 130){do move(130);} //LeftArrow					
 			if(Keyboard.keyPressed() = 0){do move(0);} 	   //Continue if not other keys pressed					
 			if(Keyboard.keyPressed() = 81){let exit = true;} //Q exits the game
-			//TODO add a reset option later if have time.s
 			else{}
 
 			do resetGameCheck();
-			//if(player.isNotCollided = false){do resetGame();}
 			
 			do Sys.wait(30);
 			}
@@ -84,7 +85,7 @@ class LightBikeGame{
 		do Output.printString("Game Over");
 		do Output.moveCursor(9,6);
 		do Sys.wait(2000); //optional, make char blink every 500(draw it, wait 500, cover it, wait 500, etc).
-		//let player.x = 205; //discard player & make new player?
+		//let player.x = 205; //Just make a resetpositon method in Bike
 		//let player.y = 224;
 		
 		//If there is a foe, up foes score, and boost your score when they crash?
