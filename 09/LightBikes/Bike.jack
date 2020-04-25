@@ -15,9 +15,9 @@ class Bike{
 	//movement Methods (refactor soon)
 	method void moveUp(int orientation){
 		let y = y-1;							//move & check collision
-		do collisionCheck(orientation);
+		//do collisionCheck(orientation);
 		let y = y-1;
-		do collisionCheck(orientation);
+		//do collisionCheck(orientation);
 
 		do Screen.setColor(false);				//draw "bike"
 		do Screen.drawLine(x, y-6, x-3, y+3);	
@@ -68,9 +68,10 @@ class Bike{
 		return;
 	}
 
+	/*
 	method void collisionCheck(int orientation){ 				//BUG expected ). Unsure what causes this error message. 
 		if(orientation = 0){
-			let isNotCollided = Memory.peek((16384+((y-7)*32)+(x/16)+(x%16))); //Pixel Above
+			let isNotCollided = Memory.peek(16384+((y-7)*32)+(x/16)+(x%16)); //Pixel Above
 		} 
 		if(orientation = 1){
 			let isNotCollided = Memory.peek((16384+(y*32)+((x+7)/16)+((x+7)%16))); //Pixel to Right
@@ -84,6 +85,7 @@ class Bike{
 		else{}
 		return;
 	}
+	*/
 
 	//when you refactor code, consider consolidating 1 move (or maybe "act") method, which receives "orientation," then passes it to three different methods: move, draw, and addPath, which have simple if statements about what to do next, just so you don't have 4, long, similar methods.
 
