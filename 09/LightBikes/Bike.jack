@@ -15,9 +15,9 @@ class Bike{
 	//movement Methods (refactor soon)
 	method void moveUp(int orientation){
 		let y = y-1;							//move & check collision
-		//do collisionCheck(orientation);
+		do collisionCheck(orientation);
 		let y = y-1;
-		//do collisionCheck(orientation);
+		do collisionCheck(orientation);
 
 		do Screen.setColor(false);				//draw "bike"
 		do Screen.drawLine(x, y-6, x-3, y+3);	
@@ -31,9 +31,9 @@ class Bike{
 
 	method void moveRight(int orientation){
 		let x = x+1;
-		//do collisionCheck(orientation);
+		do collisionCheck(orientation);
 		let x = x+1;
-		//do collisionCheck(orientation);
+		do collisionCheck(orientation);
 
 		do Screen.setColor(false);
 		do Screen.drawLine(x+6, y, x-3, y-3);
@@ -44,9 +44,9 @@ class Bike{
 
 	method void moveDown(int orientation){
 		let y = y+1;
-		//do collisionCheck(orientation);
+		do collisionCheck(orientation);
 		let y = y+1;
-		//do collisionCheck(orientation);
+		do collisionCheck(orientation);
 
 		do Screen.setColor(false);
 		do Screen.drawLine(x, y+6, x-3, y-3);
@@ -57,9 +57,9 @@ class Bike{
 
 	method void moveLeft(int orientation){
 		let x = x-1;
-		//do collisionCheck(orientation);
+		do collisionCheck(orientation);
 		let x = x-1;
-		//do collisionCheck(orientation);
+		do collisionCheck(orientation);
 
 		do Screen.setColor(false);
 		do Screen.drawLine(x-6, y, x+3, y-3);
@@ -67,26 +67,26 @@ class Bike{
 		do Screen.drawLine(x+3, y+3, x-6, y);
 		return;
 	}
-	/*
-	method void collisionCheck(int orientation){ 				//BUG expected ). Unsure what causes this error message. 
+	
+	method void collisionCheck(int orientation){ 				
 		if(isNotCollided){
 			if(orientation = 0){
-				let isNotCollided = Memory.peek((16384+y-7*32+x/16+x%16));//+((y-7)*32)+(x/16)+(x%16)); //Pixel Above
+				let isNotCollided = Memory.peek(16384+((y-7)*32)+(x/16)+mod(x,16)); //Pixel Above
 			} 
 			if(orientation = 1){
-				let isNotCollided = Memory.peek(16384);//+(y*32)+((x+7)/16)+((x+7)%16)); //Pixel to Right
+				let isNotCollided = Memory.peek(16384);//+(y*32)+((x+7)/16)+(mod((x+7),16)); //Pixel to Right
 			} 
 			if(orientation = 2){
-				let isNotCollided = Memory.peek(16384);//+((y+7)*32)+(x/16)+(x%16)); //Pixel Below
+				let isNotCollided = Memory.peek(16384);//+((y+7)*32)+(x/16)+(mod(x,16)); //Pixel Below
 			} 
 			if(orientation = 3){
-				let isNotCollided = Memory.peek(16384);//+(y*32)+((x-7)/16)+((x-7)%16)); //Pixel to Left
+				let isNotCollided = Memory.peek(16384);//+(y*32)+((x-7)/16)+(mod((x-7),16))); //Pixel to Left
 			} 
 			else{}
 		}
 		return;
 	}
-	*/
+	
 
 	method int mod(int dividend, int divisor){
 		var int remainder;
@@ -97,7 +97,7 @@ class Bike{
 		let product = divisor * quotient;
 		let remainder = dividend - product;
 
-		do Output.printInt(remainder);
+		//do Output.printInt(remainder);
 
 		return remainder;
 	}
