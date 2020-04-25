@@ -31,11 +31,12 @@ class LightBikeGame{
 			if(Keyboard.keyPressed() = 130){do move(130);} //LeftArrow					
 			if(Keyboard.keyPressed() = 0){do move(0);} 	   //Continue if not other keys pressed					
 			if(Keyboard.keyPressed() = 81){let exit = true;} //Q exits the game
-			//TODO add a reset option later if have time.
+			//TODO add a reset option later if have time.s
 			else{}
 
-			//do collisionCheck();
-
+			do resetGameCheck();
+			//if(player.isNotCollided = false){do resetGame();}
+			
 			do Sys.wait(30);
 			}
 		return;
@@ -76,39 +77,38 @@ class LightBikeGame{
 		else{}
 		return;
 	}
-
-	/*
-	method void collisionCheck(){
-		if(player.isNotCollided = false){
-			//stop accepting inputs
-			//println: game over
-			do Output.moveCursor(0,0);
-			do Output.printString("Game Over");
-			//wait 2000 (2 seconds)
-			//reset game
-		}
+	
+	method void resetGameCheck(){ 
+		//clear pixel array
+		
+		do Output.printString("Game Over");
+		do Output.moveCursor(9,6);
+		do Sys.wait(2000); //optional, make char blink every 500(draw it, wait 500, cover it, wait 500, etc).
+		//let player.x = 205; //discard player & make new player?
+		//let player.y = 224;
+		
+		//If there is a foe, up foes score, and boost your score when they crash?
 		return;
 	}
-	*/
 
 	method void drawInterface(){ //TODO tweak this for aesthetics & to actually track numbers if have time to add reset function.
 		do Output.printString("Score");
-		do Output.moveCursor(6,0);
-		do Output.printString("Lives");
+		//do Output.moveCursor(6,0);
+		//do Output.printString("Lives");
 		do Output.moveCursor(9,0);
 		do Output.printString("Controls");
 		return;
 	}
 
 	method void refreshInterface(){
-			do Screen.setColor(true);
-			//do Screen.drawRectangle(0,0,511, 255);
-			do Screen.drawRectangle(129,33,479,223); 	//Game Area
-			do Screen.drawRectangle(128,0,480,31); 		//Borders
-			do Screen.drawRectangle(128,225,480,255);
-			do Screen.drawRectangle(96,0,127,255);
-			do Screen.drawRectangle(481,0,511,255);
-			return;
+		do Screen.setColor(true);
+		//do Screen.drawRectangle(0,0,511, 255);
+		do Screen.drawRectangle(129,33,479,223); 	//Game Area
+		do Screen.drawRectangle(128,0,480,31); 		//Borders
+		do Screen.drawRectangle(128,225,480,255);
+		do Screen.drawRectangle(96,0,127,255);
+		do Screen.drawRectangle(481,0,511,255);
+		return;
 	}
 
 
