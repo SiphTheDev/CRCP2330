@@ -1,14 +1,18 @@
 function Bike.new 0
-push constant 3
+push constant 5
 call Memory.alloc 1
 pop pointer 0
 push argument 0
 pop this 0
 push argument 1
 pop this 1
+push argument 0
+pop this 2
+push argument 1
+pop this 3
 push constant 0
 not
-pop this 2
+pop this 4
 push pointer 0
 return
 function Bike.moveUp 0
@@ -262,7 +266,7 @@ return
 function Bike.collisionCheck 0
 push argument 0
 pop pointer 0
-push this 2
+push this 4
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
@@ -289,7 +293,7 @@ push constant 16
 call Bike.mod 3
 add
 call Memory.peek 1
-pop this 2
+pop this 4
 label IF_FALSE1
 push argument 1
 push constant 1
@@ -316,7 +320,7 @@ push constant 16
 call Bike.mod 3
 add
 call Memory.peek 1
-pop this 2
+pop this 4
 label IF_FALSE2
 push argument 1
 push constant 2
@@ -341,7 +345,7 @@ push constant 16
 call Bike.mod 3
 add
 call Memory.peek 1
-pop this 2
+pop this 4
 label IF_FALSE3
 push argument 1
 push constant 3
@@ -368,7 +372,7 @@ push constant 16
 call Bike.mod 3
 add
 call Memory.peek 1
-pop this 2
+pop this 4
 goto IF_END4
 label IF_FALSE4
 label IF_END4
@@ -378,7 +382,7 @@ return
 function Bike.hasItCollided 0
 push argument 0
 pop pointer 0
-push this 2
+push this 4
 return
 function Bike.mod 3
 push argument 0
@@ -396,4 +400,16 @@ push local 2
 sub
 pop local 0
 push local 0
+return
+function Bike.resetBike 0
+push argument 0
+pop pointer 0
+push this 2
+pop this 0
+push this 3
+pop this 1
+push constant 0
+not
+pop this 4
+push constant 0
 return

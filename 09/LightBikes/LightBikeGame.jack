@@ -10,7 +10,7 @@ class LightBikeGame{
 
 	// Constructor
 	constructor LightBikeGame new(){
-		let player = Bike.new(205, 224);
+		let player = Bike.new(235, 224);
 		let orientation = 0; //0 = Up, 1 = Right, 2 = Down, 3 = Left
 		let hasCrashed = false;
 		return this;
@@ -50,7 +50,7 @@ class LightBikeGame{
 				do player.moveUp(orientation);
 			}
 		}
-		if(key = 132){ //RIGHT //BUG: freezes after turning: cause, once it's orientation is flipped, it is no longer accounted for. Need a third if for forwards, basically.
+		if(key = 132){ //RIGHT 
 			if((orientation = 0) | (orientation = 1) | (orientation = 2)){
 				let orientation = 1;
 				do player.moveRight(orientation);		
@@ -74,18 +74,30 @@ class LightBikeGame{
 			if(orientation = 2){ do player.moveDown(orientation); }
 			if(orientation = 3){ do player.moveLeft(orientation); }
 		}
-		//do player.collisionCheck(orientation); //doesn't need pixel array, as just verifys B/W, not reason for color.
 		else{}
 		return;
 	}
 	
 	method void resetGameCheck(){ 
 		//clear pixel array
-		if(~player.hasItCollided()){ //					TODO: FIX THIS NOT WORKING!
+		if(~player.hasItCollided()){ 
+			do Output.moveCursor(9,32);
 			do Output.printString("Game Over");
-			do Output.moveCursor(9,6);
-			//do Sys.wait(2000); //optional, make char blink every 500(draw it, wait 500, cover it, wait 500, etc).
-			//let player.x = 205; //Just make a resetpositon method in Bike
+			/*do refreshInterface();
+			do Sys.wait(500); 
+			do player.draw(orientation);
+			do Output.printString("Game Over");
+			do Sys.wait(500);//optional, make char blink every 500(draw it, wait 500, cover it, wait 500, etc).
+			do refreshInterface();
+			do Sys.wait(500); 
+			do player.draw(orientation);
+			do Output.printString("Game Over");
+			do Sys.wait(500);
+			do refreshInterface();
+			*/
+			do Sys.wait(200);
+			let orientation = 0;
+			do player.resetBike();//let player.x = 205; //Just make a resetpositon method in Bike
 			//let player.y = 224;
 		
 			//If there is a foe, up foes score, and boost your score when they crash?
