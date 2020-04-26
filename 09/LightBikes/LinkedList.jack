@@ -1,0 +1,23 @@
+class LinkedList {
+	field int data;
+	field LinkedList nextNode;
+
+	constructor LinkedList new(int dataIn, LinkedList next){
+		let data = dataIn;
+		let nextNode = next;
+		return this;
+
+	}
+
+	//add
+
+	//remove
+	
+	//draw
+
+	//clear
+
+	//dispose
+
+	
+}
