@@ -1,16 +1,15 @@
 class LightBikeGame{
 	// field variables
-		//Create Bike Obj
-		field Bike player;
+		
+		field Bike player;		//Create Bike Obj
 		field int orientation;
 		field boolean hasCrashed;
 
-		//field int temp;
-		//Make a pathPixel array(linked list - see book)
+																//TODO Make a pathPixel array(linked list - see book)
 
 	// Constructor
 	constructor LightBikeGame new(){
-		let player = Bike.new(450, 224);
+		let player = Bike.new(233, 224);
 		let orientation = 0; //0 = Up, 1 = Right, 2 = Down, 3 = Left
 		let hasCrashed = false;
 		return this;
@@ -26,14 +25,13 @@ class LightBikeGame{
 
 		while(~exit){
 			do refreshInterface();
-			//let temp = player.mod(7,5);
 
-			if(Keyboard.keyPressed() = 131){do move(131);} //UpArrow     			
-			if(Keyboard.keyPressed() = 132){do move(132);} //RightArrow
-			if(Keyboard.keyPressed() = 133){do move(133);} //DownArrow				
-			if(Keyboard.keyPressed() = 130){do move(130);} //LeftArrow					
-			if(Keyboard.keyPressed() = 0){do move(0);} 	   //Continue if not other keys pressed					
-			if(Keyboard.keyPressed() = 81){let exit = true;} //Q exits the game
+			if(Keyboard.keyPressed() = 131){do move(131);} 		//UpArrow     			
+			if(Keyboard.keyPressed() = 132){do move(132);} 		//RightArrow
+			if(Keyboard.keyPressed() = 133){do move(133);} 		//DownArrow				
+			if(Keyboard.keyPressed() = 130){do move(130);} 		//LeftArrow					
+			if(Keyboard.keyPressed() = 0){do move(0);} 	   		//Continue if not other keys pressed					
+			if(Keyboard.keyPressed() = 81){let exit = true;} 	//Q exits the game
 			else{}
 
 			do resetGameCheck();
@@ -79,7 +77,7 @@ class LightBikeGame{
 	}
 	
 	method void resetGameCheck(){ 
-		//clear pixel array
+													//TODO clear pixel array
 		if(~player.hasItCollided()){ 
 			do Output.moveCursor(9,32);
 			do Output.printString("Game Over");
@@ -97,8 +95,7 @@ class LightBikeGame{
 			*/
 			do Sys.wait(200);
 			let orientation = 0;
-			do player.resetBike();//let player.x = 205; //Just make a resetpositon method in Bike
-			//let player.y = 224;
+			do player.resetBike();
 		
 			//If there is a foe, up foes score, and boost your score when they crash?
 		}
@@ -107,8 +104,6 @@ class LightBikeGame{
 
 	method void drawInterface(){ //TODO tweak this for aesthetics & to actually track numbers if have time to add reset function.
 		do Output.printString("Score");
-		//do Output.moveCursor(6,0);
-		//do Output.printString("Lives");
 		do Output.moveCursor(9,0);
 		do Output.printString("Controls");
 		return;
@@ -135,7 +130,7 @@ class LightBikeGame{
 		// Take in inputs - DONE
 		// Movement - DONE
 		// Draw - do this in the movement! - DONE
-		// Collision Check
+		// Collision Check - DONE
 		// Path array & refresh
 		// Dispose
 }

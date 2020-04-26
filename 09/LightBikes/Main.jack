@@ -9,8 +9,7 @@ class Main {
 		//do tron.dispose();
 		return;
 	}
-} //TODO Next: Work on Collision check & how it is called in Move (& what move should do with it. Maybe just have a field var in bike, and a method in main that checks to see if it's T/F collided yet. Would need to ensure the collision check only edits that var if it is in a not-collided state, so that it's 2-check per iteration thing doesn't reset things before LightBikeGame can check them.)
-  //TODO Then: Work on leaving particle trail
+} //TODO Then: Work on leaving particle trail
   //TODO Later: Implement memory clean-up
   //TODO Afterwards: Implement a reset optionx - remember to reset collision check to false, reset bike position, clear path arraw
   //TODO Even Later: Work on interface Score/Lives not empty

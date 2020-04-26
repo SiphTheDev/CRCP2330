@@ -75,7 +75,7 @@ class Bike{
 	method void collisionCheck(int orientation){ 	
 		var int word;	
 		var int bit;	
-		var int memAdr; //current word block
+		var int memAdr; 
 		var int memVal;
 		var int binPos;
 		var int adjX;	
@@ -83,41 +83,31 @@ class Bike{
 
 		if(isNotCollided){
 			if(orientation = 0){
-				let word = Memory.peek(16384+((y-7)*32)+(x/16)); //Pixel Above
-				let isNotCollided = mod(word,16);
+				let adjX = x;
+				let adjY = y-7;
 			} 
 			if(orientation = 1){
-				let word = Memory.peek(16384+(y*32)+((x+7)/16));//+(mod((x+7),16))); //Pixel to Right
-				let isNotCollided = mod(word,16);
+				let adjX = x+7;
+				let adjY = y;
 			} 
 			if(orientation = 2){
-				let word = Memory.peek(16384+((y+7)*32)+(x/16));//+(mod(x,16))); //Pixel Below
-				let isNotCollided = mod(word,16);
+				let adjX = x;
+				let adjY = y+7;
 			} 
 			if(orientation = 3){
 				let adjX = x-7;
 				let adjY = y;
-				let word = adjX/16;
-
-				let bit = adjX-(word*16);
-				let memAdr = (16384+((adjY*32) + word));
-				let memVal = Memory.peek(memAdr);
-				let binPos = power(bit);
-
-				if((~memVal) & binPos){
-					let isNotCollided = false;
-				}
-				else{
-					let isNotCollided = true;
-				}
-				/*
-				let word = Memory.peek(16384+(y*32)+((x-7)/16));//+(mod((x-7),16))); //Pixel to Left
-				let x2 = (x-7);
-				let w = x2/16;
-				let isNotCollided = mod(word, (x2-((w-1)*16)));///((x2)-(((x2)/16) / (((x2)/16)-1);
-				*/
 			} 
-			else{}
+
+			let word = adjX/16;
+			let bit = adjX-(word*16);
+			let memAdr = (16384+((adjY*32) + word));
+			let memVal = Memory.peek(memAdr);
+			let binPos = power(bit);
+
+			if((~memVal) & binPos){
+				let isNotCollided = false;
+			}
 		}
 		return;
 	}
@@ -139,26 +129,22 @@ class Bike{
 	}
 
 	method int power(int exp) {
-
-	//method int power(int exp){
-		//var int i;
 		var int xp;	
 		var int n;
 		let xp = exp;
 		let n = 1;
 
-		//let i = bit;
-			if(xp = 0){
-				return 1;
-			}
-			else{
-				while(xp >0){
-					let n = n+n; //consider +
-					let xp = xp -1;
-				}
-			}
-			return n;
+		if(xp = 0){
+			return 1;
 		}
+		else{
+			while(xp >0){
+				let n = n+n; 
+				let xp = xp -1;
+			}
+		}
+		return n;
+	}
 
 	method void resetBike(){
 		let x = originX;
