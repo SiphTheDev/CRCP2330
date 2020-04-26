@@ -278,6 +278,12 @@ return
 function LightBikeGame.resetGameCheck 0
 push argument 0
 pop pointer 0
+push this 0
+call Bike.hasItCollided 1
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
 push constant 9
 call String.new 1
 push constant 71
@@ -304,9 +310,7 @@ push constant 9
 push constant 6
 call Output.moveCursor 2
 pop temp 0
-push constant 2000
-call Sys.wait 1
-pop temp 0
+label IF_FALSE0
 push constant 0
 return
 function LightBikeGame.drawInterface 0

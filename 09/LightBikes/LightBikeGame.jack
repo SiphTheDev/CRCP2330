@@ -81,14 +81,15 @@ class LightBikeGame{
 	
 	method void resetGameCheck(){ 
 		//clear pixel array
+		if(~player.hasItCollided()){ //					TODO: FIX THIS NOT WORKING!
+			do Output.printString("Game Over");
+			do Output.moveCursor(9,6);
+			//do Sys.wait(2000); //optional, make char blink every 500(draw it, wait 500, cover it, wait 500, etc).
+			//let player.x = 205; //Just make a resetpositon method in Bike
+			//let player.y = 224;
 		
-		do Output.printString("Game Over");
-		do Output.moveCursor(9,6);
-		do Sys.wait(2000); //optional, make char blink every 500(draw it, wait 500, cover it, wait 500, etc).
-		//let player.x = 205; //Just make a resetpositon method in Bike
-		//let player.y = 224;
-		
-		//If there is a foe, up foes score, and boost your score when they crash?
+			//If there is a foe, up foes score, and boost your score when they crash?
+		}
 		return;
 	}
 

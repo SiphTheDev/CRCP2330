@@ -74,19 +74,22 @@ class Bike{
 				let isNotCollided = Memory.peek(16384+((y-7)*32)+(x/16)+mod(x,16)); //Pixel Above
 			} 
 			if(orientation = 1){
-				let isNotCollided = Memory.peek(16384);//+(y*32)+((x+7)/16)+(mod((x+7),16)); //Pixel to Right
+				let isNotCollided = Memory.peek(16384+(y*32)+((x+7)/16)+(mod((x+7),16))); //Pixel to Right
 			} 
 			if(orientation = 2){
-				let isNotCollided = Memory.peek(16384);//+((y+7)*32)+(x/16)+(mod(x,16)); //Pixel Below
+				let isNotCollided = Memory.peek(16384+((y+7)*32)+(x/16)+(mod(x,16))); //Pixel Below
 			} 
 			if(orientation = 3){
-				let isNotCollided = Memory.peek(16384);//+(y*32)+((x-7)/16)+(mod((x-7),16))); //Pixel to Left
+				let isNotCollided = Memory.peek(16384+(y*32)+((x-7)/16)+(mod((x-7),16))); //Pixel to Left
 			} 
 			else{}
 		}
 		return;
 	}
 	
+	method boolean hasItCollided(){
+		return isNotCollided;
+	}
 
 	method int mod(int dividend, int divisor){
 		var int remainder;
