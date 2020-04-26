@@ -2,7 +2,7 @@ function LightBikeGame.new 0
 push constant 3
 call Memory.alloc 1
 pop pointer 0
-push constant 235
+push constant 450
 push constant 224
 call Bike.new 2
 pop this 0

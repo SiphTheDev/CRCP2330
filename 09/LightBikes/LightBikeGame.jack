@@ -10,7 +10,7 @@ class LightBikeGame{
 
 	// Constructor
 	constructor LightBikeGame new(){
-		let player = Bike.new(235, 224);
+		let player = Bike.new(450, 224);
 		let orientation = 0; //0 = Up, 1 = Right, 2 = Down, 3 = Left
 		let hasCrashed = false;
 		return this;
@@ -117,9 +117,9 @@ class LightBikeGame{
 	method void refreshInterface(){
 		do Screen.setColor(true);
 		//do Screen.drawRectangle(0,0,511, 255);
-		do Screen.drawRectangle(129,33,479,223); 	//Game Area
-		do Screen.drawRectangle(128,0,480,31); 		//Borders
-		do Screen.drawRectangle(128,225,480,255);
+		do Screen.drawRectangle(129,33,479,223); 	//Center
+		do Screen.drawRectangle(128,0,480,31); 		//top
+		do Screen.drawRectangle(128,225,480,255); 	//bottom
 		do Screen.drawRectangle(96,0,127,255);
 		do Screen.drawRectangle(481,0,511,255);
 		return;
