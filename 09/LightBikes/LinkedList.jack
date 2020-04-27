@@ -6,6 +6,23 @@ class LinkedList {
 		return this;
 	}
 
+	method boolean isEmpty(){
+		if(head = null){return true;}
+		else{return false;}
+	}
+
+	method void add(int dataX, int dataY){ //adds in first 
+		var Node newNode;
+		if(isEmpty()){
+			let newNode = Node.new(dataX, dataY, null); //is this let or field or var?
+			let head = newNode;
+		}
+		else{
+			let newNode = Node.new(dataX, dataY, head);
+			let head = newNode;
+		}
+		return;
+	}
 	//add
 
 	//remove
