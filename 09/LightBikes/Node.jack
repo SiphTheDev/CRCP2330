@@ -9,4 +9,23 @@ class Node {
 		let next = nextNode;
 		return this;
 	}
+
+	method void draw(){
+		do Screen.drawPixel(dataX, dataY);
+		return;
+	}
+
+	method void dispose(){
+		do Memory.deAlloc(this);
+		return;
+	}
+
+	method Node getNext(){
+		return next;
+	}
+
+	method void setNext(Node newNext){
+		let next = newNext;
+		return;
+	}
 }

@@ -9,7 +9,17 @@ class Main {
 		//do tron.dispose();
 		return;
 	}
-} //TODO Then: Work on leaving particle trail
-  //TODO Later: Implement memory clean-up
-  //TODO Afterwards: Implement a reset optionx - remember to reset collision check to false, reset bike position, clear path arraw
-  //TODO Even Later: Work on interface Score/Lives not empty
+} //TODO Now: Work on leaving particle trail
+  //		  			- Linked List Finish implementation
+  //					- Add methods to Bike to: Add a(2) pixel(s) behind the ship when it moves
+  //					- Add methods to mainGame to: draw all the pixels each refresh | clear the list on gameReset
+  //TODO Then: Implement memory clean-up
+  //TODO Finally: clean up comments & such [& maybe comment out score, and just leave controls/instruction];
+  
+  //Optional:
+  //	TODO Afterwards: Implement a reset optionx - remember to reset collision check to false, reset bike position, clear path arraw
+  //	TODO Even Later: Work on interface Score/Lives not empty
+  			//if do score, maybe just see how many pixels are in the linkedList, and use that number. This would even automatically double the score when enemies present!
+
+
+  //NOTE: Can't retrieve variables with . operator. It only allows you to access methods, so you may need getters/setters.

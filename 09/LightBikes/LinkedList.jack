@@ -11,7 +11,7 @@ class LinkedList {
 		else{return false;}
 	}
 
-	method void add(int dataX, int dataY){ //adds in first 
+	method void add(int dataX, int dataY){ //adds new node in first position 
 		var Node newNode;
 		if(isEmpty()){
 			let newNode = Node.new(dataX, dataY, null); //is this let or field or var?
@@ -23,15 +23,37 @@ class LinkedList {
 		}
 		return;
 	}
-	//add
 
-	//remove
+	method void clear(){					
+		var Node nextNode;
+		//var Node nextNextNode;
+		while(~(head.getNext() = null)){
+			let nextNode = head.getNext();
+			do head.setNext(nextNode.getNext());
+			//let nextNextNode = nextNode.getNext();
+			do nextNode.dispose();
+		}
+		return;
+	}
 	
-	//draw
+	method void drawTrail(){			
+		var Node currentNode;
+		var Node nextNode;
+		let currentNode = head;
+		let nextNode = head.getNext();
 
-	//clear
+		while(~(nextNode = null)){
+			do currentNode.draw();
+			let currentNode = nextNode;
+			let nextNode = currentNode.getNext();
+		}
+		return;
+	}
 
-	//dispose
-
+	method void dispose(){
+		do clear();
+		do Memory.deAlloc(this);
+		return;
+	}
 	
 }

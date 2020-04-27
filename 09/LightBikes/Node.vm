@@ -10,3 +10,32 @@ push argument 2
 pop this 2
 push pointer 0
 return
+function Node.draw 0
+push argument 0
+pop pointer 0
+push this 0
+push this 1
+call Screen.drawPixel 2
+pop temp 0
+push constant 0
+return
+function Node.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function Node.getNext 0
+push argument 0
+pop pointer 0
+push this 2
+return
+function Node.setNext 0
+push argument 0
+pop pointer 0
+push argument 1
+pop this 2
+push constant 0
+return
