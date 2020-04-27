@@ -1,12 +1,9 @@
 class LinkedList {
-	field int data;
-	field LinkedList nextNode;
+	field Node head;
 
-	constructor LinkedList new(int dataIn, LinkedList next){
-		let data = dataIn;
-		let nextNode = next;
+	constructor LinkedList new(){
+		let head = null;
 		return this;
-
 	}
 
 	//add

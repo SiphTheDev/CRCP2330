@@ -1,0 +1,12 @@
+class Node {
+	field int dataX;
+	field int dataY;
+	field Node next;
+
+	constructor Node new(int dataXIn, int dataYIn, Node nextNode){
+		let dataX = dataXIn;
+		let dataY = dataYIn;
+		let next = nextNode;
+		return this;
+	}
+}
