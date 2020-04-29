@@ -13,6 +13,7 @@ class LightBikeGame{
 		let player = Bike.new(233, 224);
 		let orientation = 0; //0 = Up, 1 = Right, 2 = Down, 3 = Left
 		let hasCrashed = false;
+		let PixelPath = LinkedList.new();
 		return this;
 	}
 
@@ -140,5 +141,5 @@ class LightBikeGame{
 		// Draw - do this in the movement! - DONE
 		// Collision Check - DONE
 		// Path array & refresh
-		// Dispose
+		// Dispose - DONE (untested)
 }

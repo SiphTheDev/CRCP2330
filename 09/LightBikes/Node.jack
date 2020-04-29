@@ -11,6 +11,7 @@ class Node {
 	}
 
 	method void draw(){
+		do Screen.setColor(false);
 		do Screen.drawPixel(dataX, dataY);
 		return;
 	}

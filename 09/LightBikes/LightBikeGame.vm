@@ -10,6 +10,8 @@ push constant 0
 pop this 1
 push constant 0
 pop this 2
+call LinkedList.new 0
+pop this 3
 push pointer 0
 return
 function LightBikeGame.run 1

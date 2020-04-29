@@ -37,9 +37,10 @@ class LinkedList {
 	method void drawTrail(){			
 		var Node currentNode;
 		var Node nextNode;
-		let currentNode = head;
-		let nextNode = head.getNext();
+
 		if(~(isEmpty())){
+			let currentNode = head;
+			let nextNode = head.getNext();
 			while(~(nextNode = null)){
 				do currentNode.draw();
 				let currentNode = nextNode;
