@@ -11,7 +11,7 @@ class Main {
 	}
 } //TODO Now: clean up comments & such  
   //TODO Then: maybe comment out score, & just implement controls/instructions
-  //TODO Later: Try to minimize blinkiness
+  //TODO Later: Try to minimize blinkiness. The refresh rate is increasingly problematic, but is it the 30ms refresh being too slow for visuals to look good, or is it still too fast for Jack to keep up with? Switch to 60, so it has time to draw everything?
   //TODO Later: See if you can prevent line skipping when in close range. Issue: lines draw a smidge behind the bike, rather than immediately behind the center point, so if you turn tight enough, you can slip through the space 1/2 of a bike's length.
   
   //Beyond Class:
