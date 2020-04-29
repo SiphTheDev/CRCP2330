@@ -6,18 +6,18 @@ class Main {
 		var LightBikeGame tron;
 		let tron = LightBikeGame.new();
 		do tron.run();
-		//do tron.dispose();
+		do tron.dispose();
 		return;
 	}
 } //TODO Now: Work on leaving particle trail
-  //		  			- Linked List Finish implementation
-  //					- Add methods to Bike to: Add a(2) pixel(s) behind the ship when it moves
-  //					- Add methods to mainGame to: draw all the pixels each refresh | clear the list on gameReset
+  //		  			- Linked List Finish implementation - SegFault
+  //					- Add methods to Bike to: Add a(2) pixel(s) behind the ship when it moves - Done
+  //					- Add methods to mainGame to: draw all the pixels each refresh | clear the list on gameReset - Done
   //TODO Then: Implement memory clean-up
   //TODO Finally: clean up comments & such [& maybe comment out score, and just leave controls/instruction];
   
-  //Optional:
-  //	TODO Afterwards: Implement a reset optionx - remember to reset collision check to false, reset bike position, clear path arraw
+  //Beyond Class:
+  //	TODO Afterwards: Implement an enemy - a new Bike object, with it's own orientation var, but can hopefully use same linked list. Add a method in LightBikeGame to randomly generate orientation, & to have it turn when near boundaries.
   //	TODO Even Later: Work on interface Score/Lives not empty
   			//if do score, maybe just see how many pixels are in the linkedList, and use that number. This would even automatically double the score when enemies present!
 

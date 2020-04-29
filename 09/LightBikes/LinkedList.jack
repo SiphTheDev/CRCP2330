@@ -39,11 +39,12 @@ class LinkedList {
 		var Node nextNode;
 		let currentNode = head;
 		let nextNode = head.getNext();
-
-		while(~(nextNode = null)){
-			do currentNode.draw();
-			let currentNode = nextNode;
-			let nextNode = currentNode.getNext();
+		if(~(isEmpty())){
+			while(~(nextNode = null)){
+				do currentNode.draw();
+				let currentNode = nextNode;
+				let nextNode = currentNode.getNext();
+			}
 		}
 		return;
 	}

@@ -161,6 +161,11 @@ class Bike{
 		let isNotCollided = true;
 		return;
 	}
+
+	method void dispose(){
+		do Memory.deAlloc(this);
+		return;
+	}
 	//when you refactor code, consider consolidating 1 move (or maybe "act") method, which receives "orientation," then passes it to three different methods: move, draw, and addPath, which have simple if statements about what to do next, just so you don't have 4, long, similar methods.
 
 	//dispose

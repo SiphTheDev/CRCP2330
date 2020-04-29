@@ -84,6 +84,12 @@ pop local 0
 push this 0
 call Node.getNext 1
 pop local 1
+push pointer 0
+call LinkedList.isEmpty 1
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
 label WHILE_EXP0
 push local 1
 push constant 0
@@ -101,6 +107,7 @@ call Node.getNext 1
 pop local 1
 goto WHILE_EXP0
 label WHILE_END0
+label IF_FALSE0
 push constant 0
 return
 function LinkedList.dispose 0

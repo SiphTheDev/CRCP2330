@@ -417,3 +417,17 @@ call LinkedList.drawTrail 1
 pop temp 0
 push constant 0
 return
+function LightBikeGame.dispose 0
+push argument 0
+pop pointer 0
+push this 0
+call Bike.dispose 1
+pop temp 0
+push this 3
+call LinkedList.dispose 1
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
