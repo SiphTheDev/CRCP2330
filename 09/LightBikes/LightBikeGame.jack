@@ -4,6 +4,7 @@ class LightBikeGame{
 		field Bike player;		//Create Bike Obj
 		field int orientation;
 		field boolean hasCrashed;
+		field LinkedList PixelPath;
 
 																//TODO Make a pathPixel array(linked list - see book)
 
@@ -45,51 +46,52 @@ class LightBikeGame{
 		if(key = 131){ //UP
 			if((orientation = 0) | (orientation = 1) | (orientation = 3)){
 				let orientation = 0;
-				do player.moveUp(orientation);
+				do player.moveUp(orientation, PixelPath);
 			}
 		}
 		if(key = 132){ //RIGHT 
 			if((orientation = 0) | (orientation = 1) | (orientation = 2)){
 				let orientation = 1;
-				do player.moveRight(orientation);		
+				do player.moveRight(orientation, PixelPath);		
 			}
 		}
 		if(key = 133){ //DOWN
 			if((orientation = 1) | (orientation = 2) | (orientation = 3)){
 				let orientation = 2;
-				do player.moveDown(orientation);
+				do player.moveDown(orientation, PixelPath);
 			}
 		}
 		if(key = 130){ //LEFT
 			if((orientation = 0) | (orientation = 2)| (orientation = 3)){
 				let orientation = 3;
-				do player.moveLeft(orientation);				
+				do player.moveLeft(orientation, PixelPath);				
 			}
 		}
 		if(key = 0){
-			if(orientation = 0){ do player.moveUp(orientation); }
-			if(orientation = 1){ do player.moveRight(orientation); }
-			if(orientation = 2){ do player.moveDown(orientation); }
-			if(orientation = 3){ do player.moveLeft(orientation); }
+			if(orientation = 0){ do player.moveUp(orientation, PixelPath); }
+			if(orientation = 1){ do player.moveRight(orientation, PixelPath); }
+			if(orientation = 2){ do player.moveDown(orientation, PixelPath); }
+			if(orientation = 3){ do player.moveLeft(orientation, PixelPath); }
 		}
 		else{}
 		return;
 	}
 	
 	method void resetGameCheck(){ 
-													//TODO clear pixel array
+														//TODO clear pixel array
 		if(~player.hasItCollided()){ 
 			do Output.moveCursor(9,32);
 			do Output.printString("Game Over");
-			/*do refreshInterface();
+			do PixelPath.clear();
+			/*do refreshInterface();					//TODO implement a separate draw method while refactoring, which can then be called here.
 			do Sys.wait(500); 
 			do player.draw(orientation);
-			do Output.printString("Game Over");
+			//do Output.printString("Game Over");
 			do Sys.wait(500);//optional, make char blink every 500(draw it, wait 500, cover it, wait 500, etc).
 			do refreshInterface();
 			do Sys.wait(500); 
 			do player.draw(orientation);
-			do Output.printString("Game Over");
+			//do Output.printString("Game Over");
 			do Sys.wait(500);
 			do refreshInterface();
 			*/
@@ -97,7 +99,7 @@ class LightBikeGame{
 			let orientation = 0;
 			do player.resetBike();
 		
-			//If there is a foe, up foes score, and boost your score when they crash?
+			//TODO: If there is a foe, up foes score, and boost your score when they crash?
 		}
 		return;
 	}
@@ -117,6 +119,7 @@ class LightBikeGame{
 		do Screen.drawRectangle(128,225,480,255); 	//bottom
 		do Screen.drawRectangle(96,0,127,255);
 		do Screen.drawRectangle(481,0,511,255);
+		do PixelPath.drawTrail(); //refresh the light trailing the bikes.
 		return;
 	}
 

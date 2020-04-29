@@ -17,7 +17,7 @@ class Bike{
 	}
 
 	//movement Methods (refactor soon)
-	method void moveUp(int orientation){
+	method void moveUp(int orientation, LinkedList Trail){
 		let y = y-1;							//move & check collision
 		do collisionCheck(orientation);
 		let y = y-1;
@@ -28,12 +28,12 @@ class Bike{
 		do Screen.drawLine(x-3, y+3, x+3, y+3);
 		do Screen.drawLine(x+3, y+3, x, y-6);
 
-		//do Screen.drawPixel(x,y-4);			//leave path (2 pixels to account for movement speed). Needs to be adding path to an array, do it in a separate method.
-		//do Screen.drawPixel(x,y-5); 				
+		do Trail.add(x,y+4);					//leave path (2 pixels to account for movement speed). 
+		do Trail.add(x,y+5);			
 		return;
 	}
 
-	method void moveRight(int orientation){
+	method void moveRight(int orientation, LinkedList Trail){
 		let x = x+1;
 		do collisionCheck(orientation);
 		let x = x+1;
@@ -43,10 +43,13 @@ class Bike{
 		do Screen.drawLine(x+6, y, x-3, y-3);
 		do Screen.drawLine(x-3, y-3, x-3, y+3);
 		do Screen.drawLine(x-3, y+3, x+6, y);
+
+		do Trail.add(x-4,y);
+		do Trail.add(x-5,y);
 		return;
 	}
 
-	method void moveDown(int orientation){
+	method void moveDown(int orientation, LinkedList Trail){
 		let y = y+1;
 		do collisionCheck(orientation);
 		let y = y+1;
@@ -56,10 +59,13 @@ class Bike{
 		do Screen.drawLine(x, y+6, x-3, y-3);
 		do Screen.drawLine(x-3, y-3, x+3, y-3);
 		do Screen.drawLine(x+3, y-3, x, y+6);
+
+		do Trail.add(x,y-4);
+		do Trail.add(x,y-5);
 		return;
 	}
 
-	method void moveLeft(int orientation){
+	method void moveLeft(int orientation, LinkedList Trail){
 		let x = x-1;
 		do collisionCheck(orientation);
 		let x = x-1;
@@ -69,6 +75,9 @@ class Bike{
 		do Screen.drawLine(x-6, y, x+3, y-3);
 		do Screen.drawLine(x+3, y-3, x+3, y+3);
 		do Screen.drawLine(x+3, y+3, x-6, y);
+
+		do Trail.add(x+4,y);
+		do Trail.add(x+5,y);
 		return;
 	}
 	

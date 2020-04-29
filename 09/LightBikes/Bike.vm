@@ -75,6 +75,20 @@ push constant 6
 sub
 call Screen.drawLine 4
 pop temp 0
+push argument 2
+push this 0
+push this 1
+push constant 4
+add
+call LinkedList.add 3
+pop temp 0
+push argument 2
+push this 0
+push this 1
+push constant 5
+add
+call LinkedList.add 3
+pop temp 0
 push constant 0
 return
 function Bike.moveRight 0
@@ -136,6 +150,20 @@ push constant 6
 add
 push this 1
 call Screen.drawLine 4
+pop temp 0
+push argument 2
+push this 0
+push constant 4
+sub
+push this 1
+call LinkedList.add 3
+pop temp 0
+push argument 2
+push this 0
+push constant 5
+sub
+push this 1
+call LinkedList.add 3
 pop temp 0
 push constant 0
 return
@@ -199,6 +227,20 @@ push constant 6
 add
 call Screen.drawLine 4
 pop temp 0
+push argument 2
+push this 0
+push this 1
+push constant 4
+sub
+call LinkedList.add 3
+pop temp 0
+push argument 2
+push this 0
+push this 1
+push constant 5
+sub
+call LinkedList.add 3
+pop temp 0
 push constant 0
 return
 function Bike.moveLeft 0
@@ -260,6 +302,20 @@ push constant 6
 sub
 push this 1
 call Screen.drawLine 4
+pop temp 0
+push argument 2
+push this 0
+push constant 4
+add
+push this 1
+call LinkedList.add 3
+pop temp 0
+push argument 2
+push this 0
+push constant 5
+add
+push this 1
+call LinkedList.add 3
 pop temp 0
 push constant 0
 return

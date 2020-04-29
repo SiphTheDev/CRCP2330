@@ -26,11 +26,9 @@ class LinkedList {
 
 	method void clear(){					
 		var Node nextNode;
-		//var Node nextNextNode;
 		while(~(head.getNext() = null)){
 			let nextNode = head.getNext();
 			do head.setNext(nextNode.getNext());
-			//let nextNextNode = nextNode.getNext();
 			do nextNode.dispose();
 		}
 		return;
