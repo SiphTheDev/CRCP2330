@@ -1,4 +1,4 @@
-// By: Thomas Park, Apr 18, 2020
+// By: Thomas Park, Apr 18-29, 2020
 
 // Initializes a new game, runs it, and disposes of it when done.
 class Main {
