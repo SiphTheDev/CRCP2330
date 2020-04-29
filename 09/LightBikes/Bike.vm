@@ -78,14 +78,14 @@ pop temp 0
 push argument 2
 push this 0
 push this 1
-push constant 4
+push constant 1
 add
 call LinkedList.add 3
 pop temp 0
 push argument 2
 push this 0
 push this 1
-push constant 5
+push constant 2
 add
 call LinkedList.add 3
 pop temp 0
@@ -153,14 +153,14 @@ call Screen.drawLine 4
 pop temp 0
 push argument 2
 push this 0
-push constant 4
+push constant 1
 sub
 push this 1
 call LinkedList.add 3
 pop temp 0
 push argument 2
 push this 0
-push constant 5
+push constant 2
 sub
 push this 1
 call LinkedList.add 3
@@ -230,14 +230,14 @@ pop temp 0
 push argument 2
 push this 0
 push this 1
-push constant 4
+push constant 1
 sub
 call LinkedList.add 3
 pop temp 0
 push argument 2
 push this 0
 push this 1
-push constant 5
+push constant 2
 sub
 call LinkedList.add 3
 pop temp 0
@@ -305,14 +305,14 @@ call Screen.drawLine 4
 pop temp 0
 push argument 2
 push this 0
-push constant 4
+push constant 1
 add
 push this 1
 call LinkedList.add 3
 pop temp 0
 push argument 2
 push this 0
-push constant 5
+push constant 2
 add
 push this 1
 call LinkedList.add 3

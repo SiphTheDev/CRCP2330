@@ -9,12 +9,10 @@ class Main {
 		do tron.dispose();
 		return;
 	}
-} //TODO Now: Work on leaving particle trail
-  //		  			- Linked List Finish implementation - SegFault
-  //					- Add methods to Bike to: Add a(2) pixel(s) behind the ship when it moves - Done
-  //					- Add methods to mainGame to: draw all the pixels each refresh | clear the list on gameReset - Done
-  //TODO Then: Implement memory clean-up
-  //TODO Finally: clean up comments & such [& maybe comment out score, and just leave controls/instruction];
+} //TODO Now: clean up comments & such  
+  //TODO Then: maybe comment out score, & just implement controls/instructions
+  //TODO Later: Try to minimize blinkiness
+  //TODO Later: See if you can prevent line skipping when in close range. Issue: lines draw a smidge behind the bike, rather than immediately behind the center point, so if you turn tight enough, you can slip through the space 1/2 of a bike's length.
   
   //Beyond Class:
   //	TODO Afterwards: Implement an enemy - a new Bike object, with it's own orientation var, but can hopefully use same linked list. Add a method in LightBikeGame to randomly generate orientation, & to have it turn when near boundaries.
