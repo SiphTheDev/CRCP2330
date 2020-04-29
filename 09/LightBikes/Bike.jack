@@ -22,6 +22,10 @@ class Bike{
 		do collisionCheck(orientation);
 		let y = y-1;
 		do collisionCheck(orientation);
+		let y = y-1;
+		do collisionCheck(orientation);
+		let y = y-1;
+		do collisionCheck(orientation);
 
 		do Screen.setColor(false);				//draw "bike"
 		do Screen.drawLine(x, y-6, x-3, y+3);	
@@ -29,11 +33,17 @@ class Bike{
 		do Screen.drawLine(x+3, y+3, x, y-6);
 
 		do Trail.add(x,y+1);					//leave path (2 pixels to account for movement speed). 
-		do Trail.add(x,y+2);			
+		do Trail.add(x,y+2);
+		do Trail.add(x,y+3);
+		do Trail.add(x,y+4);			
 		return;
 	}
 
 	method void moveRight(int orientation, LinkedList Trail){
+		let x = x+1;
+		do collisionCheck(orientation);
+		let x = x+1;
+		do collisionCheck(orientation);
 		let x = x+1;
 		do collisionCheck(orientation);
 		let x = x+1;
@@ -46,10 +56,16 @@ class Bike{
 
 		do Trail.add(x-1,y);
 		do Trail.add(x-2,y);
+		do Trail.add(x-3,y);
+		do Trail.add(x-4,y);
 		return;
 	}
 
 	method void moveDown(int orientation, LinkedList Trail){
+		let y = y+1;
+		do collisionCheck(orientation);
+		let y = y+1;
+		do collisionCheck(orientation);
 		let y = y+1;
 		do collisionCheck(orientation);
 		let y = y+1;
@@ -62,10 +78,16 @@ class Bike{
 
 		do Trail.add(x,y-1);
 		do Trail.add(x,y-2);
+		do Trail.add(x,y-3);
+		do Trail.add(x,y-4);
 		return;
 	}
 
 	method void moveLeft(int orientation, LinkedList Trail){
+		let x = x-1;
+		do collisionCheck(orientation);
+		let x = x-1;
+		do collisionCheck(orientation);
 		let x = x-1;
 		do collisionCheck(orientation);
 		let x = x-1;
@@ -78,6 +100,8 @@ class Bike{
 
 		do Trail.add(x+1,y);
 		do Trail.add(x+2,y);
+		do Trail.add(x+3,y);
+		do Trail.add(x+4,y);
 		return;
 	}
 	

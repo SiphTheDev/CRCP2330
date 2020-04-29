@@ -36,7 +36,7 @@ class LightBikeGame{
 
 			do resetGameCheck();
 			
-			do Sys.wait(60);
+			do Sys.wait(60); //gives time for player to react and for PixelPath to be drawn
 			}
 		return;
 	}
