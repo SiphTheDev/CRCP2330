@@ -16,7 +16,7 @@ class Bike{
 		return this;
 	}
 
-	//movement Methods (refactor soon)
+	//movement Methods 
 	method void moveUp(int orientation, LinkedList Trail){
 		let y = y-1;							//move & check collision
 		do collisionCheck(orientation);
@@ -81,7 +81,7 @@ class Bike{
 		return;
 	}
 	
-	method void collisionCheck(int orientation){ 	
+	method void collisionCheck(int orientation){ //Checks the color of the pixel imediately ahead of the ship. If white, sets isNotCollided to false;
 		var int word;	
 		var int bit;	
 		var int memAdr; 
@@ -121,23 +121,11 @@ class Bike{
 		return;
 	}
 	
-	method boolean hasItCollided(){
+	method boolean hasItCollided(){ //Essentially a getter for the main program to access isNotCollided.
 		return isNotCollided;
 	}
 
-	method int mod(int dividend, int divisor){
-		var int remainder;
-		var int quotient;
-		var int product;
-
-		let quotient = dividend / divisor;
-		let product = divisor * quotient;
-		let remainder = dividend - product;
-
-		return remainder;
-	}
-
-	method int power(int exp) {
+	method int power(int exp) { //takes an in put and gives you 2^thatInput
 		var int xp;	
 		var int n;
 		let xp = exp;
@@ -166,7 +154,5 @@ class Bike{
 		do Memory.deAlloc(this);
 		return;
 	}
-	//when you refactor code, consider consolidating 1 move (or maybe "act") method, which receives "orientation," then passes it to three different methods: move, draw, and addPath, which have simple if statements about what to do next, just so you don't have 4, long, similar methods.
+	//when you refactor code, consider consolidating 1 move (or maybe "act"/"goR/L/U/D") method, which receives "orientation," then passes it to three different methods: move, draw, and addPath, which have simple if statements about what to do next, just so you don't have 4, long, similar methods.
 }
-
-///Would need the local key var, and separate draws

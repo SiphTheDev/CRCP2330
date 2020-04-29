@@ -1,12 +1,10 @@
 class LightBikeGame{
 	// field variables
 		
-		field Bike player;		//Create Bike Obj
+		field Bike player;		//Declares Bike Obj
 		field int orientation;
 		field boolean hasCrashed;
-		field LinkedList PixelPath;
-
-																//TODO Make a pathPixel array(linked list - see book)
+		field LinkedList PixelPath; 
 
 	// Constructor
 	constructor LightBikeGame new(){
@@ -38,11 +36,12 @@ class LightBikeGame{
 
 			do resetGameCheck();
 			
-			do Sys.wait(30);
+			do Sys.wait(60);
 			}
 		return;
 	}
 
+	//Restricts movement to the allowed directions (so players can not travel backwards)
 	method void move(int key){
 		if(key = 131){ //UP
 			if((orientation = 0) | (orientation = 1) | (orientation = 3)){
@@ -78,49 +77,42 @@ class LightBikeGame{
 		return;
 	}
 	
+	//Checks if player has collided, and resets game if they have
 	method void resetGameCheck(){ 
-														//TODO clear pixel array
 		if(~player.hasItCollided()){ 
 			do Output.moveCursor(9,32);
 			do Output.printString("Game Over");
 			do PixelPath.clear();
-			/*do refreshInterface();					//TODO implement a separate draw method while refactoring, which can then be called here.
-			do Sys.wait(500); 
-			do player.draw(orientation);
-			//do Output.printString("Game Over");
-			do Sys.wait(500);//optional, make char blink every 500(draw it, wait 500, cover it, wait 500, etc).
-			do refreshInterface();
-			do Sys.wait(500); 
-			do player.draw(orientation);
-			//do Output.printString("Game Over");
-			do Sys.wait(500);
-			do refreshInterface();
-			*/
 			do Sys.wait(200);
 			let orientation = 0;
-			do player.resetBike();
-		
-			//TODO: If there is a foe, up foes score, and boost your score when they crash?
+			do player.resetBike();														
 		}
 		return;
 	}
 
-	method void drawInterface(){ //TODO tweak this for aesthetics & to actually track numbers if have time to add reset function.
-		do Output.printString("Score");
-		do Output.moveCursor(9,0);
-		do Output.printString("Controls");
+	//draws the initial instructions on the left of the screen
+	method void drawInterface(){ 
+		do Output.printString("Controls:");
+		do Output.moveCursor(4,0);
+		do Output.printString("Use arrow");
+		do Output.println();
+		do Output.printString("keys to move.");
+		do Output.moveCursor(8,0);
+		do Output.printString("Press 'Q'");
+		do Output.println();
+		do Output.printString("to quit");
 		return;
 	}
 
+	//refreshes the game area by redrawing the background. Does not cover border to prevent blinkiness
 	method void refreshInterface(){
 		do Screen.setColor(true);
-		//do Screen.drawRectangle(0,0,511, 255);
 		do Screen.drawRectangle(129,33,479,223); 	//Center
 		do Screen.drawRectangle(128,0,480,31); 		//top
 		do Screen.drawRectangle(128,225,480,255); 	//bottom
 		do Screen.drawRectangle(96,0,127,255);
 		do Screen.drawRectangle(481,0,511,255);
-		do PixelPath.drawTrail(); //refresh the light trailing the bikes.
+		do PixelPath.drawTrail(); //refresh the light path trailing the bike(s).
 		return;
 	}
 
@@ -140,6 +132,6 @@ class LightBikeGame{
 		// Movement - DONE
 		// Draw - do this in the movement! - DONE
 		// Collision Check - DONE
-		// Path array & refresh
-		// Dispose - DONE (untested)
+		// Path array & refresh - DONE
+		// Dispose - DONE 
 }

@@ -3,6 +3,7 @@ class Node {
 	field int dataY;
 	field Node next;
 
+	//constructor
 	constructor Node new(int dataXIn, int dataYIn, Node nextNode){
 		let dataX = dataXIn;
 		let dataY = dataYIn;
@@ -10,6 +11,7 @@ class Node {
 		return this;
 	}
 
+	//draws a white pixel at x,y
 	method void draw(){
 		do Screen.setColor(false);
 		do Screen.drawPixel(dataX, dataY);
@@ -21,6 +23,7 @@ class Node {
 		return;
 	}
 
+	//getters and setters
 	method Node getNext(){
 		return next;
 	}

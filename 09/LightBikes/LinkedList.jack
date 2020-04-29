@@ -1,20 +1,23 @@
 class LinkedList {
 	field Node head;
 
+	//constructor
 	constructor LinkedList new(){
 		let head = null;
 		return this;
 	}
 
+	//returns true if list is empty
 	method boolean isEmpty(){
 		if(head = null){return true;}
 		else{return false;}
 	}
 
-	method void add(int dataX, int dataY){ //adds new node in first position 
+	//adds new node in first position 
+	method void add(int dataX, int dataY){ 
 		var Node newNode;
 		if(isEmpty()){
-			let newNode = Node.new(dataX, dataY, null); //is this let or field or var?
+			let newNode = Node.new(dataX, dataY, null); 
 			let head = newNode;
 		}
 		else{
@@ -24,6 +27,7 @@ class LinkedList {
 		return;
 	}
 
+	//empties the list
 	method void clear(){					
 		var Node nextNode;
 		while(~(head.getNext() = null)){
@@ -34,6 +38,7 @@ class LinkedList {
 		return;
 	}
 	
+	//draws a pixel at the x,y coordinates stored in each node
 	method void drawTrail(){			
 		var Node currentNode;
 		var Node nextNode;
