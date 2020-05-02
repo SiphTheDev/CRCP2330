@@ -6,7 +6,7 @@ class Parser{
   //Boolean phase2;
 
   Parser(){
-    fileReader = createReader("Add.asm");
+    fileReader = createReader("TestText.asm");
     //phase2 = false;
   }
   
@@ -23,6 +23,8 @@ class Parser{
       noLoop(); //if this doesn't end the program, put something here that does. Jump to an "End" method?                     //BE WARY - this might prevent phase 2 by accident.
     }
     else{
+      println(currentLine);
+         //Use select/switch case to determine cmd type.
         //Dothethingshere
         //if first symbol is @, goto A cmd stuff
         //else if first symbol is "//," skip (implem in phase2 bit)
@@ -31,10 +33,22 @@ class Parser{
     }
   }
   
-  int commandType(line){
+  int commandType(String line){
     char cType = line.charAt(0);
-    if(cType == '@'){return 1};     //A Commands
-    else{return 0};                 //C Commands
+    if(cType == '@'){return 1;}    //A Commands
+    else{return 0;}                //C Commands
+  }
+  
+  String dest(String line){
+    return "uwu"; //will get real data from code module
+  }
+  
+  String comp(String line){
+    return "ohnowat"; //get real data from code module
+  }
+  
+  String jump(String line){
+    return "owo";
   }
   
 
