@@ -22,8 +22,8 @@ class Parser {
       } 
       else {
         int cmdTyp = commandType(currentLine);
-        if(cmdTyp == 1) {println(symbol(currentLine));}
-        else if(cmdTyp == 0){println(dest(currentLine) + comp(currentLine) + jump(currentLine));}
+        if(cmdTyp == 1) {println("0" + symbol(currentLine));}
+        else if(cmdTyp == 0){println("111" + comp(currentLine) + dest(currentLine) + jump(currentLine));}
       }
     //}
   }
