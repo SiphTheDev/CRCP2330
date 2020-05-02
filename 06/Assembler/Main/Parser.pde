@@ -11,16 +11,6 @@ class Parser{
   }
   
   void run(){
-  }
-  
-//void setup(){
-
-
-//}
-
-//void draw(){
-  //get currentLine from file
-  //if(!phase2){
     try{
       currentLine = fileReader.readLine();
     }
@@ -34,9 +24,20 @@ class Parser{
     }
     else{
         //Dothethingshere
+        //if first symbol is @, goto A cmd stuff
+        //else if first symbol is "//," skip (implem in phase2 bit)
+          //also deal with var names and other symbols somewhere in here, too.
+        //else - do C comd stuff
     }
-  //}
-  //else
+  }
+  
+  int commandType(line){
+    char cType = line.charAt(0);
+    if(cType == '@'){return 1};     //A Commands
+    else{return 0};                 //C Commands
+  }
+  
+
   
 
   //do the tests & stuff on it
