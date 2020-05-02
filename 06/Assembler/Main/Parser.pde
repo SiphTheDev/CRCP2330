@@ -1,17 +1,26 @@
-BufferedReader fileReader;
-String currentLine;
-String[] fileForSecondLoop;
-Boolean phase2;
+class Parser{
+  BufferedReader fileReader;
+  String currentLine;
+  String currentBinary;
+  String[] fileForSecondLoop;
+  //Boolean phase2;
 
-void setup(){
-  size(500,500);
-  fileReader = createReader("Add.asm");
-  phase2 = false;
-}
+  Parser(){
+    fileReader = createReader("Add.asm");
+    //phase2 = false;
+  }
+  
+  void run(){
+  }
+  
+//void setup(){
 
-void draw(){
+
+//}
+
+//void draw(){
   //get currentLine from file
-  if(!phase2){
+  //if(!phase2){
     try{
       currentLine = fileReader.readLine();
     }
@@ -20,14 +29,14 @@ void draw(){
       currentLine = null;
     }
     if(currentLine == null){
-      phase2 = true;
-      noLoop();                      //BE WARY - this might prevent phase 2 by accident.
+      //phase2 = true;
+      noLoop(); //if this doesn't end the program, put something here that does. Jump to an "End" method?                     //BE WARY - this might prevent phase 2 by accident.
     }
     else{
         //Dothethingshere
     }
-  }
-  else
+  //}
+  //else
   
 
   //do the tests & stuff on it
