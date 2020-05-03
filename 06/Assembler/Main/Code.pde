@@ -41,7 +41,6 @@ void loadTables(){
   compCodes.put("D&M", "1000000");
   compCodes.put("D|M", "1010101");
   
-  //include one for null, or not? 000
   destCodes.put("M", "001");
   destCodes.put("D", "010");
   destCodes.put("MD", "011");
@@ -50,7 +49,6 @@ void loadTables(){
   destCodes.put("AD", "110");
   destCodes.put("AMD", "111");
   
-  //include one for null, or not? 000
   jumpCodes.put("JGT", "001");
   jumpCodes.put("JEQ", "010");
   jumpCodes.put("JGE", "011");

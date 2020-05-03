@@ -10,12 +10,11 @@ void setup(){
   myCodes.loadTables();
   mySymbols = new SymbolTable();
   mySymbols.loadDefaultSymbols();
+  myParser.phase1(mySymbols);
 }
 
 void draw(){
-  myParser.phase1(mySymbols);
-  myParser.phase2(myCodes);
-  
+  myParser.phase2(myCodes); 
 }
 //TODO: Then, work on Phase 2
 

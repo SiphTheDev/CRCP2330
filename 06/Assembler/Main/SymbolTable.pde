@@ -30,4 +30,9 @@ class SymbolTable{
     symbols.put("SCREEN", "100000000000000");
     symbols.put("KBD", "110000000000000");
   }
+  
+  void addEntry(String name, String memAdr){
+    //String strAdr = str(memAdr);
+    symbols.put(name, memAdr);
+  }
 }
