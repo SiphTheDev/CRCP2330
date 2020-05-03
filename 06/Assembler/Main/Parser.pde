@@ -1,47 +1,49 @@
 class Parser {
-  BufferedReader firstLoopReader;
+  BufferedReader l1Reader;
   BufferedReader fileReader;
   PrintWriter output;
-  String firstLoopCurrentLine;
+  String l1CurrentLine;
   String currentLine;
   String currentBinary;
   String[] fileForSecondLoop;
-  Boolean loop1Done = false;
+  Boolean l1Done = false;
+  int phase = 0;
   int memAdr = 0;
 
   Parser() {
-    firstLoopReader = createReader("TestText.asm");
+    l1Reader = createReader("TestText.asm");
     fileReader = createReader("TestText.asm");
     output = createWriter("TestText.hack");
   }
 
+  void run(SymbolTable symbols, Code codeTables){
+    while(phase == 0){phase1(symbols);}
+    while(phase == 1){phase2(codeTables);}
+  }
+
   void phase1(SymbolTable symbolTable){
-    while(loop1Done == false){
     try {
-        firstLoopCurrentLine = firstLoopReader.readLine();
+        l1CurrentLine = fileReader.readLine();
       }
       catch (IOException e) {
         e.printStackTrace();
-        firstLoopCurrentLine = null;
+        l1CurrentLine = null;
       }
-      if(firstLoopCurrentLine == null){
-        loop1Done = true;
-        println("loop1done");
-      }
-      else{
-        int cmdType = commandType(firstLoopCurrentLine);
-        if(cmdType == 0 || cmdType == 1){ //if A or C cmd
-          memAdr ++;
-        }
-        else if(cmdType == 3){  //if a label
-          println("got to cmdType3");
-              //consider moving this to the symbol method later.
-          String label = firstLoopCurrentLine.substring(1,firstLoopCurrentLine.length()-1);
+      if (l1CurrentLine == null) {
+        phase = 1;            
+      } 
+      else {
+        println("doingL1");
+        int cmdTyp = commandType(l1CurrentLine);
+        if(cmdTyp == 0||cmdTyp == 1) {
+          memAdr++;
+        } //If A or C        
+        else if(cmdTyp == 2){ //if a label
+          String label = symbol(l1CurrentLine, cmdTyp);
           String binAdr = binary(memAdr+1, 16);
           symbolTable.addEntry(label, binAdr);
-        }        
+        }
       }
-    }
   }
 
   void phase2(Code codeTables) {
@@ -55,32 +57,40 @@ class Parser {
       if (currentLine == null) {
         output.flush();
         output.close();
-        noLoop();                    //BE WARY - this might prevent phase 2 by accident.
+        noLoop();          
       } 
       else {
+        println("doingl2");
         int cmdTyp = commandType(currentLine);
-        if(cmdTyp == 1) {output.println("0" + symbol(currentLine));} 
+        if(cmdTyp == 1) {output.println("0" + symbol(currentLine,cmdTyp));} 
         else if(cmdTyp == 0){output.println("111" + comp(currentLine, codeTables) + dest(currentLine, codeTables) + jump(currentLine, codeTables));}
       }
   }
 
   int commandType(String line) {    
-    if(line.length() == 0){ return 3;}   //skip empty lines
+    if(line.length() == 0){ return 3;}                  //3 = comments, whitespace-only, and empty lines
     
     char cType = line.charAt(0);
   
-    if (cType == '@') { return 1; }      //A Commands    
-    else if(cType == '/' | cType == ' '){return 3;}     //ignore comments & whitespace lines
-    else if(cType == '('){return 2;}    //Labels
-    else {return 0;}  //C Commands            
+    if (cType == '@') { return 1; }      //1 = A Commands
+    else if(cType == '('){return 2;}     //2 = Labels
+    else if(cType == '/' | cType == ' '){return 3;}     //3 = comments,whitespace-only, and empty lines
+    else {return 0;}                     //0 = C Commands            
   }
 
-  String symbol(String line){// int cmdTyp) {
+  String symbol(String line, int cmdTyp){// int cmdTyp) {
     //later, add an if statement to account for labels.
-    String value = line.substring(1, line.length());
+    if(cmdTyp == 1){
+      String value = line.substring(1, line.length());
     
-    Integer num = parseInt(value);
-    return binary(num,15);
+      Integer num = parseInt(value);
+      return binary(num,15);
+    }
+    else if(cmdTyp == 2){
+      String label = line.substring(1,line.length()-1);
+      return label;
+    }
+    else return "bleh";
   }
 
  String comp(String line, Code codeTables) {
