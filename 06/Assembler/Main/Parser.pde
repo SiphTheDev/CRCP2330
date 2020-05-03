@@ -8,7 +8,7 @@ class Parser {
     fileReader = createReader("TestText.asm");
   }
 
-  void run() {
+  void run(Code codeTabless) {
     //while (currentLine != null) {
       try {
         currentLine = fileReader.readLine();
@@ -18,7 +18,7 @@ class Parser {
         currentLine = null;
       }
       if (currentLine == null) {
-        noLoop(); //if this doesn't end the program, put something here that does. Jump to an "End" method?                     //BE WARY - this might prevent phase 2 by accident.
+        noLoop();                    //BE WARY - this might prevent phase 2 by accident.
       } 
       else {
         int cmdTyp = commandType(currentLine);
