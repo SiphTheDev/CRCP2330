@@ -1,11 +1,13 @@
 class Parser {
   BufferedReader fileReader;
+  PrintWriter output;
   String currentLine;
   String currentBinary;
   String[] fileForSecondLoop;
 
   Parser() {
     fileReader = createReader("TestText.asm");
+    output = createWriter("TestText.hack");
   }
 
   void run(Code codeTables) {
@@ -17,12 +19,14 @@ class Parser {
         currentLine = null;
       }
       if (currentLine == null) {
+        output.flush();
+        output.close();
         noLoop();                    //BE WARY - this might prevent phase 2 by accident.
       } 
       else {
         int cmdTyp = commandType(currentLine);
-        if(cmdTyp == 1) {println("0" + symbol(currentLine));} 
-        else if(cmdTyp == 0){println("111" + comp(currentLine, codeTables) + dest(currentLine, codeTables) + jump(currentLine, codeTables));}
+        if(cmdTyp == 1) {output.println("0" + symbol(currentLine));} 
+        else if(cmdTyp == 0){output.println("111" + comp(currentLine, codeTables) + dest(currentLine, codeTables) + jump(currentLine, codeTables));}    //TODO NEXT: Have this output into a file.
       }
   }
 
