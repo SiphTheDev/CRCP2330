@@ -9,7 +9,6 @@ class Parser {
   }
 
   void run(Code codeTables) {
-    //while (currentLine != null) {
       try {
         currentLine = fileReader.readLine();
       }
@@ -22,10 +21,9 @@ class Parser {
       } 
       else {
         int cmdTyp = commandType(currentLine);
-        if(cmdTyp == 1) {println("_" + symbol(currentLine));} //_ = 0
-        else if(cmdTyp == 0){println("___" + comp(currentLine, codeTables) + dest(currentLine, codeTables) + jump(currentLine));} //___ = 111
+        if(cmdTyp == 1) {println("0" + symbol(currentLine));} 
+        else if(cmdTyp == 0){println("111" + comp(currentLine, codeTables) + dest(currentLine, codeTables) + jump(currentLine, codeTables));}
       }
-    //}
   }
 
   int commandType(String line) {
@@ -75,8 +73,17 @@ class Parser {
     return codeTables.dest(destBits);
   }
 
-  String jump(String line) {
-    return "___";
+  String jump(String line, Code codeTables) {
+    int indexOfSc = line.indexOf(";");
+    String jumpBits;
+    
+    if(indexOfSc == -1){
+      return "000";
+    }
+    else{
+      jumpBits = line.substring(indexOfSc+1, line.length());
+    }
+    return codeTables.jump(jumpBits);
   }
 
 
