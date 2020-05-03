@@ -4,14 +4,17 @@ class Parser {
   String currentLine;
   String currentBinary;
   String[] fileForSecondLoop;
-  int i = 0;
+  //int i = 0;
 
   Parser() {
     fileReader = createReader("PongL.asm");
     output = createWriter("PongL.hack");
   }
 
-  void run(Code codeTables) {
+  void phase1(SymbolTable symbolTable){
+  }
+
+  void phase2(Code codeTables) {
       try {
         currentLine = fileReader.readLine();
       }

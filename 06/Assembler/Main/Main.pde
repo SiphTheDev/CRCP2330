@@ -1,18 +1,22 @@
 //Assembler
 Parser myParser;
 Code myCodes;
+SymbolTable mySymbols;
 
 void setup(){
   size(500,500);
   myParser = new Parser();
   myCodes = new Code();
   myCodes.loadTables();
+  mySymbols = new SymbolTable();
+  mySymbols.loadDefaultSymbols();
 }
 
 void draw(){
-  myParser.run(myCodes);
+  myParser.phase1(mySymbols);
+  myParser.phase2(myCodes);
+  
 }
-//TODO: Next, have results save to a file rather than printlining.
 //TODO: Then, work on Phase 2
 
 
