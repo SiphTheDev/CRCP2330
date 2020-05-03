@@ -6,16 +6,17 @@ class Parser {
   String currentLine;
   String currentBinary;
   String[] fileForSecondLoop;
+  Boolean loop1Done = false;
   int memAdr = 0;
 
   Parser() {
-    firstLoopReader = createReader("PongL.asm");
-    fileReader = createReader("PongL.asm");
-    output = createWriter("PongL.hack");
+    firstLoopReader = createReader("TestText.asm");
+    fileReader = createReader("TestText.asm");
+    output = createWriter("TestText.hack");
   }
 
   void phase1(SymbolTable symbolTable){
-    while(firstLoopCurrentLine != null){
+    while(loop1Done == false){
     try {
         firstLoopCurrentLine = firstLoopReader.readLine();
       }
@@ -23,12 +24,17 @@ class Parser {
         e.printStackTrace();
         firstLoopCurrentLine = null;
       }
-      if(firstLoopCurrentLine != null){
-        int cmdType = commandType(currentLine);
+      if(firstLoopCurrentLine == null){
+        loop1Done = true;
+        println("loop1done");
+      }
+      else{
+        int cmdType = commandType(firstLoopCurrentLine);
         if(cmdType == 0 || cmdType == 1){ //if A or C cmd
           memAdr ++;
         }
-        else if(cmdType == 3){  
+        else if(cmdType == 3){  //if a label
+          println("got to cmdType3");
               //consider moving this to the symbol method later.
           String label = firstLoopCurrentLine.substring(1,firstLoopCurrentLine.length()-1);
           String binAdr = binary(memAdr+1, 16);
@@ -50,7 +56,6 @@ class Parser {
         output.flush();
         output.close();
         noLoop();                    //BE WARY - this might prevent phase 2 by accident.
-        println("Done!"); 
       } 
       else {
         int cmdTyp = commandType(currentLine);
@@ -70,7 +75,7 @@ class Parser {
     else {return 0;}  //C Commands            
   }
 
-  String symbol(String line,){// int cmdTyp) {
+  String symbol(String line){// int cmdTyp) {
     //later, add an if statement to account for labels.
     String value = line.substring(1, line.length());
     

@@ -32,7 +32,7 @@ class SymbolTable{
   }
   
   void addEntry(String name, String memAdr){
-    //String strAdr = str(memAdr);
     symbols.put(name, memAdr);
+    println(name + " , " + memAdr);
   }
 }
