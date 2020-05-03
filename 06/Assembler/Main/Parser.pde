@@ -44,15 +44,23 @@ class Parser {
     return value;
   }
 
+ String comp(String line) {
+   int indexOfEq = line.indexOf("=");
+   int indexOfSc = line.indexOf(";");
+    if(indexOfEq == -1){
+      return 
+    }
+    
+    return "ohnowat"; //get real data from code module
+  }
+  
   String dest(String line) {
+
     return "uwu"; //will get real data from code module
   }
 
-  String comp(String line) {
-    return "ohnowat"; //get real data from code module
-  }
-
   String jump(String line) {
+
     return "owo";
   }
 

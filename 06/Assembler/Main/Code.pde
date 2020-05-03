@@ -60,7 +60,20 @@ void loadTables(){
   jumpCodes.put("JMP", 111);
 }
     
+    String comp(String mnemonic){
+      String code = str(compCodes.get(mnemonic));
+      return(code);
+    }
     
+    String dest(String mnemonic){
+      String code = str(destCodes.get(mnemonic));
+      return(code);
+    }
+    
+    String jump(String mnemonic){
+      String code = str(jumpCodes.get(mnemonic));
+      return(code);
+    }
     
     //dest = Have 3 bit variables. 1 is true of A, false if !a, 2 for d, 3 for m. Concatenate them & return. These will always be before =, so go until you find one. If ; but no =, then all are 0.
     
