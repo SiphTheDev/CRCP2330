@@ -61,6 +61,8 @@ void loadTables(){
 }
     
     String comp(String mnemonic){
+      println(compCodes.get("M-D") + "," + compCodes.get("D&M") + "," + compCodes.get("D|M"));
+      //println("Code Table pre Str: " + compCodes.get(mnemonic));
       String code = str(compCodes.get(mnemonic));
       return(code);
     }
