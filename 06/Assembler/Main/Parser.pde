@@ -4,13 +4,16 @@ class Parser {
   String currentLine;
   String currentBinary;
   String[] fileForSecondLoop;
+  int i = 0;
 
   Parser() {
-    fileReader = createReader("TestText.asm");
-    output = createWriter("TestText.hack");
+    fileReader = createReader("Add.asm");
+    output = createWriter("Add.hack");
   }
 
   void run(Code codeTables) {
+      println(i);
+      i++;
       try {
         currentLine = fileReader.readLine();
       }
@@ -30,14 +33,14 @@ class Parser {
       }
   }
 
-  int commandType(String line) {
+  int commandType(String line) {    
+    if(line.length() == 0){ return 3;}   //skip empty lines
+    
     char cType = line.charAt(0);
-    if (cType == '@') {
-      return 1;  //A Commands
-    }    
-    else {
-      return 0;  //C Commands
-    }               
+  
+    if (cType == '@') { return 1; }      //A Commands    
+    else if(cType == '/'){return 3;}     //ignore comments
+    else {return 0;}  //C Commands            
   }
 
   String symbol(String line) {
