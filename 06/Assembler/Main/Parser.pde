@@ -23,7 +23,7 @@ class Parser {
         output.flush();
         output.close();
         noLoop();                    //BE WARY - this might prevent phase 2 by accident.
-        println("Done!");
+        println("Done!"); 
       } 
       else {
         int cmdTyp = commandType(currentLine);
