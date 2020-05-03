@@ -7,13 +7,11 @@ class Parser {
   int i = 0;
 
   Parser() {
-    fileReader = createReader("Add.asm");
-    output = createWriter("Add.hack");
+    fileReader = createReader("MaxL.asm");
+    output = createWriter("MaxL.hack");
   }
 
   void run(Code codeTables) {
-      println(i);
-      i++;
       try {
         currentLine = fileReader.readLine();
       }
@@ -46,7 +44,8 @@ class Parser {
   String symbol(String line) {
     //later, add an if statement to account for labels.
     String value = line.substring(1, line.length());
-    return value;
+    Integer num = parseInt(value);
+    return binary(num,15);
   }
 
  String comp(String line, Code codeTables) {
