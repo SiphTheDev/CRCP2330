@@ -41,7 +41,7 @@ class Parser {
     char cType = line.charAt(0);
   
     if (cType == '@') { return 1; }      //A Commands    
-    else if(cType == '/'){return 3;}     //ignore comments
+    else if(cType == '/' | cType == ' '){return 3;}     //ignore comments & whitespace lines
     else {return 0;}  //C Commands            
   }
 
