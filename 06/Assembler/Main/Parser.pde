@@ -7,8 +7,8 @@ class Parser {
   int i = 0;
 
   Parser() {
-    fileReader = createReader("MaxL.asm");
-    output = createWriter("MaxL.hack");
+    fileReader = createReader("PongL.asm");
+    output = createWriter("PongL.hack");
   }
 
   void run(Code codeTables) {
@@ -23,6 +23,7 @@ class Parser {
         output.flush();
         output.close();
         noLoop();                    //BE WARY - this might prevent phase 2 by accident.
+        println("Done!");
       } 
       else {
         int cmdTyp = commandType(currentLine);
