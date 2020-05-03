@@ -8,7 +8,7 @@ class Parser {
     fileReader = createReader("TestText.asm");
   }
 
-  void run(Code codeTabless) {
+  void run(Code codeTables) {
     //while (currentLine != null) {
       try {
         currentLine = fileReader.readLine();
@@ -22,8 +22,8 @@ class Parser {
       } 
       else {
         int cmdTyp = commandType(currentLine);
-        if(cmdTyp == 1) {println("0" + symbol(currentLine));}
-        else if(cmdTyp == 0){println("111" + comp(currentLine) + dest(currentLine) + jump(currentLine));}
+        if(cmdTyp == 1) {println("_" + symbol(currentLine));} //_ = 0
+        else if(cmdTyp == 0){println("___" + comp(currentLine, codeTables) + dest(currentLine) + jump(currentLine));} //___ = 111
       }
     //}
   }
@@ -44,24 +44,30 @@ class Parser {
     return value;
   }
 
- String comp(String line) {
+ String comp(String line, Code codeTables) {
    int indexOfEq = line.indexOf("=");
    int indexOfSc = line.indexOf(";");
+   String compBits;
+   
     if(indexOfEq == -1){
-      return 
+      compBits = line.substring(0,indexOfSc);
     }
+    else if(indexOfSc == -1){
+      compBits = line.substring(indexOfEq+1, line.length());
+    }    
+    else{
+      compBits = line.substring(indexOfEq+1, indexOfSc);
+    }
+    return codeTables.comp(compBits);
     
-    return "ohnowat"; //get real data from code module
   }
   
   String dest(String line) {
-
-    return "uwu"; //will get real data from code module
+    return "___";
   }
 
   String jump(String line) {
-
-    return "owo";
+    return "___";
   }
 
 

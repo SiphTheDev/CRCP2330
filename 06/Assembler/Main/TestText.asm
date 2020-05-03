@@ -1,5 +1,5 @@
-@This is a test file
-@It's full of test text
-yippie kay-ayy-ey!
-@y'all'd've!
-heyo
+@0010101
+M=1
+M=0
+@eqd
+0;Jmp
