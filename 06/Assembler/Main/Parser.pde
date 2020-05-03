@@ -23,7 +23,7 @@ class Parser {
       else {
         int cmdTyp = commandType(currentLine);
         if(cmdTyp == 1) {println("_" + symbol(currentLine));} //_ = 0
-        else if(cmdTyp == 0){println("___" + comp(currentLine, codeTables) + dest(currentLine) + jump(currentLine));} //___ = 111
+        else if(cmdTyp == 0){println("___" + comp(currentLine, codeTables) + dest(currentLine, codeTables) + jump(currentLine));} //___ = 111
       }
     //}
   }
@@ -62,8 +62,17 @@ class Parser {
     
   }
   
-  String dest(String line) {
-    return "___";
+  String dest(String line, Code codeTables) {
+    int indexOfEq = line.indexOf("=");
+    String destBits;
+    
+    if(indexOfEq == -1){
+      return "000";
+    }
+    else{
+      destBits = line.substring(0,indexOfEq);
+    }
+    return codeTables.dest(destBits);
   }
 
   String jump(String line) {
