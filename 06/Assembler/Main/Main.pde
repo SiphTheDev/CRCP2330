@@ -15,7 +15,7 @@ void setup(){
 }
 
 void draw(){
-myParser.run(mySymbols, myCodes); 
+  myParser.run(mySymbols, myCodes); 
 }
 
 
