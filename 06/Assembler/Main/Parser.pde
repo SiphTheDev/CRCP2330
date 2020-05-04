@@ -55,7 +55,7 @@ class Parser {
         memAdr++;
       } else if (cmdTyp == 2) {         //if a label
         String label = symbol(currentLine, cmdTyp, symbolTable);
-        String binAdr = binary(memAdr+1, 15);
+        String binAdr = binary(memAdr, 15);
         symbolTable.addEntry(label, binAdr);
       }
     }
