@@ -37,7 +37,7 @@ class SymbolTable{
   }
   
   boolean contains(String symbolToCheck){
-    println("is symbol here?" + symbols.containsKey(symbolToCheck));
+    //println("is symbol here?" + symbols.containsKey(symbolToCheck));
     return(symbols.containsKey(symbolToCheck));   
   }
   

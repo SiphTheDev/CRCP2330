@@ -124,19 +124,19 @@ class Parser {
       char sigC = value.charAt(0);
       if (sigC > 47 && sigC < 58) { //if it is a number between 0 & 9 [according to ascii vals), then it's an integer, treat normally
         Integer num = parseInt(value);
-        println("reached normA");
+        //println("reached normA");
         return binary(num, 15);
       } 
       else { //if it is NOT between 0 & 9...
         if (symbols.contains(value)) { //if the table already contains this value, return the memAdr.
-          println("reachedFindA");
+          //println("reachedFindA");
           return(symbols.getAddress(value));
         } 
         else { //if the table does not contain this value, add it to table, then return the memAdr.      TODO: is this overwriting the labels?
           String nextMemAdr = binary(newVarMemAdr, 16);
           symbols.addEntry(value, nextMemAdr);
           newVarMemAdr ++;
-          println("reachedMakeA: " + value);
+          //println("reachedMakeA: " + value);
           return nextMemAdr;
         }
       }
@@ -159,6 +159,7 @@ class Parser {
     } else {
       compBits = line.substring(indexOfEq+1, indexOfSc);
     }
+    println(line + " = " + compBits);
     return codeTables.comp(compBits);
   }
 
@@ -171,6 +172,7 @@ class Parser {
     } else {
       destBits = line.substring(0, indexOfEq);
     }
+    println(line + " = " + destBits);
     return codeTables.dest(destBits);
   }
 
@@ -183,6 +185,7 @@ class Parser {
     } else {
       jumpBits = line.substring(indexOfSc+1, line.length());
     }
+    println(line + " = " + jumpBits);
     return codeTables.jump(jumpBits);
   }
 }
