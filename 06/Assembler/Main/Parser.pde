@@ -10,8 +10,8 @@ class Parser {
 
   Parser() {
     fileContents = new StringList();
-    fileReader = createReader("MaxL.asm");
-    output = createWriter("MaxL.hack");
+    fileReader = createReader("Max.asm");
+    output = createWriter("Max.hack");
   }
 
   void run(SymbolTable symbols, Code codeTables) {
@@ -27,7 +27,7 @@ class Parser {
     try {
       readingLine = fileReader.readLine();
       fileContents.append(readingLine);
-      //println(readingLine);
+      println("readingLine");
     }
     catch (IOException e) {
       e.printStackTrace();
@@ -42,7 +42,7 @@ class Parser {
     String currentLine = null;
     for (int i = 0; i < fileContents.size()-1; i++) {
       currentLine = fileContents.get(i);
-      //println("doingL1");
+      println("doingL1");
       int cmdTyp = commandType(currentLine);
       if (cmdTyp == 0||cmdTyp == 1) { //If A or C  
         memAdr++;
@@ -59,8 +59,9 @@ class Parser {
     String currentLine = null;
     for (int i = 0; i<fileContents.size()-1; i++) {
       currentLine = fileContents.get(i);
-      //println("doingl2");
+      println("doingl2");
       int cmdTyp = commandType(currentLine);
+      println(cmdTyp);
       if (cmdTyp == 1) {
         output.println("0" + symbol(currentLine, cmdTyp, symbolTable));
                //println( i + "   added an A ");
@@ -80,14 +81,20 @@ class Parser {
     }                  //3 = comments, whitespace-only, and empty lines
 
     char cType = line.charAt(0);
-
+    if(cType == ' '){
+      while(cType == ' '){
+        line = line.substring(1,line.length());
+        cType = line.charAt(0);
+      }
+    }
+    
     if (cType == '@') { 
       return 1;
     }      //1 = A Commands
     else if (cType == '(') {
       return 2;
     }     //2 = Labels
-    else if (cType == '/' | cType == ' ') {
+    else if (cType == '/'){// | cType == ' ') {
       return 3;
     }     //3 = comments,whitespace-only, and empty lines
     else {
@@ -101,17 +108,19 @@ class Parser {
       char sigC = value.charAt(0);
       if(sigC > 47 && sigC < 58){ //if it is a number between 0 & 9 [according to ascii vals), then it's an integer, treat normally
         Integer num = parseInt(value);
-        //println(binary(num, 15));
+        println("reached normA");
         return binary(num, 15);
       }
       else{ //if it is NOT between 0 & 9...
         if(symbols.contains(value)){ //if the table already contains this value, return the memAdr.
-          return(symbols.getAddress(value));
+          println("reachedFindA");
+          return(symbols.getAddress(value));       
         }
         else{ //if the table does not contain this value, add it to table, then return the memAdr.
-          String nextMemAdr = binary(newVarMemAdr);
+          String nextMemAdr = binary(newVarMemAdr, 16);
           symbols.addEntry(value, nextMemAdr);
           newVarMemAdr ++;
+          println("reachedMakeA");
           return nextMemAdr;
         }
       }
@@ -120,9 +129,10 @@ class Parser {
     } 
     else if (cmdTyp == 2) { //Lbl
       String label = line.substring(1, line.length()-1);
+      println("Reached MakeALabel");
       return label;
     } 
-    else return "bleh";
+    else return "error";
   }
 
   String comp(String line, Code codeTables) {
