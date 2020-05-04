@@ -120,8 +120,15 @@ class Parser {
   }
 
   String symbol(String line, int cmdTyp, SymbolTable symbols) {
-    if (cmdTyp == 1) { //A cmd    
-      String value = line.substring(1, line.length());
+    if (cmdTyp == 1) { //A cmd   
+    String value;
+    int indexOfWs = line.indexOf(" ");        //Remove any whitespace AFTEr the cmd.
+       if(indexOfWs != -1){
+          value = line.substring(1, indexOfWs);
+       }
+       else{
+          value = line.substring(1, line.length());
+       }  
       println("value: " + value + ";");
       char sigC = value.charAt(0);
       if (sigC > 47 && sigC < 58) { //if it is a number between 0 & 9 [according to ascii vals), then it's an integer, treat normally
