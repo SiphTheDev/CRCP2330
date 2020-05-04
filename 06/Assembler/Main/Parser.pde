@@ -5,12 +5,13 @@ class Parser {
   String currentBinary;
   StringList fileContents;
   boolean finished = false;
-  int memAdr = 0;
+  int newVarMemAdr = 16;
+  int memAdr = 0; //consider making this local to l1
 
   Parser() {
     fileContents = new StringList();
-    fileReader = createReader("TestText.asm");
-    output = createWriter("TestText.hack");
+    fileReader = createReader("Add.asm");
+    output = createWriter("Add.hack");
   }
 
   void run(SymbolTable symbols, Code codeTables) {
@@ -18,7 +19,7 @@ class Parser {
       readFile();
     }
     phase1(symbols);
-    phase2(codeTables);
+    phase2(symbols, codeTables);
     noLoop();
   }
 
@@ -41,12 +42,12 @@ class Parser {
     String currentLine = null;
     for (int i = 0; i < fileContents.size()-1; i++) {
       currentLine = fileContents.get(i);
-      println("doingL1");
+      //println("doingL1");
       int cmdTyp = commandType(currentLine);
       if (cmdTyp == 0||cmdTyp == 1) { //If A or C  
         memAdr++;
       } else if (cmdTyp == 2) {         //if a label
-        String label = symbol(currentLine, cmdTyp);
+        String label = symbol(currentLine, cmdTyp, symbolTable);
         String binAdr = binary(memAdr+1, 16);
         symbolTable.addEntry(label, binAdr);
 
@@ -54,18 +55,18 @@ class Parser {
     }
   }  
 
-  void phase2(Code codeTables) {
+  void phase2(SymbolTable symbolTable, Code codeTables) {
     String currentLine = null;
     for (int i = 0; i<fileContents.size()-1; i++) {
       currentLine = fileContents.get(i);
-      println("doingl2");
+      //println("doingl2");
       int cmdTyp = commandType(currentLine);
       if (cmdTyp == 1) {
-        output.println("0" + symbol(currentLine, cmdTyp));
-               println( i + "   added an A ");
+        output.println("0" + symbol(currentLine, cmdTyp, symbolTable));
+               //println( i + "   added an A ");
       } else if (cmdTyp == 0) {
         output.println("111" + comp(currentLine, codeTables) + dest(currentLine, codeTables) + jump(currentLine, codeTables));
-               println( i + "   added a C ");
+               //println( i + "   added a C ");
       }
     }
     output.flush();
@@ -94,14 +95,28 @@ class Parser {
     }                     //0 = C Commands
   }
 
-  String symbol(String line, int cmdTyp) {
-    if (cmdTyp == 1) { //A cmd
+  String symbol(String line, int cmdTyp, SymbolTable symbols) {
+    if (cmdTyp == 1) { //A cmd    
       String value = line.substring(1, line.length());
-      println("value: " + value);
+      char sigC = value.charAt(0);
+      if(sigC > 47 && sigC < 58){ //if it is a number between 0 & 9 [according to ascii vals), then it's an integer, treat normally
+        Integer num = parseInt(value);
+        //println(binary(num, 15));
+        return binary(num, 15);
+      }
+      else{ //if it is NOT between 0 & 9...
+        if(symbols.contains(value)){ //if the table already contains this value, return the memAdr.
+          return(symbols.getAddress(value));
+        }
+        else{ //if the table does not contain this value, add it to table, then return the memAdr.
+          String nextMemAdr = binary(newVarMemAdr);
+          symbols.addEntry(value, nextMemAdr);
+          newVarMemAdr ++;
+          return nextMemAdr;
+        }
+      }
 
-      Integer num = parseInt(value);
-      println(binary(num, 15));
-      return binary(num, 15);
+      
     } 
     else if (cmdTyp == 2) { //Lbl
       String label = line.substring(1, line.length()-1);
