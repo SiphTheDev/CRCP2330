@@ -10,16 +10,17 @@ class Parser {
   int newVarMemAdr = 16;
   int memAdr = 0; 
 
-  Parser() {
+  Parser(String fileName) {
     //initilize symbol and code tables.
     mySymbols = new SymbolTable();
     myCode = new Code();
     mySymbols.loadDefaultSymbols();
     myCode.loadTables();
 
+    //Creates a StringList to store each line of the files, a reader to get lines from the file, and a writer to write lines into the new file.
     fileContents = new StringList();  
-    fileReader = createReader("Pong.asm");  //HERE: Change filename to the file which will be read
-    output = createWriter("Pong.hack");     //HERE: Change filename to the file which will be produced
+    fileReader = createReader(fileName + ".asm");  
+    output = createWriter(fileName + ".hack");     
   }
 
   void run() {              //Calls methods to read the file, load the symbols into Symbol Table, and parse the program.  
