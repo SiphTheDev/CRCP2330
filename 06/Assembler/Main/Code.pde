@@ -1,17 +1,15 @@
-//import java.util.map;
-
 class Code{
   HashMap<String,String> compCodes;
   HashMap<String,String> destCodes;
   HashMap<String,String> jumpCodes;
   
   Code() {
-      compCodes = new HashMap<String,String>();  //.get & .put
+      compCodes = new HashMap<String,String>();  //.get & .put to access data
       destCodes = new HashMap<String,String>();
       jumpCodes = new HashMap<String,String>();
     }
     
-void loadTables(){
+void loadTables(){                        //loads comp, dest, and jump codes into the tables. Stored as strings to avoid conversion to decimal.
   compCodes.put("0", "0101010");
   compCodes.put("1", "0111111");
   compCodes.put("-1", "0111010");
@@ -56,21 +54,19 @@ void loadTables(){
   jumpCodes.put("JNE", "101");
   jumpCodes.put("JLE", "110");
   jumpCodes.put("JMP", "111");
-  
-  println("loaded code tables");
 }
     
-    String comp(String mnemonic){
+    String comp(String mnemonic){            //retrieve compCodes
       String code = compCodes.get(mnemonic);
       return(code);
     }
     
-    String dest(String mnemonic){
+    String dest(String mnemonic){            //retrieve destCodes
       String code = destCodes.get(mnemonic);
       return(code);
     }
     
-    String jump(String mnemonic){
+    String jump(String mnemonic){            //retrieve jumpCodes
       String code = jumpCodes.get(mnemonic);
       return(code);
     }

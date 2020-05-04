@@ -5,7 +5,7 @@ class SymbolTable{
     symbols = new HashMap<String,String>();
   }
   
-  void loadDefaultSymbols(){
+  void loadDefaultSymbols(){              //loads built-in symbols into the tables. Stored as strings to avoid conversion to decimal.
     symbols.put("SP", "000000000000000");
     symbols.put("LCL", "000000000000001");
     symbols.put("ARG", "000000000000010");
@@ -29,19 +29,17 @@ class SymbolTable{
     symbols.put("R15", "000000000001111");   
     symbols.put("SCREEN", "100000000000000");
     symbols.put("KBD", "110000000000000");
-    println("loaded symbols");
   }
   
-  void addEntry(String name, String memAdr){
+  void addEntry(String name, String memAdr){ //Adds new Symbol - MemoryAddress pair to the table
     symbols.put(name, memAdr);
   }
   
-  boolean contains(String symbolToCheck){
-    //println("is symbol here?" + symbols.containsKey(symbolToCheck));
+  boolean contains(String symbolToCheck){    //Checks if a symbol is already in the table
     return(symbols.containsKey(symbolToCheck));   
   }
   
-  String getAddress(String symbolToGet){ //If bugs remain after fixing code table issues, look to see if the reason this is failing is because it is recreated R0 for some reason.
+  String getAddress(String symbolToGet){     //Retrieves the MemoryAddress associated with a given Symbol
     return(symbols.get(symbolToGet));
   }
 }

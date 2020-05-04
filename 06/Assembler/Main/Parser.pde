@@ -8,212 +8,172 @@ class Parser {
   StringList fileContents;
   boolean finished = false;
   int newVarMemAdr = 16;
-  int memAdr = 0; //consider making this local to l1
+  int memAdr = 0; 
 
   Parser() {
+    //initilize symbol and code tables.
     mySymbols = new SymbolTable();
     myCode = new Code();
     mySymbols.loadDefaultSymbols();
     myCode.loadTables();
 
-    fileContents = new StringList();
-    fileReader = createReader("Pong.asm");
-    output = createWriter("Pong.hack");
+    fileContents = new StringList();  
+    fileReader = createReader("Pong.asm");  //HERE: Change filename to the file which will be read
+    output = createWriter("Pong.hack");     //HERE: Change filename to the file which will be produced
   }
 
-  void run() {//SymbolTable symbols, Code codeTables) {    
-    while (finished == false) {
-      readFile();
-    }
+  void run() {              //Calls methods to read the file, load the symbols into Symbol Table, and parse the program.  
+    while (finished == false){readFile();}
     phase1(mySymbols);
     phase2(mySymbols, myCode);
     noLoop();
   }
 
   void readFile() {
-    try {
-      readingLine = fileReader.readLine();
+    try {                   //Reads the file and saves each line into fileContents.
+      readingLine = fileReader.readLine(); 
       fileContents.append(readingLine);
-      //println("readingLine");
     }
-    catch (IOException e) {
+    catch (IOException e) { //Catches when there is not another line to read.
       e.printStackTrace();
       readingLine = null;
     }
-    if (readingLine == null) {
-      finished = true;
-    }
+    if (readingLine == null) {finished = true;}
   }
 
-  void phase1(SymbolTable symbolTable) {
+  void phase1(SymbolTable symbolTable) {     //First Loop through the program to get labels.
     String currentLine = null;
+    
     for (int i = 0; i < fileContents.size()-1; i++) {
       currentLine = fileContents.get(i);
-      //println("doingL1");
-      int cmdTyp = commandType(currentLine);
-      if (cmdTyp == 0||cmdTyp == 1) { //If A or C  
+      int cmdTyp = commandType(currentLine); //determines what type of command is stored in the next line of the file.
+      if (cmdTyp == 0||cmdTyp == 1) {        //If A or C cmd, increment memoryAddress.
         memAdr++;
       } 
-      else if (cmdTyp == 2) {         //if a label
+      else if (cmdTyp == 2) {                //if a label, add name string and memory address to SymbolTable.
         String label = symbol(currentLine, cmdTyp, symbolTable);
         String binAdr = binary(memAdr, 15);
-        symbolTable.addEntry(label, binAdr); //why does this happen always, not just on new entry?
+        symbolTable.addEntry(label, binAdr); 
       }
     }
   }  
 
-  void phase2(SymbolTable symbolTable, Code codeTables) {
+  void phase2(SymbolTable symbolTable, Code codeTables) {  //Second Loop to parse program.
     String currentLine = null;
-    for (int i = 0; i<fileContents.size()-1; i++) {
+    
+    for (int i = 0; i<fileContents.size()-1; i++) {        //Loads next line into currentLine variable.
       currentLine = fileContents.get(i);
-      println("doingl2 line: " + (i+1));
       
-      if (currentLine.length() != 0) {
-       char cSig = currentLine.charAt(0);
-       if (cSig == ' ') {
-         while (cSig == ' ') {
-         currentLine = currentLine.substring(1, currentLine.length());
-         cSig = currentLine.charAt(0);
+      if (currentLine.length() != 0) {                     //Ensures that currentLine is not empty and removes all white space in front of commands.
+        char cSig = currentLine.charAt(0);
+        if (cSig == ' ') {
+          while (cSig == ' ') {
+            currentLine = currentLine.substring(1, currentLine.length());
+            cSig = currentLine.charAt(0);
           }
         }
       }
        
-      int cmdTyp = commandType(currentLine);
-      println("--cmdTyp: " + cmdTyp);
-      if (cmdTyp == 1) { //A cmd
+      int cmdTyp = commandType(currentLine);               //Returns type of command, A or C
+      
+      if (cmdTyp == 1) {                                   //A command - run through symbol method and print into final document
         output.println("0" + symbol(currentLine, cmdTyp, symbolTable));
-      } else if (cmdTyp == 0) { //C cmd
+      } else if (cmdTyp == 0) {                            //C command - convert each element of the command to the proper binary and pring into final document        
         output.println("111" + comp(currentLine, codeTables) + dest(currentLine, codeTables) + jump(currentLine, codeTables));
       }
     }
-    output.flush();
+    output.flush();  //finalize the final document
     output.close();
   }
 
 
-  int commandType(String line) {   
-
-    if (line.length() == 0) { 
-      return 3;
-    }                  //3 = comments and empty lines
+  int commandType(String line) {             //returns the type of command stored in Line
+    if (line.length() == 0) {return 3;}      //returns 3(do nothing) if line is empty
+    
     char cType = line.charAt(0);
 
-    if (cType == ' ') { //remove any white space at start of line
+    if (cType == ' ') {                      //removes any white space at start of line
       while (cType == ' ') {
         line = line.substring(1, line.length());
         cType = line.charAt(0);
       }
     }
 
-    if (cType == '@') { 
-      return 1;
-    }      //1 = A Commands
-    else if (cType == '(') {
-      return 2;
-    }     //2 = Labels
-    else if (cType == '/') {
-      return 3;
-    }     //3 = comments and empty lines
-    else { //convert to else if(M,D,A)?
-      return 0;
-    }     //0 = C Commands
+    if (cType == '@') {return 1;}            //returns 1 = A Commands
+    else if (cType == '(') {return 2;}       //returns 2 = Labels
+    else if (cType == '/') {return 3;}       //returns 3(do nothing) = Comment
+    else {return 0;}                         //returns 0 = C Commands
   }
 
-  String symbol(String line, int cmdTyp, SymbolTable symbols) {
-    if (cmdTyp == 1) { //A cmd   
+  String symbol(String line, int cmdTyp, SymbolTable symbols) {    //returns A commands in binary &/or address labels to the SymbolTable
+    if (cmdTyp == 1) {                             //If it is an A command
     String value;
-    int indexOfWs = line.indexOf(" ");        //Remove any whitespace AFTEr the cmd.
+    int indexOfWs = line.indexOf(" ");             //Remove '@' before and any whitespace after the A command.
        if(indexOfWs != -1){
           value = line.substring(1, indexOfWs);
        }
        else{
           value = line.substring(1, line.length());
        }  
-      println("value: " + value + ";");
+
       char sigC = value.charAt(0);
-      if (sigC > 47 && sigC < 58) { //if it is a number between 0 & 9 [according to ascii vals), then it's an integer, treat normally
+      if (sigC > 47 && sigC < 58) {               //If command begins with an integer, convert to binary and return
         Integer num = parseInt(value);
-        //println("reached normA");
         return binary(num, 15);
       } 
-      else { //if it is NOT between 0 & 9...
-        if (symbols.contains(value)) { //if the table already contains this value, return the memAdr.
-          println("reachedFindA " + value);
-          return(symbols.getAddress(value));
-        } 
-        else { //if the table does not contain this value, add it to table, then return the memAdr.      TODO: is this overwriting the labels?
+      else {                                      //if it is NOT between 0 & 9, check if it is in the SymbolTable already or not
+        if (symbols.contains(value)) {return(symbols.getAddress(value));}            //if the table already contains this value, return the memoryAddress
+        else {                                    //if the table does not contain this value, add it to table, then return the memAdr.
           String nextMemAdr = binary(newVarMemAdr, 15);
           symbols.addEntry(value, nextMemAdr);
           newVarMemAdr ++;
-          println("reachedMakeA: " + value);
           return nextMemAdr;
         }
       }
-    } else if (cmdTyp == 2) { //Lbl
+    } else if (cmdTyp == 2) {                      //If it is a label, remove parentheses and returns the string name of the label.
       String label = line.substring(1, line.length()-1);
-      println("Reached MakeALabel: " + label);
       return label;
     } else return "error";
   }
 
-  String comp(String line, Code codeTables) {
+  String comp(String line, Code codeTables) {       //Removes symbolic dividers and whitespace around compCodes and returns binary equivalent.
     int indexOfEq = line.indexOf("=");
     int indexOfSc = line.indexOf(";");
     int indexOfWs = line.indexOf(" ");
     String compBits;
 
-    if (indexOfEq == -1) {
-      compBits = line.substring(0, indexOfSc);
-    } 
+    if (indexOfEq == -1) {compBits = line.substring(0, indexOfSc);} 
     else if (indexOfSc == -1) {
-      if(indexOfWs != -1){
-        compBits = line.substring(indexOfEq+1, indexOfWs);
-      }
-      else{
-        compBits = line.substring(indexOfEq+1, line.length());
-      }
+      if(indexOfWs != -1){compBits = line.substring(indexOfEq+1, indexOfWs);}
+      else{compBits = line.substring(indexOfEq+1, line.length());}
     } 
-    else {
-      compBits = line.substring(indexOfEq+1, indexOfSc);
-    }
-    //println("comp bits" + " = " + compBits);
+    else {compBits = line.substring(indexOfEq+1, indexOfSc);}
     return codeTables.comp(compBits);
   }
 
-  String dest(String line, Code codeTables) {
+  String dest(String line, Code codeTables) {        //Removes symbolic dividers and whitespace around destCodes and returns binary equivalent.
     int indexOfEq = line.indexOf("=");
     String destBits;
 
-    if (indexOfEq == -1) {
-      return "000";
-    } else {
-      destBits = line.substring(0, indexOfEq);
-    }
-    //println("dest bits" + " = " + destBits);
+    if (indexOfEq == -1) {return "000";} //returns 000 if no dest command
+    else {destBits = line.substring(0, indexOfEq);}
+    
     return codeTables.dest(destBits);
   }
 
-  String jump(String line, Code codeTables) {
+  String jump(String line, Code codeTables) {        //Removes symbolic dividers and whitespace around jumpCodes and returns binary equivalent.
     int indexOfSc = line.indexOf(";");
     int indexOfWs = line.indexOf(" ");
     String jumpBits;
 
-    if (indexOfSc == -1) {
+    if (indexOfSc == -1) { //returns 000 if no jump command
       return "000";
     } 
     else {
-      if(indexOfWs != -1){
-      jumpBits = line.substring(indexOfSc+1, indexOfWs);///line.length());
-      }
-      else
-      {
-        jumpBits = line.substring(indexOfSc+1, line.length());
-      }
+      if(indexOfWs != -1){jumpBits = line.substring(indexOfSc+1, indexOfWs);}
+      else{jumpBits = line.substring(indexOfSc+1, line.length());}
     }
-    //println("jumpBits" + " = " + jumpBits);
+    
     return codeTables.jump(jumpBits);
   }
 }
-
-//Current Bugs:   -  When checking for pre-existing A cmds, doesn't acknowledge pre-coded ones such as R1 & R2. Is table being loaded?
-//                -  comp,dest, and jump all returning null at various points - any point not 000. Are any of my tables being loaded?
