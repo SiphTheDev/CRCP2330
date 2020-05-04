@@ -1,4 +1,6 @@
 class Parser {
+  SymbolTable mySymbols;
+  Code myCode;
   BufferedReader fileReader;
   PrintWriter output;
   String readingLine;
@@ -9,17 +11,22 @@ class Parser {
   int memAdr = 0; //consider making this local to l1
 
   Parser() {
+    mySymbols = new SymbolTable();
+    myCode = new Code();
+    mySymbols.loadDefaultSymbols();
+    myCode.loadTables();
+
     fileContents = new StringList();
     fileReader = createReader("Max.asm");
     output = createWriter("Max.hack");
   }
 
-  void run(SymbolTable symbols, Code codeTables) {
+  void run() {//SymbolTable symbols, Code codeTables) {    
     while (finished == false) {
       readFile();
     }
-    phase1(symbols);
-    phase2(symbols, codeTables);
+    phase1(mySymbols);
+    phase2(mySymbols, myCode);
     noLoop();
   }
 
@@ -27,7 +34,7 @@ class Parser {
     try {
       readingLine = fileReader.readLine();
       fileContents.append(readingLine);
-      println("readingLine");
+      //println("readingLine");
     }
     catch (IOException e) {
       e.printStackTrace();
@@ -42,7 +49,7 @@ class Parser {
     String currentLine = null;
     for (int i = 0; i < fileContents.size()-1; i++) {
       currentLine = fileContents.get(i);
-      println("doingL1");
+      //println("doingL1");
       int cmdTyp = commandType(currentLine);
       if (cmdTyp == 0||cmdTyp == 1) { //If A or C  
         memAdr++;
@@ -50,7 +57,6 @@ class Parser {
         String label = symbol(currentLine, cmdTyp, symbolTable);
         String binAdr = binary(memAdr+1, 16);
         symbolTable.addEntry(label, binAdr);
-
       }
     }
   }  
@@ -59,15 +65,24 @@ class Parser {
     String currentLine = null;
     for (int i = 0; i<fileContents.size()-1; i++) {
       currentLine = fileContents.get(i);
-      println("doingl2");
+      println("doingl2 line: " + (i+1));
+      
+      if (currentLine.length() != 0) {
+       char cSig = currentLine.charAt(0);
+       if (cSig == ' ') {
+         while (cSig == ' ') {
+         currentLine = currentLine.substring(1, currentLine.length());
+         cSig = currentLine.charAt(0);
+          }
+        }
+      }
+       
       int cmdTyp = commandType(currentLine);
-      println(cmdTyp);
-      if (cmdTyp == 1) {
+      println("--cmdTyp: " + cmdTyp);
+      if (cmdTyp == 1) { //A cmd
         output.println("0" + symbol(currentLine, cmdTyp, symbolTable));
-               //println( i + "   added an A ");
-      } else if (cmdTyp == 0) {
+      } else if (cmdTyp == 0) { //C cmd
         output.println("111" + comp(currentLine, codeTables) + dest(currentLine, codeTables) + jump(currentLine, codeTables));
-               //println( i + "   added a C ");
       }
     }
     output.flush();
@@ -75,64 +90,61 @@ class Parser {
   }
 
 
-  int commandType(String line) {    
+  int commandType(String line) {   
+
     if (line.length() == 0) { 
       return 3;
-    }                  //3 = comments, whitespace-only, and empty lines
-
+    }                  //3 = comments and empty lines
     char cType = line.charAt(0);
-    if(cType == ' '){
-      while(cType == ' '){
-        line = line.substring(1,line.length());
+
+    if (cType == ' ') { //remove any white space at start of line
+      while (cType == ' ') {
+        line = line.substring(1, line.length());
         cType = line.charAt(0);
       }
     }
-    
+
     if (cType == '@') { 
       return 1;
     }      //1 = A Commands
     else if (cType == '(') {
       return 2;
     }     //2 = Labels
-    else if (cType == '/'){// | cType == ' ') {
+    else if (cType == '/') {
       return 3;
-    }     //3 = comments,whitespace-only, and empty lines
-    else {
+    }     //3 = comments and empty lines
+    else { //convert to else if(M,D,A)?
       return 0;
-    }                     //0 = C Commands
+    }     //0 = C Commands
   }
 
   String symbol(String line, int cmdTyp, SymbolTable symbols) {
     if (cmdTyp == 1) { //A cmd    
       String value = line.substring(1, line.length());
       char sigC = value.charAt(0);
-      if(sigC > 47 && sigC < 58){ //if it is a number between 0 & 9 [according to ascii vals), then it's an integer, treat normally
+      if (sigC > 47 && sigC < 58) { //if it is a number between 0 & 9 [according to ascii vals), then it's an integer, treat normally
         Integer num = parseInt(value);
         println("reached normA");
         return binary(num, 15);
-      }
-      else{ //if it is NOT between 0 & 9...
-        if(symbols.contains(value)){ //if the table already contains this value, return the memAdr.
+      } 
+      else { //if it is NOT between 0 & 9...
+        if (symbols.contains(value)) { //if the table already contains this value, return the memAdr.
           println("reachedFindA");
-          return(symbols.getAddress(value));       
-        }
-        else{ //if the table does not contain this value, add it to table, then return the memAdr.
+          return(symbols.getAddress(value));
+        } 
+        else { //if the table does not contain this value, add it to table, then return the memAdr.      TODO: is this overwriting the labels?
           String nextMemAdr = binary(newVarMemAdr, 16);
           symbols.addEntry(value, nextMemAdr);
           newVarMemAdr ++;
-          println("reachedMakeA");
+          println("reachedMakeA: " + value);
           return nextMemAdr;
         }
       }
-
-      
-    } 
-    else if (cmdTyp == 2) { //Lbl
+    } else if (cmdTyp == 2) { //Lbl
       String label = line.substring(1, line.length()-1);
-      println("Reached MakeALabel");
+      println("Reached MakeALabel: " + label);
       return label;
-    } 
-    else return "error";
+    } else return "error";
   }
 
   String comp(String line, Code codeTables) {
@@ -174,3 +186,6 @@ class Parser {
     return codeTables.jump(jumpBits);
   }
 }
+
+//Current Bugs:   -  When checking for pre-existing A cmds, doesn't acknowledge pre-coded ones such as R1 & R2. Is table being loaded?
+//                -  comp,dest, and jump all returning null at various points - any point not 000. Are any of my tables being loaded?

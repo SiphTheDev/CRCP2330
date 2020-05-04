@@ -29,6 +29,7 @@ class SymbolTable{
     symbols.put("R15", "000000000001111");   
     symbols.put("SCREEN", "100000000000000");
     symbols.put("KBD", "110000000000000");
+    println("loaded symbols");
   }
   
   void addEntry(String name, String memAdr){
@@ -36,10 +37,11 @@ class SymbolTable{
   }
   
   boolean contains(String symbolToCheck){
-    return(symbols.containsKey(symbolToCheck));
+    println("is symbol here?" + symbols.containsKey(symbolToCheck));
+    return(symbols.containsKey(symbolToCheck));   
   }
   
-  String getAddress(String symbolToGet){
+  String getAddress(String symbolToGet){ //If bugs remain after fixing code table issues, look to see if the reason this is failing is because it is recreated R0 for some reason.
     return(symbols.get(symbolToGet));
   }
 }

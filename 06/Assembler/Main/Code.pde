@@ -56,6 +56,8 @@ void loadTables(){
   jumpCodes.put("JNE", "101");
   jumpCodes.put("JLE", "110");
   jumpCodes.put("JMP", "111");
+  
+  println("loaded code tables");
 }
     
     String comp(String mnemonic){
