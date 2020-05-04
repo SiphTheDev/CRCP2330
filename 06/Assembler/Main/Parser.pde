@@ -17,8 +17,8 @@ class Parser {
     myCode.loadTables();
 
     fileContents = new StringList();
-    fileReader = createReader("Rect.asm");
-    output = createWriter("Rect.hack");
+    fileReader = createReader("Max.asm");
+    output = createWriter("Max.hack");
   }
 
   void run() {//SymbolTable symbols, Code codeTables) {    
@@ -55,7 +55,7 @@ class Parser {
         memAdr++;
       } else if (cmdTyp == 2) {         //if a label
         String label = symbol(currentLine, cmdTyp, symbolTable);
-        String binAdr = binary(memAdr+1, 16);
+        String binAdr = binary(memAdr+1, 15);
         symbolTable.addEntry(label, binAdr);
       }
     }
@@ -129,14 +129,14 @@ class Parser {
       } 
       else { //if it is NOT between 0 & 9...
         if (symbols.contains(value)) { //if the table already contains this value, return the memAdr.
-          //println("reachedFindA");
+          println("reachedFindA " + value);
           return(symbols.getAddress(value));
         } 
         else { //if the table does not contain this value, add it to table, then return the memAdr.      TODO: is this overwriting the labels?
-          String nextMemAdr = binary(newVarMemAdr, 16);
+          String nextMemAdr = binary(newVarMemAdr, 15);
           symbols.addEntry(value, nextMemAdr);
           newVarMemAdr ++;
-          //println("reachedMakeA: " + value);
+          println("reachedMakeA: " + value);
           return nextMemAdr;
         }
       }
@@ -167,7 +167,7 @@ class Parser {
     else {
       compBits = line.substring(indexOfEq+1, indexOfSc);
     }
-    println(line + " = " + compBits);
+    //println("comp bits" + " = " + compBits);
     return codeTables.comp(compBits);
   }
 
@@ -180,7 +180,7 @@ class Parser {
     } else {
       destBits = line.substring(0, indexOfEq);
     }
-    println(line + " = " + destBits);
+    //println("dest bits" + " = " + destBits);
     return codeTables.dest(destBits);
   }
 
@@ -201,7 +201,7 @@ class Parser {
         jumpBits = line.substring(indexOfSc+1, line.length());
       }
     }
-    println(line + " = " + jumpBits);
+    //println("jumpBits" + " = " + jumpBits);
     return codeTables.jump(jumpBits);
   }
 }
