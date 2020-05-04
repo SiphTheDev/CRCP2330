@@ -53,10 +53,11 @@ class Parser {
       int cmdTyp = commandType(currentLine);
       if (cmdTyp == 0||cmdTyp == 1) { //If A or C  
         memAdr++;
-      } else if (cmdTyp == 2) {         //if a label
+      } 
+      else if (cmdTyp == 2) {         //if a label
         String label = symbol(currentLine, cmdTyp, symbolTable);
         String binAdr = binary(memAdr, 15);
-        symbolTable.addEntry(label, binAdr);
+        symbolTable.addEntry(label, binAdr); //why does this happen always, not just on new entry?
       }
     }
   }  
@@ -121,6 +122,7 @@ class Parser {
   String symbol(String line, int cmdTyp, SymbolTable symbols) {
     if (cmdTyp == 1) { //A cmd    
       String value = line.substring(1, line.length());
+      println("value: " + value + ";");
       char sigC = value.charAt(0);
       if (sigC > 47 && sigC < 58) { //if it is a number between 0 & 9 [according to ascii vals), then it's an integer, treat normally
         Integer num = parseInt(value);
