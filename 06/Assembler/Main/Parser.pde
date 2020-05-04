@@ -17,8 +17,8 @@ class Parser {
     myCode.loadTables();
 
     fileContents = new StringList();
-    fileReader = createReader("Max.asm");
-    output = createWriter("Max.hack");
+    fileReader = createReader("Rect.asm");
+    output = createWriter("Rect.hack");
   }
 
   void run() {//SymbolTable symbols, Code codeTables) {    
@@ -150,13 +150,21 @@ class Parser {
   String comp(String line, Code codeTables) {
     int indexOfEq = line.indexOf("=");
     int indexOfSc = line.indexOf(";");
+    int indexOfWs = line.indexOf(" ");
     String compBits;
 
     if (indexOfEq == -1) {
       compBits = line.substring(0, indexOfSc);
-    } else if (indexOfSc == -1) {
-      compBits = line.substring(indexOfEq+1, line.length());
-    } else {
+    } 
+    else if (indexOfSc == -1) {
+      if(indexOfWs != -1){
+        compBits = line.substring(indexOfEq+1, indexOfWs);
+      }
+      else{
+        compBits = line.substring(indexOfEq+1, line.length());
+      }
+    } 
+    else {
       compBits = line.substring(indexOfEq+1, indexOfSc);
     }
     println(line + " = " + compBits);
@@ -178,12 +186,20 @@ class Parser {
 
   String jump(String line, Code codeTables) {
     int indexOfSc = line.indexOf(";");
+    int indexOfWs = line.indexOf(" ");
     String jumpBits;
 
     if (indexOfSc == -1) {
       return "000";
-    } else {
-      jumpBits = line.substring(indexOfSc+1, line.length());
+    } 
+    else {
+      if(indexOfWs != -1){
+      jumpBits = line.substring(indexOfSc+1, indexOfWs);///line.length());
+      }
+      else
+      {
+        jumpBits = line.substring(indexOfSc+1, line.length());
+      }
     }
     println(line + " = " + jumpBits);
     return codeTables.jump(jumpBits);
