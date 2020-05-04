@@ -4,7 +4,7 @@ class Parser {
   PrintWriter output;
   //String l1CurrentLine;
   String readingLine;
-  String currentLine;
+  //String currentLine;
   String currentBinary;
   StringList fileContents;
   //Boolean l1Done = false;
@@ -25,27 +25,42 @@ class Parser {
       phase1(symbols);
     //}
     //println(phase);
-    while (phase == 2) {
+    //while (phase == 2) {
       phase2(codeTables);
-    }
+    //}
   }
 
   void readFile() {
     try {
       readingLine = fileReader.readLine();
-      fileContents.append(currentLine);
+      fileContents.append(readingLine);
     }
     catch (IOException e) {
       e.printStackTrace();
-      currentLine = null;
+      readingLine = null;
     }
-    if (currentLine == null) {
+    if (readingLine == null) {
       finished = true;
     }
   }
 
   void phase1(SymbolTable symbolTable) {
-    try {
+    String currentLine;
+    for(int i = 0; i < fileContents.size()-1; i++){
+      currentLine = fileContents.get(i);
+      println("doingL1");
+      int cmdTyp = commandType(currentLine);
+      if (cmdTyp == 0||cmdTyp == 1) { //If A or C  
+        memAdr++;
+      }      
+      else if (cmdTyp == 2) {         //if a label
+        String label = symbol(currentLine, cmdTyp);
+        String binAdr = binary(memAdr+1, 16);
+        symbolTable.addEntry(label, binAdr);
+      }
+    }
+  }  
+    /*try {
       currentLine = fileReader.readLine();
       //fileForSecondLoop.append(currentLine);
     }
@@ -73,9 +88,18 @@ class Parser {
       }
     }
   }
-
+*/
   void phase2(Code codeTables) {
-    for (int i = 0; i<fileForSecondLoop.size(); i++) {
+    String currentLine;
+    for (int i = 0; i<fileContents.size()-1; i++) {
+      currentLine = fileContents.get(i);
+      println("doingl2");
+      int cmdTyp = commandType(currentLine);
+      if (cmdTyp == 1) {
+        output.println("0" + symbol(currentLine, cmdTyp));
+      } else if (cmdTyp == 0) {
+        output.println("111" + comp(currentLine, codeTables) + dest(currentLine, codeTables) + jump(currentLine, codeTables));
+      }
     }
     //try {
     //currentLine = fileReader.readLine();
@@ -86,6 +110,8 @@ class Parser {
     //currentLine = null;
     //}
     //if (currentLine == null) {
+    
+     /* 
     output.flush();
     output.close();
     noLoop();          
@@ -97,8 +123,9 @@ class Parser {
       } else if (cmdTyp == 0) {
         output.println("111" + comp(currentLine, codeTables) + dest(currentLine, codeTables) + jump(currentLine, codeTables));
       }
+      */
     }
-  }
+  
 
   int commandType(String line) {    
     if (line.length() == 0) { 
