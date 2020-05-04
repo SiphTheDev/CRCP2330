@@ -1,13 +1,9 @@
 class Parser {
-  //BufferedReader l1Reader;
   BufferedReader fileReader;
   PrintWriter output;
-  //String l1CurrentLine;
   String readingLine;
-  //String currentLine;
   String currentBinary;
   StringList fileContents;
-  //Boolean l1Done = false;
   boolean finished = false;
   int memAdr = 0;
 
@@ -18,22 +14,19 @@ class Parser {
   }
 
   void run(SymbolTable symbols, Code codeTables) {
-    while (finished == false){
+    while (finished == false) {
       readFile();
     }
-    //while (phase == 1) {
-      phase1(symbols);
-    //}
-    //println(phase);
-    //while (phase == 2) {
-      phase2(codeTables);
-    //}
+    phase1(symbols);
+    phase2(codeTables);
+    noLoop();
   }
 
   void readFile() {
     try {
       readingLine = fileReader.readLine();
       fileContents.append(readingLine);
+      //println(readingLine);
     }
     catch (IOException e) {
       e.printStackTrace();
@@ -45,87 +38,40 @@ class Parser {
   }
 
   void phase1(SymbolTable symbolTable) {
-    String currentLine;
-    for(int i = 0; i < fileContents.size()-1; i++){
+    String currentLine = null;
+    for (int i = 0; i < fileContents.size()-1; i++) {
       currentLine = fileContents.get(i);
       println("doingL1");
       int cmdTyp = commandType(currentLine);
       if (cmdTyp == 0||cmdTyp == 1) { //If A or C  
         memAdr++;
-      }      
-      else if (cmdTyp == 2) {         //if a label
+      } else if (cmdTyp == 2) {         //if a label
         String label = symbol(currentLine, cmdTyp);
         String binAdr = binary(memAdr+1, 16);
         symbolTable.addEntry(label, binAdr);
+
       }
     }
   }  
-    /*try {
-      currentLine = fileReader.readLine();
-      //fileForSecondLoop.append(currentLine);
-    }
-    catch (IOException e) {
-      e.printStackTrace();
-      currentLine = null;
-    }
-    if (currentLine == null) {
-      phase = 2; 
-      println("phase = 1");
-    } else {
-      
-      
-      
-      
-      println("doingL1");
-      int cmdTyp = commandType(currentLine);
-      if (cmdTyp == 0||cmdTyp == 1) {
-        memAdr++;
-      } //If A or C        
-      else if (cmdTyp == 2) { //if a label
-        String label = symbol(currentLine, cmdTyp);
-        String binAdr = binary(memAdr+1, 16);
-        symbolTable.addEntry(label, binAdr);
-      }
-    }
-  }
-*/
+
   void phase2(Code codeTables) {
-    String currentLine;
+    String currentLine = null;
     for (int i = 0; i<fileContents.size()-1; i++) {
       currentLine = fileContents.get(i);
       println("doingl2");
       int cmdTyp = commandType(currentLine);
       if (cmdTyp == 1) {
         output.println("0" + symbol(currentLine, cmdTyp));
+               println( i + "   added an A ");
       } else if (cmdTyp == 0) {
         output.println("111" + comp(currentLine, codeTables) + dest(currentLine, codeTables) + jump(currentLine, codeTables));
+               println( i + "   added a C ");
       }
     }
-    //try {
-    //currentLine = fileReader.readLine();
-    //println(currentLine);
-    //}
-    //catch (IOException e) {
-    // e.printStackTrace();
-    //currentLine = null;
-    //}
-    //if (currentLine == null) {
-    
-     /* 
     output.flush();
     output.close();
-    noLoop();          
-    //} else {
-      println("doingl2");
-      int cmdTyp = commandType(currentLine);
-      if (cmdTyp == 1) {
-        output.println("0" + symbol(currentLine, cmdTyp));
-      } else if (cmdTyp == 0) {
-        output.println("111" + comp(currentLine, codeTables) + dest(currentLine, codeTables) + jump(currentLine, codeTables));
-      }
-      */
-    }
-  
+  }
+
 
   int commandType(String line) {    
     if (line.length() == 0) { 
@@ -148,17 +94,20 @@ class Parser {
     }                     //0 = C Commands
   }
 
-  String symbol(String line, int cmdTyp) {// int cmdTyp) {
-    //later, add an if statement to account for labels.
-    if (cmdTyp == 1) {
+  String symbol(String line, int cmdTyp) {
+    if (cmdTyp == 1) { //A cmd
       String value = line.substring(1, line.length());
+      println("value: " + value);
 
       Integer num = parseInt(value);
+      println(binary(num, 15));
       return binary(num, 15);
-    } else if (cmdTyp == 2) {
+    } 
+    else if (cmdTyp == 2) { //Lbl
       String label = line.substring(1, line.length()-1);
       return label;
-    } else return "bleh";
+    } 
+    else return "bleh";
   }
 
   String comp(String line, Code codeTables) {
@@ -199,14 +148,4 @@ class Parser {
     }
     return codeTables.jump(jumpBits);
   }
-
-
-
-
-  //do the tests & stuff on it
-  //if it is a label, add it to symbolsTable (do this later).
-  //if it isn't a label, add it to the stringArray
-  //get next line
-
-  //second loop, go through and actually translate the thing, symbols & all.
 }

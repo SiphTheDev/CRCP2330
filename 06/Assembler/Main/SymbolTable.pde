@@ -33,6 +33,13 @@ class SymbolTable{
   
   void addEntry(String name, String memAdr){
     symbols.put(name, memAdr);
-    println(name + " , " + memAdr);
+  }
+  
+  boolean contains(String symbolToCheck){
+    return(symbols.containsKey(symbolToCheck));
+  }
+  
+  String getAddress(String symbolToGet){
+    return(symbols.get(symbolToGet));
   }
 }
