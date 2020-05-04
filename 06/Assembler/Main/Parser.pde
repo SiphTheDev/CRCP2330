@@ -17,8 +17,8 @@ class Parser {
     myCode.loadTables();
 
     fileContents = new StringList();
-    fileReader = createReader("Max.asm");
-    output = createWriter("Max.hack");
+    fileReader = createReader("Pong.asm");
+    output = createWriter("Pong.hack");
   }
 
   void run() {//SymbolTable symbols, Code codeTables) {    
