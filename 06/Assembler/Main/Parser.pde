@@ -10,8 +10,8 @@ class Parser {
 
   Parser() {
     fileContents = new StringList();
-    fileReader = createReader("Add.asm");
-    output = createWriter("Add.hack");
+    fileReader = createReader("MaxL.asm");
+    output = createWriter("MaxL.hack");
   }
 
   void run(SymbolTable symbols, Code codeTables) {
